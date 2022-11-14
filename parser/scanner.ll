@@ -51,6 +51,7 @@ fin return token::END;
 "pas de" return token::NOT;
 "tant que" return token::WHILE;
 
+
 (devant|derriere|à droite|à gauche) {
     yylval->build<std::string>(YYText());
     return token::POSITION;
