@@ -26,38 +26,30 @@ using token = yy::Parser::token;
 %}
 fin return token::END;
 
-"fois" {
-    return token::FOIS;
-}
-"avance" {
-    return token::AVANCE;
-}
-"recule" {
-    return token::RECULE;
-}
-"saute" {
-    return token::SAUTE;
-}
-"tourne à droite" {
-    return token::TOURNED;
-}
-"tourne à gauche" {
-    return token::TOURNEG;
-}
-"test" {
-    return token::test;
-}
-"si" return token::SI;
-":" return token::THEN;
-"sinon" return token::SINON
-"mur" return token::MUR;
-"pas de" return token::NOT;
-"tant que" return token::WHILE;
+"fois"      return token::FOIS;     
+
+"avance"    return token::AVANCE;
+"recule"    return token::RECULE;
+"saute"     return token::SAUTE;
+
+"tourne à droite"   return token::TOURNED;
+"tourne à gauche"   return token::TOURNEG;
+
+"si"        return token::SI;
+"fin si"    return token::ENDIF;
+":"         return token::THEN;
+"sinon"     return token::SINON
+
+"mur"       return token::MUR;
+"pas de"    return token::NOT;
+
+"tant que"  return token::WHILE;
 
 
-(devant|derriere|à droite|à gauche) {
+("devant"|"derriere"|"à droite"|"à gauche") {
     yylval->build<std::string>(YYText());
-    return token::POSITION;
+    return token::POSITION;    //| instruction NL programme
+
 }
 
 "+" return '+';
@@ -73,10 +65,7 @@ fin return token::END;
     yylval->build<int>(std::atoi(yytext));
     return token::NUMBER;
 }
-[a-z][a-zA-Z0-9]*    {
-    yylval->build<std::string>(YYText());
-    return token::IDENT;
-}
+
 "\n"          {
     loc->lines();
     return token::NL;

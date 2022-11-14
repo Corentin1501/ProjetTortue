@@ -62,3 +62,45 @@ void Driver::avancerTortue(int numeroTortue, int nombreFois){
         case 270:   changerPositionTortue0(x-nombreFois , y); break;
     }
 }
+
+bool Driver::estMurIci(std::string position, int numeroTortue){
+    QPoint pos = getPosition(numeroTortue);
+    int x = pos.x();
+    int y = pos.y();
+    int orientation = static_cast<int>(obtenirOrientationTortue(numeroTortue));
+
+    switch (position) {
+        case "devant":
+            switch(orientation%360){
+                case 0:     return getJardin()->estMur(x , y-1); break;
+                case 90:    return getJardin()->estMur(x+1 , y); break;
+                case 180:   return getJardin()->estMur(x , y+1); break;
+                case 270:   return getJardin()->estMur(x-1 , y); break;
+            }
+            break;
+        case "derrière":
+            switch(orientation%360){
+                case 0:     return getJardin()->estMur(x , y+1); break;
+                case 90:    return getJardin()->estMur(x-1 , y); break;
+                case 180:   return getJardin()->estMur(x , y-1); break;
+                case 270:   return getJardin()->estMur(x+1 , y); break;
+            }
+            break;
+        case "à droite":
+            switch(orientation%360){
+                case 0:     return getJardin()->estMur(x+1 , y); break;
+                case 90:    return getJardin()->estMur(x , y+1); break;
+                case 180:   return getJardin()->estMur(x-1 , y); break;
+                case 270:   return getJardin()->estMur(x , y-1); break;
+            }
+            break;
+        case "à gauche":
+            switch(orientation%360){
+                case 0:     return getJardin()->estMur(x-1 , y); break;
+                case 90:    return getJardin()->estMur(x , y-1); break;
+                case 180:   return getJardin()->estMur(x+1 , y); break;
+                case 270:   return getJardin()->estMur(x , y+1); break;
+            }
+            break;
+    }
+}

@@ -30,7 +30,7 @@ public:SI
 
     float   obtenirOrientationTortue(int numeroTortue);
     void    changerOrientationTortue(int numeroTortue, std::string sens, int nombreFois);
-
+    bool    estMurIci(std::string position, int numeroTortue);
 };
 
 #endif
