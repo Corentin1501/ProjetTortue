@@ -1,0 +1,13 @@
+fonction main :
+    -- on peut changer la couleur de la tortue
+    -- il y a deux couleurs (carapace et motif)
+
+    -- les couleurs sont données en hexadécimal au format #RRGGBB
+    -- comme en CSS
+    
+    couleur carapace #aBcDeF
+    couleur motif #282828
+    
+    couleur #424242 -- équivalent à 'couleur carapace #424242'
+
+fin fonction

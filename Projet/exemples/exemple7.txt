@@ -1,0 +1,11 @@
+-- on peut gérer plusieurs tortues dans un même script
+
+fonction main :
+    tortues 2               -- on définit le nombre de tortues
+    jardin '../jardin01.jdn'
+    couleur #123456 @1      -- @n à la fin des instructions permet
+    avance 1 fois @1        -- de choisir la tortue est affect ée
+    tourne à droite @2
+
+    avance -- toutes les tortues sont affectées si rien n'est précisé
+fin fonction

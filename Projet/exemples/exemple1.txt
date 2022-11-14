@@ -1,0 +1,11 @@
+fonction main :
+    -- ceci est un commentaire
+    -- il y a 3 actions de base : avance , recule et saute
+    -- ces actions ont un argument facultatif qui est le nombre
+    -- de fois où l'action doit ê tre répétée
+
+    avance 1 fois   -- avance 1 fois
+    recule          -- recule 1 fois
+    saute 2 fois
+    recule 2        -- "fois" est facultatif
+fin fonction
