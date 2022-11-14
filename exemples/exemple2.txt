@@ -1,0 +1,28 @@
+fonction main :
+    avance 2 fois
+
+    si mur devant :     -- une condition
+        -- il y a deux fonctions utilisables dans les conditions
+        -- mur <direction > et vide <direction >
+        -- avec <direction > = [à gauche |à droite | devant | derriere ]
+
+        tourne à gauche
+        -- la tortue tourne d'un quart de cercle à gauche ou à droite
+        
+        -- tourne <à gauche |à droite > [ nombre de fois ]
+
+        avance
+        si mur derriere :
+            recule
+            saute
+        sinon : -- il est possible de donner un bloc 'sinon' aux 'si'
+            saute
+            avance
+        fin si
+    fin si
+
+    -- comme avance / recule / saute tourne prends un param è tre facultatif
+    tourne à gauche 2 fois
+
+    avance 3
+fin fonction

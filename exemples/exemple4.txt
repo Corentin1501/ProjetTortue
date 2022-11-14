@@ -1,0 +1,21 @@
+fonction main :
+    avance 4 fois
+
+    tant que pas de mur devant :
+        -- les conditions peuvent être niées avec "pas de"
+        avance
+    fin tant que
+
+    -- appel de fonction
+    foo 1 2 3
+    -- pas de limite au nombre d'arguments
+    -- /!\ contrairement aux fonctions prédéfinies
+    -- /!\ 'foo' n'est pas é quivalent à 'foo 1'
+fin fonction
+
+fonction foo : -- il est possible de créer des fonctions
+    avance $1 fois
+    -- $1 , $2 , .. , $n , font réfé rences aux arguments de la fonction
+    recule $2
+    saute $3 fois
+fin fonction

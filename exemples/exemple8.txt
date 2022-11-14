@@ -1,0 +1,37 @@
+-- certaines actions ne peuvent pas avoir d'indications de tortue
+
+fonction main :
+    tortues 2
+
+    si mur devant @2 :
+        -- on peut ajouter l'indication de tortues dans les conditions
+        avance
+        recule @1
+    fin si
+
+    si pas de vide devant @1 :
+        avance
+    fin si
+
+    si mur à gauche :
+        -- si on ne précise pas de tortue , la condition équivaut à
+        -- ( mur à gauche @1) et ( mur à gauche @2) et .. et ( mur à gauche @n)
+        avance
+    fin si
+
+
+    -- tortues 2 @2             -- interdit
+
+    -- si mur devant : @1       -- interdit
+        -- avance 2
+    -- fin si
+
+    -- repete 4 fois : @1 -- interdit
+        -- recule
+    -- fin repete
+
+    -- tant que vide derriere : @3 -- interdit
+        -- recule
+    -- fin tant que
+
+fin fonction
