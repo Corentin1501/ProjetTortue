@@ -49,6 +49,7 @@ fin return token::END;
 "sinon" return token::SINON
 "mur" return token::MUR;
 "pas de" return token::NOT;
+"tant que" return token::WHILE;
 
 (devant|derriere|à droite|à gauche) {
     yylval->build<std::string>(YYText());
