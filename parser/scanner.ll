@@ -44,6 +44,9 @@ fin return token::END;
 "tourne à gauche" {
     return token::TOURNEG;
 }
+"test" {
+    return token::test;
+}
 "si" return token::SI;
 ":" return token::THEN;
 "sinon" return token::SINON
