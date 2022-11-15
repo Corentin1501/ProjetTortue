@@ -119,8 +119,8 @@ condition:
         else $$ = false;
     } 
     | NOT MUR position {   
-        if(!driver.estMurIci($3 ,0)) $$ = false;
-        else $$ = true;
+        if(!driver.estMurIci($3 ,0)) $$ = true;
+        else $$ = false;
     }
 
 

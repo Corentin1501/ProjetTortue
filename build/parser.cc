@@ -749,161 +749,157 @@ namespace yy {
           switch (yyn)
             {
   case 2: // $@1: %empty
-#line 80 "../parser/parser.yy"
+#line 78 "../parser/parser.yy"
               {                 driver.avancerTortue(0,1);                              }
 #line 755 "parser.cc"
     break;
 
   case 4: // $@2: %empty
-#line 81 "../parser/parser.yy"
+#line 79 "../parser/parser.yy"
                        {        for (int i(0) ; i<yystack_[1].value.as < int > (); i++) driver.avancerTortue(0,1);   }
 #line 761 "parser.cc"
     break;
 
   case 6: // $@3: %empty
-#line 82 "../parser/parser.yy"
+#line 80 "../parser/parser.yy"
                            {    for (int i(0) ; i<yystack_[1].value.as < int > (); i++) driver.avancerTortue(0,1);   }
 #line 767 "parser.cc"
     break;
 
   case 8: // $@4: %empty
-#line 84 "../parser/parser.yy"
+#line 82 "../parser/parser.yy"
                 {            driver.avancerTortue( 0, (-1) );        }
 #line 773 "parser.cc"
     break;
 
   case 10: // $@5: %empty
-#line 85 "../parser/parser.yy"
+#line 83 "../parser/parser.yy"
                        {     driver.avancerTortue( 0, (yystack_[1].value.as < int > ()*(-1)) );   }
 #line 779 "parser.cc"
     break;
 
   case 12: // $@6: %empty
-#line 86 "../parser/parser.yy"
+#line 84 "../parser/parser.yy"
                            { driver.avancerTortue( 0, (yystack_[1].value.as < int > ()*(-1)) );   }
 #line 785 "parser.cc"
     break;
 
   case 14: // $@7: %empty
-#line 88 "../parser/parser.yy"
+#line 86 "../parser/parser.yy"
                {            driver.avancerTortue(0,2);      }
 #line 791 "parser.cc"
     break;
 
   case 16: // $@8: %empty
-#line 89 "../parser/parser.yy"
+#line 87 "../parser/parser.yy"
                       {     driver.avancerTortue(0,2*yystack_[1].value.as < int > ());   }
 #line 797 "parser.cc"
     break;
 
   case 18: // $@9: %empty
-#line 90 "../parser/parser.yy"
+#line 88 "../parser/parser.yy"
                           { driver.avancerTortue(0,2*yystack_[1].value.as < int > ());   }
 #line 803 "parser.cc"
     break;
 
   case 20: // $@10: %empty
-#line 92 "../parser/parser.yy"
-                        {   
-        std::cout<< std::to_string(driver.obtenirOrientationTortue(0)) ; 
-        driver.changerOrientationTortue(0, "droite", 1);    
-        std::cout<< std::to_string(driver.obtenirOrientationTortue(0)) << std::endl;
-    }
-#line 813 "parser.cc"
+#line 90 "../parser/parser.yy"
+                        {   driver.changerOrientationTortue(0, "droite", 1);    }
+#line 809 "parser.cc"
     break;
 
   case 22: // $@11: %empty
-#line 97 "../parser/parser.yy"
+#line 91 "../parser/parser.yy"
                         {   driver.changerOrientationTortue(0, "droite", yystack_[1].value.as < int > ());   }
-#line 819 "parser.cc"
+#line 815 "parser.cc"
     break;
 
   case 24: // $@12: %empty
-#line 98 "../parser/parser.yy"
+#line 92 "../parser/parser.yy"
                         {   driver.changerOrientationTortue(0, "gauche", 1);    }
-#line 825 "parser.cc"
+#line 821 "parser.cc"
     break;
 
   case 26: // $@13: %empty
-#line 99 "../parser/parser.yy"
+#line 93 "../parser/parser.yy"
                         {   driver.changerOrientationTortue(0, "gauche", yystack_[1].value.as < int > ());   }
-#line 831 "parser.cc"
+#line 827 "parser.cc"
     break;
 
   case 28: // $@14: %empty
-#line 102 "../parser/parser.yy"
+#line 96 "../parser/parser.yy"
                            {
         if (yystack_[2].value.as < bool > ()) {
             std::cout<< "-> condition vérifiée" << std::endl;
         }
     }
-#line 841 "parser.cc"
+#line 837 "parser.cc"
     break;
 
   case 30: // $@15: %empty
-#line 108 "../parser/parser.yy"
+#line 102 "../parser/parser.yy"
                    {   std::cout << yystack_[1].value.as < bool > () << std::endl;   }
-#line 847 "parser.cc"
+#line 843 "parser.cc"
     break;
 
   case 32: // $@16: %empty
-#line 110 "../parser/parser.yy"
+#line 104 "../parser/parser.yy"
                     {  }
-#line 853 "parser.cc"
+#line 849 "parser.cc"
     break;
 
   case 34: // programme: END NL
-#line 112 "../parser/parser.yy"
+#line 106 "../parser/parser.yy"
              {
         YYACCEPT;
     }
-#line 861 "parser.cc"
+#line 857 "parser.cc"
     break;
 
   case 35: // position: DEVANT
-#line 117 "../parser/parser.yy"
+#line 111 "../parser/parser.yy"
            {    yylhs.value.as < std::string > () = "devant";   }
-#line 867 "parser.cc"
+#line 863 "parser.cc"
     break;
 
   case 36: // position: DERRIERE
-#line 118 "../parser/parser.yy"
+#line 112 "../parser/parser.yy"
                {  yylhs.value.as < std::string > () = "derrière"; }
-#line 873 "parser.cc"
+#line 869 "parser.cc"
     break;
 
   case 37: // position: DROITE
-#line 119 "../parser/parser.yy"
+#line 113 "../parser/parser.yy"
              {    yylhs.value.as < std::string > () = "à droite"; }
-#line 879 "parser.cc"
+#line 875 "parser.cc"
     break;
 
   case 38: // position: GAUCHE
-#line 120 "../parser/parser.yy"
+#line 114 "../parser/parser.yy"
              {    yylhs.value.as < std::string > () = "à gauche"; }
-#line 885 "parser.cc"
+#line 881 "parser.cc"
     break;
 
   case 39: // condition: MUR position
-#line 123 "../parser/parser.yy"
+#line 117 "../parser/parser.yy"
                  {   
         if(driver.estMurIci(yystack_[0].value.as < std::string > () ,0)) yylhs.value.as < bool > () = true; 
         else yylhs.value.as < bool > () = false;
     }
-#line 894 "parser.cc"
+#line 890 "parser.cc"
     break;
 
   case 40: // condition: NOT MUR position
-#line 127 "../parser/parser.yy"
+#line 121 "../parser/parser.yy"
                        {   
-        if(!driver.estMurIci(yystack_[0].value.as < std::string > () ,0)) yylhs.value.as < bool > () = false;
-        else yylhs.value.as < bool > () = true;
+        if(!driver.estMurIci(yystack_[0].value.as < std::string > () ,0)) yylhs.value.as < bool > () = true;
+        else yylhs.value.as < bool > () = false;
     }
-#line 903 "parser.cc"
+#line 899 "parser.cc"
     break;
 
   case 41: // expression: operation
-#line 134 "../parser/parser.yy"
+#line 128 "../parser/parser.yy"
               {
         try{
             yylhs.value.as < int > () = yystack_[0].value.as < ExpressionPtr > ()->calculer(driver.getContexte());
@@ -911,67 +907,67 @@ namespace yy {
             std::cerr << "#-> " << err.what() << std::endl;
         }
     }
-#line 915 "parser.cc"
+#line 911 "parser.cc"
     break;
 
   case 42: // operation: NUMBER
-#line 145 "../parser/parser.yy"
+#line 139 "../parser/parser.yy"
            {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<Constante>(yystack_[0].value.as < int > ());
     }
-#line 923 "parser.cc"
+#line 919 "parser.cc"
     break;
 
   case 43: // operation: '(' operation ')'
-#line 148 "../parser/parser.yy"
+#line 142 "../parser/parser.yy"
                         {
         yylhs.value.as < ExpressionPtr > () = yystack_[1].value.as < ExpressionPtr > ();
     }
-#line 931 "parser.cc"
+#line 927 "parser.cc"
     break;
 
   case 44: // operation: operation '+' operation
-#line 151 "../parser/parser.yy"
+#line 145 "../parser/parser.yy"
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionBinaire>(yystack_[2].value.as < ExpressionPtr > (),yystack_[0].value.as < ExpressionPtr > (),OperateurBinaire::plus);
     }
-#line 939 "parser.cc"
+#line 935 "parser.cc"
     break;
 
   case 45: // operation: operation '-' operation
-#line 154 "../parser/parser.yy"
+#line 148 "../parser/parser.yy"
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionBinaire>(yystack_[2].value.as < ExpressionPtr > (),yystack_[0].value.as < ExpressionPtr > (),OperateurBinaire::moins);
     }
-#line 947 "parser.cc"
+#line 943 "parser.cc"
     break;
 
   case 46: // operation: operation '*' operation
-#line 157 "../parser/parser.yy"
+#line 151 "../parser/parser.yy"
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionBinaire>(yystack_[2].value.as < ExpressionPtr > (),yystack_[0].value.as < ExpressionPtr > (),OperateurBinaire::multiplie);
     }
-#line 955 "parser.cc"
+#line 951 "parser.cc"
     break;
 
   case 47: // operation: operation '/' operation
-#line 160 "../parser/parser.yy"
+#line 154 "../parser/parser.yy"
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionBinaire>(yystack_[2].value.as < ExpressionPtr > (),yystack_[0].value.as < ExpressionPtr > (),OperateurBinaire::divise);
     }
-#line 963 "parser.cc"
+#line 959 "parser.cc"
     break;
 
   case 48: // operation: '-' operation
-#line 163 "../parser/parser.yy"
+#line 157 "../parser/parser.yy"
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionUnaire>(yystack_[0].value.as < ExpressionPtr > (),OperateurUnaire::neg);
     }
-#line 971 "parser.cc"
+#line 967 "parser.cc"
     break;
 
 
-#line 975 "parser.cc"
+#line 971 "parser.cc"
 
             default:
               break;
@@ -1295,11 +1291,11 @@ namespace yy {
   const unsigned char
    Parser ::yyrline_[] =
   {
-       0,    80,    80,    80,    81,    81,    82,    82,    84,    84,
-      85,    85,    86,    86,    88,    88,    89,    89,    90,    90,
-      92,    92,    97,    97,    98,    98,    99,    99,   102,   102,
-     108,   108,   110,   110,   112,   117,   118,   119,   120,   123,
-     127,   134,   145,   148,   151,   154,   157,   160,   163
+       0,    78,    78,    78,    79,    79,    80,    80,    82,    82,
+      83,    83,    84,    84,    86,    86,    87,    87,    88,    88,
+      90,    90,    91,    91,    92,    92,    93,    93,    96,    96,
+     102,   102,   104,   104,   106,   111,   112,   113,   114,   117,
+     121,   128,   139,   142,   145,   148,   151,   154,   157
   };
 
   void
@@ -1379,9 +1375,9 @@ namespace yy {
   }
 
 } // yy
-#line 1383 "parser.cc"
+#line 1379 "parser.cc"
 
-#line 167 "../parser/parser.yy"
+#line 161 "../parser/parser.yy"
 
 
 void yy::Parser::error( const location_type &l, const std::string & err_msg) {
