@@ -46,9 +46,9 @@ fin return token::END;
 "tant que"  return token::WHILE;
 
 "devant"    return token::DEVANT;
-"derrière"    return token::DERRIERE;
-"à droite"    return token::DROITE;
-"à gauche"    return token::GAUCHE;
+"derriere"  return token::DERRIERE;
+"à droite"  return token::DROITE;
+"à gauche"  return token::GAUCHE;
 
 "+" return '+';
 "*" return '*';

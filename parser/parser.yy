@@ -34,7 +34,7 @@
     #define yylex scanner.yylex
     
     bool dansBlocIF = false;
-    bool condition = false;
+    bool cond = false;
 }
 
 %token                  NL
@@ -65,6 +65,8 @@
 
 %type <ExpressionPtr>   operation
 %type <int>             expression
+%type <std::string>     position
+%type <bool>            condition
 %left '-' '+'
 %left '*' '/'
 %precedence  NEG
@@ -73,15 +75,9 @@
 
 programme:
 
-    AVANCE NL {             if((!dansBlocIF)||(dansBlocIF && condition)) driver.avancerTortue(0,1);      } programme
-    | AVANCE NUMBER NL { 
-        if((!dansBlocIF)||(dansBlocIF && condition)) {
-            for (int i(0) ; i<$2; i++)
-                driver.avancerTortue(0,1); 
-        }   
-            
-    }programme
-    | AVANCE expression NL { driver.avancerTortue(0,$2);    } programme
+    AVANCE NL {                 driver.avancerTortue(0,1);                              } programme
+    | AVANCE NUMBER NL {        for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } programme
+    | AVANCE expression NL {    for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } programme
 
     | RECULE NL {            driver.avancerTortue( 0, (-1) );        } programme
     | RECULE NUMBER NL {     driver.avancerTortue( 0, ($2*(-1)) );   } programme
@@ -96,24 +92,36 @@ programme:
     | TOURNEG NL        {   driver.changerOrientationTortue(0, "gauche", 1);    } programme
     | TOURNEG NUMBER NL {   driver.changerOrientationTortue(0, "gauche", $2);   } programme
 
-    | MUR DEVANT NL {
-        if(driver.estMurIci("devant",0)) 
-            std::cout << "mur detecte" << std::endl;
-        else 
-            std::cout << "mur non detecte" << std::endl;
+    
+    | SI condition THEN NL {
+        if ($2) {
+            std::cout<< "-> condition vérifiée" << std::endl;
+        }
     } programme
-    | SINON THEN NL {
 
-    } programme
-    | ENDIF NL {
-        condition = false;
-        dansBlocIF = false;
-    } programme
+    | condition NL {   std::cout << $1 << std::endl;   } programme
+
+    | SINON THEN NL {  } programme
     
     | END NL {
         YYACCEPT;
     }
 
+position:
+    DEVANT {    $$ = "devant";   } 
+    | DERRIERE {  $$ = "derrière"; } 
+    | DROITE {    $$ = "à droite"; } 
+    | GAUCHE {    $$ = "à gauche"; } 
+
+condition:
+    MUR position {   
+        if(driver.estMurIci($2 ,0)) $$ = true; 
+        else $$ = false;
+    } 
+    | NOT MUR position {   
+        if(!driver.estMurIci($3 ,0)) $$ = false;
+        else $$ = true;
+    }
 
 
 expression:

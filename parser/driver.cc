@@ -41,8 +41,10 @@ float    Driver::obtenirOrientationTortue(int numeroTortue) {
 void Driver::changerOrientationTortue(int numeroTortue, std::string sens, int nombreFois){
     int orientation = static_cast<int>(obtenirOrientationTortue(0));
 
-    if(sens == "droite") getJardin()->changeOrientation(numeroTortue, orientation+(90*nombreFois));
-    else getJardin()->changeOrientation(numeroTortue, orientation-(90*nombreFois));
+    if(sens == "droite") 
+        getJardin()->changeOrientation(numeroTortue, orientation+(90*nombreFois));
+    else if (sens == "gauche") 
+        getJardin()->changeOrientation(numeroTortue, orientation-(90*nombreFois));
 }
 
 void Driver::avancerTortue(int numeroTortue, int nombreFois){
@@ -51,15 +53,18 @@ void Driver::avancerTortue(int numeroTortue, int nombreFois){
     int y = pos.y();
     int orientation = static_cast<int>(obtenirOrientationTortue(numeroTortue));
     /*
-    *         0
-    *    270      90
-    *        180
+    *         0                   0
+    *    270      90        -90      -270
+    *        180                -180
     */
     switch(orientation%360){
-        case 0:     changerPositionTortue0(x , y-nombreFois); break;
-        case 90:    changerPositionTortue0(x+nombreFois , y); break;
-        case 180:   changerPositionTortue0(x , y+nombreFois); break;
-        case 270:   changerPositionTortue0(x-nombreFois , y); break;
+        case 0:      changerPositionTortue0(x , y-nombreFois); break;
+        case 90:     changerPositionTortue0(x+nombreFois , y); break;
+        case -270:   changerPositionTortue0(x+nombreFois , y); break;
+        case 180:    changerPositionTortue0(x , y+nombreFois); break;
+        case -180:   changerPositionTortue0(x , y+nombreFois); break;
+        case 270:    changerPositionTortue0(x-nombreFois , y); break;
+        case -90:    changerPositionTortue0(x-nombreFois , y); break;
     }
 }
 
@@ -77,29 +82,29 @@ bool Driver::estMurIci(std::string position, int numeroTortue){
             case 270:   return getJardin()->estMur(x-1 , y); break;
         }
     }
-    // else if(position == "derrière") {
-    //     switch(orientation%360){
-    //         case 0:     return getJardin()->estMur(x , y+1); break;
-    //         case 90:    return getJardin()->estMur(x-1 , y); break;
-    //         case 180:   return getJardin()->estMur(x , y-1); break;
-    //         case 270:   return getJardin()->estMur(x+1 , y); break;
-    //     }
-    // }
-    // else if(position == "à droite") {
-    //     switch(orientation%360){
-    //         case 0:     return getJardin()->estMur(x+1 , y); break;
-    //         case 90:    return getJardin()->estMur(x , y+1); break;
-    //         case 180:   return getJardin()->estMur(x-1 , y); break;
-    //         case 270:   return getJardin()->estMur(x , y-1); break;
-    //     }
-    // }
-    // else if(position == "à gauche") {
-    //     switch(orientation%360){
-    //         case 0:     return getJardin()->estMur(x-1 , y); break;
-    //         case 90:    return getJardin()->estMur(x , y-1); break;
-    //         case 180:   return getJardin()->estMur(x+1 , y); break;
-    //         case 270:   return getJardin()->estMur(x , y+1); break;
-    //     }
-    // }
+    else if(position == "derrière") {
+        switch(orientation%360){
+            case 0:     return getJardin()->estMur(x , y+1); break;
+            case 90:    return getJardin()->estMur(x-1 , y); break;
+            case 180:   return getJardin()->estMur(x , y-1); break;
+            case 270:   return getJardin()->estMur(x+1 , y); break;
+        }
+    }
+    else if(position == "à droite") {
+        switch(orientation%360){
+            case 0:     return getJardin()->estMur(x+1 , y); break;
+            case 90:    return getJardin()->estMur(x , y+1); break;
+            case 180:   return getJardin()->estMur(x-1 , y); break;
+            case 270:   return getJardin()->estMur(x , y-1); break;
+        }
+    }
+    else if(position == "à gauche") {
+        switch(orientation%360){
+            case 0:     return getJardin()->estMur(x-1 , y); break;
+            case 90:    return getJardin()->estMur(x , y-1); break;
+            case 180:   return getJardin()->estMur(x+1 , y); break;
+            case 270:   return getJardin()->estMur(x , y+1); break;
+        }
+    }
     return false;
 }
