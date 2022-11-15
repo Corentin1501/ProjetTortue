@@ -18,8 +18,6 @@
     class Scanner;
     class Driver;
     
-    bool dansBlocIF = false;
-    bool condition = false;
 }
 
 %parse-param { Scanner &scanner }
@@ -34,6 +32,9 @@
 
     #undef  yylex
     #define yylex scanner.yylex
+    
+    bool dansBlocIF = false;
+    bool condition = false;
 }
 
 %token                  NL
@@ -51,9 +52,14 @@
 %token                  SINON
 %token                  ENDIF
 
+%token                  WHILE
+
 %token                  MUR
 %token                  NOT
-%token                  POSITION
+%token                  DEVANT
+%token                  DERRIERE
+%token                  DROITE
+%token                  GAUCHE
 
 %token <int>            NUMBER
 
@@ -90,8 +96,11 @@ programme:
     | TOURNEG NL        {   driver.changerOrientationTortue(0, "gauche", 1);    } programme
     | TOURNEG NUMBER NL {   driver.changerOrientationTortue(0, "gauche", $2);   } programme
 
-    | SI MUR POSITION THEN NL {
-        if (driver.estMurIci($3)) condition = true;
+    | MUR DEVANT NL {
+        if(driver.estMurIci("devant",0)) 
+            std::cout << "mur detecte" << std::endl;
+        else 
+            std::cout << "mur non detecte" << std::endl;
     } programme
     | SINON THEN NL {
 
@@ -110,7 +119,7 @@ programme:
 expression:
     operation {
         try{
-            $$ = $1->calculer(driver.getContexte()) << std::endl;
+            $$ = $1->calculer(driver.getContexte());
         } catch (const std::exception& err){
             std::cerr << "#-> " << err.what() << std::endl;
         }

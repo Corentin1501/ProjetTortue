@@ -38,19 +38,17 @@ fin return token::END;
 "si"        return token::SI;
 "fin si"    return token::ENDIF;
 ":"         return token::THEN;
-"sinon"     return token::SINON
+"sinon"     return token::SINON;
 
 "mur"       return token::MUR;
 "pas de"    return token::NOT;
 
 "tant que"  return token::WHILE;
 
-
-("devant"|"derriere"|"à droite"|"à gauche") {
-    yylval->build<std::string>(YYText());
-    return token::POSITION;    //| instruction NL programme
-
-}
+"devant"    return token::DEVANT;
+"derrière"    return token::DERRIERE;
+"à droite"    return token::DROITE;
+"à gauche"    return token::GAUCHE;
 
 "+" return '+';
 "*" return '*';
