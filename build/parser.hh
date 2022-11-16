@@ -408,15 +408,9 @@ namespace yy {
       // operation
       char dummy1[sizeof (ExpressionPtr)];
 
-      // condition
-      char dummy2[sizeof (bool)];
-
       // NUMBER
       // expression
-      char dummy3[sizeof (int)];
-
-      // position
-      char dummy4[sizeof (std::string)];
+      char dummy2[sizeof (int)];
     };
 
     /// The size of the largest semantic type.
@@ -541,16 +535,10 @@ namespace yy {
         S_30_ = 30,                              // ')'
         S_YYACCEPT = 31,                         // $accept
         S_programme = 32,                        // programme
-        S_33_1 = 33,                             // $@1
-        S_34_2 = 34,                             // $@2
-        S_fin = 35,                              // fin
-        S_deplacement = 36,                      // deplacement
-        S_position = 37,                         // position
-        S_condition = 38,                        // condition
-        S_conditionelle = 39,                    // conditionelle
-        S_40_3 = 40,                             // $@3
-        S_expression = 41,                       // expression
-        S_operation = 42                         // operation
+        S_finDeLigne = 33,                       // finDeLigne
+        S_deplacement = 34,                      // deplacement
+        S_expression = 35,                       // expression
+        S_operation = 36                         // operation
       };
     };
 
@@ -591,17 +579,9 @@ namespace yy {
         value.move< ExpressionPtr > (std::move (that.value));
         break;
 
-      case symbol_kind::S_condition: // condition
-        value.move< bool > (std::move (that.value));
-        break;
-
       case symbol_kind::S_NUMBER: // NUMBER
       case symbol_kind::S_expression: // expression
         value.move< int > (std::move (that.value));
-        break;
-
-      case symbol_kind::S_position: // position
-        value.move< std::string > (std::move (that.value));
         break;
 
       default:
@@ -642,20 +622,6 @@ namespace yy {
 #endif
 
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, bool&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const bool& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-
-#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, int&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
@@ -663,20 +629,6 @@ namespace yy {
       {}
 #else
       basic_symbol (typename Base::kind_type t, const int& v, const location_type& l)
-        : Base (t)
-        , value (v)
-        , location (l)
-      {}
-#endif
-
-#if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::string&& v, location_type&& l)
-        : Base (t)
-        , value (std::move (v))
-        , location (std::move (l))
-      {}
-#else
-      basic_symbol (typename Base::kind_type t, const std::string& v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
@@ -709,17 +661,9 @@ switch (yykind)
         value.template destroy< ExpressionPtr > ();
         break;
 
-      case symbol_kind::S_condition: // condition
-        value.template destroy< bool > ();
-        break;
-
       case symbol_kind::S_NUMBER: // NUMBER
       case symbol_kind::S_expression: // expression
         value.template destroy< int > ();
-        break;
-
-      case symbol_kind::S_position: // position
-        value.template destroy< std::string > ();
         break;
 
       default:
@@ -1568,9 +1512,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 77,     ///< Last index in yytable_.
-      yynnts_ = 12,  ///< Number of nonterminal symbols.
-      yyfinal_ = 35 ///< Termination state number.
+      yylast_ = 57,     ///< Last index in yytable_.
+      yynnts_ = 6,  ///< Number of nonterminal symbols.
+      yyfinal_ = 21 ///< Termination state number.
     };
 
 
@@ -1582,7 +1526,7 @@ switch (yykind)
 
 
 } // yy
-#line 1586 "parser.hh"
+#line 1530 "parser.hh"
 
 
 
