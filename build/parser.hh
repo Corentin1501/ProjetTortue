@@ -471,24 +471,25 @@ namespace yy {
     NL = 258,                      // NL
     END = 259,                     // END
     FOIS = 260,                    // FOIS
-    AVANCE = 261,                  // AVANCE
-    RECULE = 262,                  // RECULE
-    SAUTE = 263,                   // SAUTE
-    TOURNED = 264,                 // TOURNED
-    TOURNEG = 265,                 // TOURNEG
-    SI = 266,                      // SI
-    THEN = 267,                    // THEN
-    SINON = 268,                   // SINON
-    ENDIF = 269,                   // ENDIF
-    WHILE = 270,                   // WHILE
-    MUR = 271,                     // MUR
-    NOT = 272,                     // NOT
-    DEVANT = 273,                  // DEVANT
-    DERRIERE = 274,                // DERRIERE
-    DROITE = 275,                  // DROITE
-    GAUCHE = 276,                  // GAUCHE
-    NUMBER = 277,                  // NUMBER
-    NEG = 278                      // NEG
+    COMMENTAIRE = 261,             // COMMENTAIRE
+    AVANCE = 262,                  // AVANCE
+    RECULE = 263,                  // RECULE
+    SAUTE = 264,                   // SAUTE
+    TOURNED = 265,                 // TOURNED
+    TOURNEG = 266,                 // TOURNEG
+    SI = 267,                      // SI
+    THEN = 268,                    // THEN
+    SINON = 269,                   // SINON
+    ENDIF = 270,                   // ENDIF
+    WHILE = 271,                   // WHILE
+    MUR = 272,                     // MUR
+    NOT = 273,                     // NOT
+    DEVANT = 274,                  // DEVANT
+    DERRIERE = 275,                // DERRIERE
+    DROITE = 276,                  // DROITE
+    GAUCHE = 277,                  // GAUCHE
+    NUMBER = 278,                  // NUMBER
+    NEG = 279                      // NEG
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -505,7 +506,7 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 30, ///< Number of tokens.
+        YYNTOKENS = 31, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -513,52 +514,43 @@ namespace yy {
         S_NL = 3,                                // NL
         S_END = 4,                               // END
         S_FOIS = 5,                              // FOIS
-        S_AVANCE = 6,                            // AVANCE
-        S_RECULE = 7,                            // RECULE
-        S_SAUTE = 8,                             // SAUTE
-        S_TOURNED = 9,                           // TOURNED
-        S_TOURNEG = 10,                          // TOURNEG
-        S_SI = 11,                               // SI
-        S_THEN = 12,                             // THEN
-        S_SINON = 13,                            // SINON
-        S_ENDIF = 14,                            // ENDIF
-        S_WHILE = 15,                            // WHILE
-        S_MUR = 16,                              // MUR
-        S_NOT = 17,                              // NOT
-        S_DEVANT = 18,                           // DEVANT
-        S_DERRIERE = 19,                         // DERRIERE
-        S_DROITE = 20,                           // DROITE
-        S_GAUCHE = 21,                           // GAUCHE
-        S_NUMBER = 22,                           // NUMBER
-        S_23_ = 23,                              // '-'
-        S_24_ = 24,                              // '+'
-        S_25_ = 25,                              // '*'
-        S_26_ = 26,                              // '/'
-        S_NEG = 27,                              // NEG
-        S_28_ = 28,                              // '('
-        S_29_ = 29,                              // ')'
-        S_YYACCEPT = 30,                         // $accept
-        S_programme = 31,                        // programme
-        S_32_1 = 32,                             // $@1
-        S_33_2 = 33,                             // $@2
-        S_34_3 = 34,                             // $@3
-        S_35_4 = 35,                             // $@4
-        S_36_5 = 36,                             // $@5
-        S_37_6 = 37,                             // $@6
-        S_38_7 = 38,                             // $@7
-        S_39_8 = 39,                             // $@8
-        S_40_9 = 40,                             // $@9
-        S_41_10 = 41,                            // $@10
-        S_42_11 = 42,                            // $@11
-        S_43_12 = 43,                            // $@12
-        S_44_13 = 44,                            // $@13
-        S_45_14 = 45,                            // $@14
-        S_46_15 = 46,                            // $@15
-        S_47_16 = 47,                            // $@16
-        S_position = 48,                         // position
-        S_condition = 49,                        // condition
-        S_expression = 50,                       // expression
-        S_operation = 51                         // operation
+        S_COMMENTAIRE = 6,                       // COMMENTAIRE
+        S_AVANCE = 7,                            // AVANCE
+        S_RECULE = 8,                            // RECULE
+        S_SAUTE = 9,                             // SAUTE
+        S_TOURNED = 10,                          // TOURNED
+        S_TOURNEG = 11,                          // TOURNEG
+        S_SI = 12,                               // SI
+        S_THEN = 13,                             // THEN
+        S_SINON = 14,                            // SINON
+        S_ENDIF = 15,                            // ENDIF
+        S_WHILE = 16,                            // WHILE
+        S_MUR = 17,                              // MUR
+        S_NOT = 18,                              // NOT
+        S_DEVANT = 19,                           // DEVANT
+        S_DERRIERE = 20,                         // DERRIERE
+        S_DROITE = 21,                           // DROITE
+        S_GAUCHE = 22,                           // GAUCHE
+        S_NUMBER = 23,                           // NUMBER
+        S_24_ = 24,                              // '-'
+        S_25_ = 25,                              // '+'
+        S_26_ = 26,                              // '*'
+        S_27_ = 27,                              // '/'
+        S_NEG = 28,                              // NEG
+        S_29_ = 29,                              // '('
+        S_30_ = 30,                              // ')'
+        S_YYACCEPT = 31,                         // $accept
+        S_programme = 32,                        // programme
+        S_33_1 = 33,                             // $@1
+        S_34_2 = 34,                             // $@2
+        S_fin = 35,                              // fin
+        S_deplacement = 36,                      // deplacement
+        S_position = 37,                         // position
+        S_condition = 38,                        // condition
+        S_conditionelle = 39,                    // conditionelle
+        S_40_3 = 40,                             // $@3
+        S_expression = 41,                       // expression
+        S_operation = 42                         // operation
       };
     };
 
@@ -985,6 +977,21 @@ switch (yykind)
       make_FOIS (const location_type& l)
       {
         return symbol_type (token::FOIS, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_COMMENTAIRE (location_type l)
+      {
+        return symbol_type (token::COMMENTAIRE, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_COMMENTAIRE (const location_type& l)
+      {
+        return symbol_type (token::COMMENTAIRE, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1561,9 +1568,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 87,     ///< Last index in yytable_.
-      yynnts_ = 22,  ///< Number of nonterminal symbols.
-      yyfinal_ = 38 ///< Termination state number.
+      yylast_ = 77,     ///< Last index in yytable_.
+      yynnts_ = 12,  ///< Number of nonterminal symbols.
+      yyfinal_ = 35 ///< Termination state number.
     };
 
 
@@ -1575,7 +1582,7 @@ switch (yykind)
 
 
 } // yy
-#line 1579 "parser.hh"
+#line 1586 "parser.hh"
 
 
 

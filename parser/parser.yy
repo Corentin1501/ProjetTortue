@@ -40,6 +40,7 @@
 %token                  NL
 %token                  END
 %token                  FOIS
+%token                  COMMENTAIRE
 
 %token                  AVANCE
 %token                  RECULE
@@ -75,37 +76,35 @@
 
 programme:
 
-    AVANCE NL {                 driver.avancerTortue(0,1);                              } programme
-    | AVANCE NUMBER NL {        for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } programme
-    | AVANCE expression NL {    for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } programme
-
-    | RECULE NL {            driver.avancerTortue( 0, (-1) );        } programme
-    | RECULE NUMBER NL {     driver.avancerTortue( 0, ($2*(-1)) );   } programme
-    | RECULE expression NL { driver.avancerTortue( 0, ($2*(-1)) );   } programme
-
-    | SAUTE NL {            driver.avancerTortue(0,2);      } programme
-    | SAUTE NUMBER NL {     driver.avancerTortue(0,2*$2);   } programme
-    | SAUTE expression NL { driver.avancerTortue(0,2*$2);   } programme
-
-    | TOURNED NL        {   driver.changerOrientationTortue(0, "droite", 1);    } programme
-    | TOURNED NUMBER NL {   driver.changerOrientationTortue(0, "droite", $2);   } programme
-    | TOURNEG NL        {   driver.changerOrientationTortue(0, "gauche", 1);    } programme
-    | TOURNEG NUMBER NL {   driver.changerOrientationTortue(0, "gauche", $2);   } programme
-
+    deplacement finDeLigne      programme
+    | conditionelle finDeLigne  programme
     
-    | SI condition THEN NL {
-        if ($2) {
-            std::cout<< "-> condition vérifiée" << std::endl;
-        }
-    } programme
+    | END NL {  YYACCEPT;   }
 
-    | condition NL {   std::cout << $1 << std::endl;   } programme
 
-    | SINON THEN NL {  } programme
-    
-    | END NL {
-        YYACCEPT;
-    }
+finDeLigne:
+    NL | FOIS NL | COMMENTAIRE | COMMENTAIRE NL
+
+/*####################### FONCTION DE DEPLACEMENT #######################*/
+deplacement:
+    AVANCE {                 driver.avancerTortue(0,1);                              } 
+    | AVANCE NUMBER {        for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
+    | AVANCE expression {    for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
+
+    | RECULE {            driver.avancerTortue( 0, (-1) );        } 
+    | RECULE NUMBER {     driver.avancerTortue( 0, ($2*(-1)) );   } 
+    | RECULE expression { driver.avancerTortue( 0, ($2*(-1)) );   } 
+
+    | SAUTE {            driver.avancerTortue(0,2);      } 
+    | SAUTE NUMBER {     driver.avancerTortue(0,2*$2);   } 
+    | SAUTE expression { driver.avancerTortue(0,2*$2);   } 
+
+    | TOURNED         {   driver.changerOrientationTortue(0, "droite", 1);    } 
+    | TOURNED NUMBER  {   driver.changerOrientationTortue(0, "droite", $2);   } 
+    | TOURNEG         {   driver.changerOrientationTortue(0, "gauche", 1);    } 
+    | TOURNEG NUMBER  {   driver.changerOrientationTortue(0, "gauche", $2);   } 
+
+/*####################### CONDITIONELLE #######################*/
 
 position:
     DEVANT {    $$ = "devant";   } 
@@ -123,7 +122,17 @@ condition:
         else $$ = false;
     }
 
+conditionelle:
+    SI condition THEN {
+        if ($2) {
+            std::cout<< "-> condition vérifiée" << std::endl;
+        }
+    } programme
+    | SINON THEN NL {  } 
+    | condition {   std::cout << $1 << std::endl;   } 
 
+
+/*####################### EXPRESSION ARITHMETIQUE #######################*/
 expression:
     operation {
         try{
@@ -132,8 +141,6 @@ expression:
             std::cerr << "#-> " << err.what() << std::endl;
         }
     }
-
-
 
 operation:
     NUMBER {

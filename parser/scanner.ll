@@ -28,6 +28,8 @@ fin return token::END;
 
 "fois"      return token::FOIS;     
 
+[--][.]* return token::COMMENTAIRE;
+
 "avance"    return token::AVANCE;
 "recule"    return token::RECULE;
 "saute"     return token::SAUTE;
