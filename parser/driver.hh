@@ -16,7 +16,7 @@ private:
     JardinHandler * monJardin;
     Contexte variables;       
 
-public:SI
+public:
     Driver(JardinHandler * J);
     ~Driver();
     const   Contexte& getContexte() const;

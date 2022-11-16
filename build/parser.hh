@@ -407,6 +407,7 @@ namespace yy {
       // operation
       char dummy1[sizeof (ExpressionPtr)];
 
+      // NUMTORTUE
       // NUMBER
       char dummy2[sizeof (int)];
 
@@ -471,9 +472,16 @@ namespace yy {
     SAUTE = 263,                   // SAUTE
     TOURNED = 264,                 // TOURNED
     TOURNEG = 265,                 // TOURNEG
-    NUMBER = 266,                  // NUMBER
-    IDENT = 267,                   // IDENT
-    NEG = 268                      // NEG
+    SI = 266,                      // SI
+    THEN = 267,                    // THEN
+    SINON = 268,                   // SINON
+    MUR = 269,                     // MUR
+    NOT = 270,                     // NOT
+    POSITION = 271,                // POSITION
+    NUMTORTUE = 272,               // NUMTORTUE
+    NUMBER = 273,                  // NUMBER
+    IDENT = 274,                   // IDENT
+    NEG = 275                      // NEG
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -490,7 +498,7 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 21, ///< Number of tokens.
+        YYNTOKENS = 28, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -503,35 +511,44 @@ namespace yy {
         S_SAUTE = 8,                             // SAUTE
         S_TOURNED = 9,                           // TOURNED
         S_TOURNEG = 10,                          // TOURNEG
-        S_NUMBER = 11,                           // NUMBER
-        S_IDENT = 12,                            // IDENT
-        S_13_ = 13,                              // '-'
-        S_14_ = 14,                              // '+'
-        S_15_ = 15,                              // '*'
-        S_16_ = 16,                              // '/'
-        S_NEG = 17,                              // NEG
-        S_18_ = 18,                              // '='
-        S_19_ = 19,                              // '('
-        S_20_ = 20,                              // ')'
-        S_YYACCEPT = 21,                         // $accept
-        S_programme = 22,                        // programme
-        S_23_1 = 23,                             // $@1
-        S_24_2 = 24,                             // $@2
-        S_25_3 = 25,                             // $@3
-        S_26_4 = 26,                             // $@4
-        S_27_5 = 27,                             // $@5
-        S_28_6 = 28,                             // $@6
-        S_29_7 = 29,                             // $@7
-        S_30_8 = 30,                             // $@8
-        S_31_9 = 31,                             // $@9
-        S_32_10 = 32,                            // $@10
-        S_33_11 = 33,                            // $@11
-        S_34_12 = 34,                            // $@12
-        S_35_13 = 35,                            // $@13
-        S_instruction = 36,                      // instruction
-        S_expression = 37,                       // expression
-        S_affectation = 38,                      // affectation
-        S_operation = 39                         // operation
+        S_SI = 11,                               // SI
+        S_THEN = 12,                             // THEN
+        S_SINON = 13,                            // SINON
+        S_MUR = 14,                              // MUR
+        S_NOT = 15,                              // NOT
+        S_POSITION = 16,                         // POSITION
+        S_NUMTORTUE = 17,                        // NUMTORTUE
+        S_NUMBER = 18,                           // NUMBER
+        S_IDENT = 19,                            // IDENT
+        S_20_ = 20,                              // '-'
+        S_21_ = 21,                              // '+'
+        S_22_ = 22,                              // '*'
+        S_23_ = 23,                              // '/'
+        S_NEG = 24,                              // NEG
+        S_25_ = 25,                              // '='
+        S_26_ = 26,                              // '('
+        S_27_ = 27,                              // ')'
+        S_YYACCEPT = 28,                         // $accept
+        S_programme = 29,                        // programme
+        S_30_1 = 30,                             // $@1
+        S_31_2 = 31,                             // $@2
+        S_32_3 = 32,                             // $@3
+        S_33_4 = 33,                             // $@4
+        S_34_5 = 34,                             // $@5
+        S_35_6 = 35,                             // $@6
+        S_36_7 = 36,                             // $@7
+        S_37_8 = 37,                             // $@8
+        S_38_9 = 38,                             // $@9
+        S_39_10 = 39,                            // $@10
+        S_40_11 = 40,                            // $@11
+        S_41_12 = 41,                            // $@12
+        S_42_13 = 42,                            // $@13
+        S_43_14 = 43,                            // $@14
+        S_44_15 = 44,                            // $@15
+        S_instruction = 45,                      // instruction
+        S_expression = 46,                       // expression
+        S_affectation = 47,                      // affectation
+        S_operation = 48                         // operation
       };
     };
 
@@ -572,6 +589,7 @@ namespace yy {
         value.move< ExpressionPtr > (std::move (that.value));
         break;
 
+      case symbol_kind::S_NUMTORTUE: // NUMTORTUE
       case symbol_kind::S_NUMBER: // NUMBER
         value.move< int > (std::move (that.value));
         break;
@@ -671,6 +689,7 @@ switch (yykind)
         value.template destroy< ExpressionPtr > ();
         break;
 
+      case symbol_kind::S_NUMTORTUE: // NUMTORTUE
       case symbol_kind::S_NUMBER: // NUMBER
         value.template destroy< int > ();
         break;
@@ -777,7 +796,7 @@ switch (yykind)
 #endif
       {
         YY_ASSERT (tok == token::YYEOF
-                   || (token::YYerror <= tok && tok <= token::TOURNEG)
+                   || (token::YYerror <= tok && tok <= token::POSITION)
                    || tok == 45
                    || tok == 43
                    || tok == 42
@@ -794,7 +813,7 @@ switch (yykind)
         : super_type(token_type (tok), v, l)
 #endif
       {
-        YY_ASSERT (tok == token::NUMBER);
+        YY_ASSERT ((token::NUMTORTUE <= tok && tok <= token::NUMBER));
       }
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, std::string v, location_type l)
@@ -1020,6 +1039,111 @@ switch (yykind)
       make_TOURNEG (const location_type& l)
       {
         return symbol_type (token::TOURNEG, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_SI (location_type l)
+      {
+        return symbol_type (token::SI, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_SI (const location_type& l)
+      {
+        return symbol_type (token::SI, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_THEN (location_type l)
+      {
+        return symbol_type (token::THEN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_THEN (const location_type& l)
+      {
+        return symbol_type (token::THEN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_SINON (location_type l)
+      {
+        return symbol_type (token::SINON, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_SINON (const location_type& l)
+      {
+        return symbol_type (token::SINON, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_MUR (location_type l)
+      {
+        return symbol_type (token::MUR, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_MUR (const location_type& l)
+      {
+        return symbol_type (token::MUR, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_NOT (location_type l)
+      {
+        return symbol_type (token::NOT, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_NOT (const location_type& l)
+      {
+        return symbol_type (token::NOT, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_POSITION (location_type l)
+      {
+        return symbol_type (token::POSITION, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_POSITION (const location_type& l)
+      {
+        return symbol_type (token::POSITION, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_NUMTORTUE (int v, location_type l)
+      {
+        return symbol_type (token::NUMTORTUE, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_NUMTORTUE (const int& v, const location_type& l)
+      {
+        return symbol_type (token::NUMTORTUE, v, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1371,9 +1495,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 96,     ///< Last index in yytable_.
-      yynnts_ = 19,  ///< Number of nonterminal symbols.
-      yyfinal_ = 34 ///< Termination state number.
+      yylast_ = 106,     ///< Last index in yytable_.
+      yynnts_ = 21,  ///< Number of nonterminal symbols.
+      yyfinal_ = 38 ///< Termination state number.
     };
 
 
@@ -1385,7 +1509,7 @@ switch (yykind)
 
 
 } // yy
-#line 1389 "parser.hh"
+#line 1513 "parser.hh"
 
 
 

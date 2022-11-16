@@ -51,6 +51,8 @@
 %token                  NOT
 %token                  POSITION
 
+%token<int>             NUMTORTUE
+
 %token <int>            NUMBER
 
 %token <std::string>    IDENT
@@ -102,6 +104,8 @@ programme:
 
 
     | instruction NL programme
+
+    | NUMTORTUE NL {    std::cout << "numéro de tortue reconnu : " + $1 << std::endl    } programme
 
     | END NL {
         YYACCEPT;

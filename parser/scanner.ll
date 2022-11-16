@@ -23,7 +23,9 @@ using token = yy::Parser::token;
 
 %{
     yylval = lval;
+    char at
 %}
+
 fin return token::END;
 
 "fois" {
@@ -55,10 +57,19 @@ fin return token::END;
 "tant que" return token::WHILE;
 
 
-(devant|derriere|à droite|à gauche) {
-    yylval->build<std::string>(YYText());
-    return token::POSITION;
+"@"        { 
+    BEGIN(at); 
+    return *yytext; 
 }
+<at>[0-9]+ { 
+    BEGIN(INITIAL); 
+    return token::NUMTORTUE; 
+}
+
+; (devant|derriere|à droite|à gauche) {
+;     yylval->build<std::string>(YYText());
+;     return token::POSITION;
+; }
 
 "+" return '+';
 "*" return '*';
