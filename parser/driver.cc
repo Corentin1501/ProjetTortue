@@ -38,13 +38,13 @@ float    Driver::obtenirOrientationTortue(int numeroTortue) {
     return getJardin()->orientation(numeroTortue);
 }
 
-void Driver::changerOrientationTortue(int numeroTortue, std::string sens, int nombreFois){
+void Driver::changerOrientationTortue(int numeroTortue, std::string sens){
     int orientation = static_cast<int>(obtenirOrientationTortue(0));
 
     if(sens == "droite") 
-        getJardin()->changeOrientation(numeroTortue, orientation+(90*nombreFois));
+        getJardin()->changeOrientation(numeroTortue, orientation + 90);
     else if (sens == "gauche") 
-        getJardin()->changeOrientation(numeroTortue, orientation-(90*nombreFois));
+        getJardin()->changeOrientation(numeroTortue, orientation - 90);
 }
 
 void Driver::avancerTortue(int numeroTortue, int nombreFois){

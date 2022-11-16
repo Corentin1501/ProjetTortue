@@ -77,7 +77,7 @@
 programme:
 
     deplacement finDeLigne      programme
-    | conditionelle finDeLigne  programme
+    | conditionelle  programme
     
     | END NL {  YYACCEPT;   }
 
@@ -88,21 +88,22 @@ finDeLigne:
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 deplacement:
     AVANCE {                 driver.avancerTortue(0,1);                              } 
-    | AVANCE NUMBER {        for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
+    | AVANCE NUMBER {
+                for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
     | AVANCE expression {    for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
 
     | RECULE {            driver.avancerTortue( 0, (-1) );        } 
-    | RECULE NUMBER {     driver.avancerTortue( 0, ($2*(-1)) );   } 
-    | RECULE expression { driver.avancerTortue( 0, ($2*(-1)) );   } 
+    | RECULE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
+    | RECULE expression { for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
 
     | SAUTE {            driver.avancerTortue(0,2);      } 
-    | SAUTE NUMBER {     driver.avancerTortue(0,2*$2);   } 
-    | SAUTE expression { driver.avancerTortue(0,2*$2);   } 
+    | SAUTE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue(0,2);   } 
+    | SAUTE expression { for (int i(0) ; i<$2; i++) driver.avancerTortue(0,2);   } 
 
-    | TOURNED         {   driver.changerOrientationTortue(0, "droite", 1);    } 
-    | TOURNED NUMBER  {   driver.changerOrientationTortue(0, "droite", $2);   } 
-    | TOURNEG         {   driver.changerOrientationTortue(0, "gauche", 1);    } 
-    | TOURNEG NUMBER  {   driver.changerOrientationTortue(0, "gauche", $2);   } 
+    | TOURNED         {   driver.changerOrientationTortue(0, "droite");    } 
+    | TOURNED NUMBER  {   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "droite");   } 
+    | TOURNEG         {   driver.changerOrientationTortue(0, "gauche");    } 
+    | TOURNEG NUMBER  {   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "gauche");   } 
 
 /*####################### CONDITIONELLE #######################*/
 
@@ -122,15 +123,25 @@ condition:
         else $$ = false;
     }
 
-conditionelle:
-    SI condition THEN {
-        if ($2) {
-            std::cout<< "-> condition vérifiée" << std::endl;
-        }
-    } programme
-    | SINON THEN NL {  } 
-    | condition {   std::cout << $1 << std::endl;   } 
+    /*
 
+    I -> instruction
+        | SI condition THEN I
+        | SI condition THEN C SINON I
+    C -> instruction
+        | SI condition THEN C SINON C
+
+     */
+conditionelle:
+    deplacement finDeLigne conditionelle
+    | SI condition THEN finDeLigne conditionelle
+    | SI condition THEN finDeLigne conditionelleComplete finDeLigne SINON finDeLigne conditionelle
+
+    /* | condition {   std::cout << $1 << std::endl;   }  */
+
+conditionelleComplete:
+    deplacement finDeLigne conditionelleComplete
+    | SI condition THEN finDeLigne conditionelleComplete SINON finDeLigne conditionelleComplete {}
 
 /*####################### EXPRESSION ARITHMETIQUE #######################*/
 expression:

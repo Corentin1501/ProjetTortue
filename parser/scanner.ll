@@ -40,7 +40,7 @@ fin return token::END;
 "si"        return token::SI;
 "fin si"    return token::ENDIF;
 ":"         return token::THEN;
-"sinon"     return token::SINON;
+"sinon :"     return token::SINON;
 
 "mur"       return token::MUR;
 "pas de"    return token::NOT;
