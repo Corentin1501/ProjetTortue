@@ -62,6 +62,7 @@
 %token                  DROITE
 %token                  GAUCHE
 
+%token <std::string>    NUMTORTUE
 %token <int>            NUMBER
 
 %type <ExpressionPtr>   operation
@@ -78,6 +79,11 @@ programme:
 
     deplacement finDeLigne      programme
     | conditionelle  programme
+    | NUMTORTUE finDeLigne {
+        std::string chaineNumero = $1.substr(1);
+        int num = std::stoi(chaineNumero);
+        std::cout << "num detecte : " << num << std::endl;
+    } programme
     
     | END NL {  YYACCEPT;   }
 
