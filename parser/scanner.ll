@@ -57,13 +57,9 @@ fin return token::END;
 "tant que" return token::WHILE;
 
 
-"@"        { 
-    BEGIN(at); 
-    return *yytext; 
-}
-<at>[0-9]+ { 
-    BEGIN(INITIAL); 
-    return token::NUMTORTUE; 
+@[0-9]+ {
+    yylval->build<std::string>(yytext);
+    return token::NUMTORTUE;
 }
 
 ; (devant|derriere|à droite|à gauche) {
