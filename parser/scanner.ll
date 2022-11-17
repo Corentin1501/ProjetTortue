@@ -75,6 +75,11 @@ fin return token::END;
 "=" return '=';
 
 
+@[0-9]+      {
+    yylval->build<std::string>(yytext);
+    return token::NUMTORTUE;
+}
+
 [0-9]+      {
     yylval->build<int>(std::atoi(yytext));
     return token::NUMBER;

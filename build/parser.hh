@@ -412,6 +412,9 @@ namespace yy {
       // NUMBER
       // expression
       char dummy2[sizeof (int)];
+
+      // NUMTORTUE
+      char dummy3[sizeof (std::string)];
     };
 
     /// The size of the largest semantic type.
@@ -500,9 +503,15 @@ namespace yy {
     DERRIERE = 275,                // DERRIERE
     DROITE = 276,                  // DROITE
     GAUCHE = 277,                  // GAUCHE
+<<<<<<< HEAD
     NUMBER = 278,                  // NUMBER
     NEG = 279                      // NEG
 >>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
+=======
+    NUMTORTUE = 278,               // NUMTORTUE
+    NUMBER = 279,                  // NUMBER
+    NEG = 280                      // NEG
+>>>>>>> 357879fd401bab50e0d5b8eba7facc6d2a8d4885
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -520,10 +529,14 @@ namespace yy {
       enum symbol_kind_type
       {
 <<<<<<< HEAD
+<<<<<<< HEAD
         YYNTOKENS = 28, ///< Number of tokens.
 =======
         YYNTOKENS = 31, ///< Number of tokens.
 >>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
+=======
+        YYNTOKENS = 32, ///< Number of tokens.
+>>>>>>> 357879fd401bab50e0d5b8eba7facc6d2a8d4885
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -593,6 +606,7 @@ namespace yy {
         S_DERRIERE = 20,                         // DERRIERE
         S_DROITE = 21,                           // DROITE
         S_GAUCHE = 22,                           // GAUCHE
+<<<<<<< HEAD
         S_NUMBER = 23,                           // NUMBER
         S_24_ = 24,                              // '-'
         S_25_ = 25,                              // '+'
@@ -608,6 +622,24 @@ namespace yy {
         S_expression = 35,                       // expression
         S_operation = 36                         // operation
 >>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
+=======
+        S_NUMTORTUE = 23,                        // NUMTORTUE
+        S_NUMBER = 24,                           // NUMBER
+        S_25_ = 25,                              // '-'
+        S_26_ = 26,                              // '+'
+        S_27_ = 27,                              // '*'
+        S_28_ = 28,                              // '/'
+        S_NEG = 29,                              // NEG
+        S_30_ = 30,                              // '('
+        S_31_ = 31,                              // ')'
+        S_YYACCEPT = 32,                         // $accept
+        S_programme = 33,                        // programme
+        S_34_1 = 34,                             // $@1
+        S_finDeLigne = 35,                       // finDeLigne
+        S_deplacement = 36,                      // deplacement
+        S_expression = 37,                       // expression
+        S_operation = 38                         // operation
+>>>>>>> 357879fd401bab50e0d5b8eba7facc6d2a8d4885
       };
     };
 
@@ -652,6 +684,10 @@ namespace yy {
       case symbol_kind::S_NUMBER: // NUMBER
       case symbol_kind::S_expression: // expression
         value.move< int > (std::move (that.value));
+        break;
+
+      case symbol_kind::S_NUMTORTUE: // NUMTORTUE
+        value.move< std::string > (std::move (that.value));
         break;
 
       default:
@@ -705,6 +741,20 @@ namespace yy {
       {}
 #endif
 
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, std::string&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const std::string& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+
       /// Destroy the symbol.
       ~basic_symbol ()
       {
@@ -735,6 +785,10 @@ switch (yykind)
       case symbol_kind::S_NUMBER: // NUMBER
       case symbol_kind::S_expression: // expression
         value.template destroy< int > ();
+        break;
+
+      case symbol_kind::S_NUMTORTUE: // NUMTORTUE
+        value.template destroy< std::string > ();
         break;
 
       default:
@@ -856,6 +910,16 @@ switch (yykind)
 #endif
       {
         YY_ASSERT ((token::NUMTORTUE <= tok && tok <= token::NUMBER));
+      }
+#if 201103L <= YY_CPLUSPLUS
+      symbol_type (int tok, std::string v, location_type l)
+        : super_type(token_type (tok), std::move (v), std::move (l))
+#else
+      symbol_type (int tok, const std::string& v, const location_type& l)
+        : super_type(token_type (tok), v, l)
+#endif
+      {
+        YY_ASSERT (tok == token::NUMTORTUE);
       }
     };
 
@@ -1364,6 +1428,21 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_NUMTORTUE (std::string v, location_type l)
+      {
+        return symbol_type (token::NUMTORTUE, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_NUMTORTUE (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::NUMTORTUE, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_NUMBER (int v, location_type l)
       {
         return symbol_type (token::NUMBER, std::move (v), std::move (l));
@@ -1696,6 +1775,7 @@ switch (yykind)
     enum
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       yylast_ = 106,     ///< Last index in yytable_.
       yynnts_ = 21,  ///< Number of nonterminal symbols.
       yyfinal_ = 38 ///< Termination state number.
@@ -1704,6 +1784,11 @@ switch (yykind)
       yynnts_ = 6,  ///< Number of nonterminal symbols.
       yyfinal_ = 21 ///< Termination state number.
 >>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
+=======
+      yylast_ = 58,     ///< Last index in yytable_.
+      yynnts_ = 7,  ///< Number of nonterminal symbols.
+      yyfinal_ = 26 ///< Termination state number.
+>>>>>>> 357879fd401bab50e0d5b8eba7facc6d2a8d4885
     };
 
 
@@ -1716,10 +1801,14 @@ switch (yykind)
 
 } // yy
 <<<<<<< HEAD
+<<<<<<< HEAD
 #line 1513 "parser.hh"
 =======
 #line 1530 "parser.hh"
 >>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
+=======
+#line 1583 "parser.hh"
+>>>>>>> 357879fd401bab50e0d5b8eba7facc6d2a8d4885
 
 
 
