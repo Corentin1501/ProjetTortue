@@ -17,6 +17,7 @@
     
     class Scanner;
     class Driver;
+    
 }
 
 %parse-param { Scanner &scanner }
@@ -31,11 +32,15 @@
 
     #undef  yylex
     #define yylex scanner.yylex
+    
+    bool dansBlocIF = false;
+    bool cond = false;
 }
 
 %token                  NL
 %token                  END
 %token                  FOIS
+%token                  COMMENTAIRE
 
 %token                  AVANCE
 %token                  RECULE
@@ -46,18 +51,25 @@
 %token                  SI
 %token                  THEN
 %token                  SINON
+%token                  ENDIF
+
+%token                  WHILE
 
 %token                  MUR
 %token                  NOT
-%token                  POSITION
+%token                  DEVANT
+%token                  DERRIERE
+%token                  DROITE
+%token                  GAUCHE
 
 %token<std::string>     NUMTORTUE
 
 %token <int>            NUMBER
 
-%token <std::string>    IDENT
-
-%type <ExpressionPtr>             operation
+%type <ExpressionPtr>   operation
+%type <int>             expression
+%type <std::string>     position
+%type <bool>            condition
 %left '-' '+'
 %left '*' '/'
 %precedence  NEG
@@ -66,45 +78,70 @@
 
 programme:
 
-    AVANCE NL {             driver.avancerTortue(0,1);      } programme
-    | AVANCE NUMBER NL {    
-        for (int i(0) ; i<$2; i++)
-            driver.avancerTortue(0,1); 
-            
-    }programme
-    | AVANCE operation NL { 
-        int calcul = $2->calculer(driver.getContexte());
-        driver.avancerTortue(0,calcul);
-    } programme
-
-    | RECULE NL {           driver.avancerTortue( 0, (-1) );        } programme
-    | RECULE NUMBER NL {    driver.avancerTortue( 0, ($2*(-1)) );   } programme
-    | RECULE operation NL {
-        int calcul = $2->calculer(driver.getContexte());
-        driver.avancerTortue( 0, (calcul*(-1)) );
-    } programme
-
-    | SAUTE NL {             driver.avancerTortue(0,2);      } programme
-    | SAUTE NUMBER NL {    driver.avancerTortue(0,2*$2);     }programme
-    | SAUTE operation NL { 
-        int calcul = $2->calculer(driver.getContexte());
-        driver.avancerTortue(0,2*calcul);
-    } programme
+    deplacement finDeLigne      programme
+    | conditionelle  programme
+    
+    | END NL {  YYACCEPT;   }
 
 
+finDeLigne:
+    NL | FOIS NL | COMMENTAIRE | COMMENTAIRE NL
 
-    | TOURNED NL        {   driver.changerOrientationTortue(0, "droite", 1);    } programme
-    | TOURNED NUMBER NL {   driver.changerOrientationTortue(0, "droite", $2);   } programme
-    | TOURNEG NL        {   driver.changerOrientationTortue(0, "gauche", 1);    } programme
-    | TOURNEG NUMBER NL {   driver.changerOrientationTortue(0, "gauche", $2);   } programme
+/*####################### FONCTION DE DEPLACEMENT #######################*/
+deplacement:
+    AVANCE {                 driver.avancerTortue(0,1);                              } 
+    | AVANCE NUMBER {
+                for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
+    | AVANCE expression {    for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
 
-    | SI MUR POSITION THEN NL {
+    | RECULE {            driver.avancerTortue( 0, (-1) );        } 
+    | RECULE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
+    | RECULE expression { for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
 
-    } programme
+    | SAUTE {            driver.avancerTortue(0,2);      } 
+    | SAUTE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue(0,2);   } 
+    | SAUTE expression { for (int i(0) ; i<$2; i++) driver.avancerTortue(0,2);   } 
 
+    | TOURNED         {   driver.changerOrientationTortue(0, "droite");    } 
+    | TOURNED NUMBER  {   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "droite");   } 
+    | TOURNEG         {   driver.changerOrientationTortue(0, "gauche");    } 
+    | TOURNEG NUMBER  {   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "gauche");   } 
 
-    | instruction NL programme
+/*####################### CONDITIONELLE #######################*/
 
+position:
+    DEVANT {    $$ = "devant";   } 
+    | DERRIERE {  $$ = "derrière"; } 
+    | DROITE {    $$ = "à droite"; } 
+    | GAUCHE {    $$ = "à gauche"; } 
+
+condition:
+    MUR position {   
+        if(driver.estMurIci($2 ,0)) $$ = true; 
+        else $$ = false;
+    } 
+    | NOT MUR position {   
+        if(!driver.estMurIci($3 ,0)) $$ = true;
+        else $$ = false;
+    }
+
+    /*
+
+    I -> instruction
+        | SI condition THEN I
+        | SI condition THEN C SINON I
+    C -> instruction
+        | SI condition THEN C SINON C
+
+     */
+conditionelle:
+    deplacement finDeLigne conditionelle
+    | SI condition THEN finDeLigne conditionelle
+    | SI condition THEN finDeLigne conditionelleComplete finDeLigne SINON finDeLigne conditionelle
+
+    /* | condition {   std::cout << $1 << std::endl;   }  */
+
+<<<<<<< HEAD
     | NUMTORTUE NL {
         std::string chaineNumero = $1.substr(1);
         int numTortue = std::stoi(chaineNumero);
@@ -120,29 +157,25 @@ instruction:
     }
     | affectation {
     }
+=======
+conditionelleComplete:
+    deplacement finDeLigne conditionelleComplete
+    | SI condition THEN finDeLigne conditionelleComplete SINON finDeLigne conditionelleComplete {}
+>>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
 
+/*####################### EXPRESSION ARITHMETIQUE #######################*/
 expression:
     operation {
-        //Modifier cette partie pour prendre en compte la structure avec expressions
         try{
-        std::cout << "#-> " << $1->calculer(driver.getContexte()) << std::endl;
+            $$ = $1->calculer(driver.getContexte());
         } catch (const std::exception& err){
             std::cerr << "#-> " << err.what() << std::endl;
         }
     }
 
-affectation:
-    IDENT '=' operation { 
-        double val = $3->calculer(driver.getContexte());
-        driver.setVariable($1,val);
-    }
-
 operation:
     NUMBER {
         $$ = std::make_shared<Constante>($1);
-    }
-    | IDENT {
-        $$ = std::make_shared<Variable>($1);
     }
     | '(' operation ')' {
         $$ = $2;

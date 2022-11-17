@@ -29,8 +29,8 @@ public:
     void    avancerTortue(int numeroTortue, int nombreFois);
 
     float   obtenirOrientationTortue(int numeroTortue);
-    void    changerOrientationTortue(int numeroTortue, std::string sens, int nombreFois);
-
+    void    changerOrientationTortue(int numeroTortue, std::string sens);
+    bool    estMurIci(std::string position, int numeroTortue);
 };
 
 #endif
