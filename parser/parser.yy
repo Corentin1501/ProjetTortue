@@ -26,6 +26,7 @@
 %code{
     #include <iostream>
     #include <string>
+    #include <vector>
     
     #include "scanner.hh"
     #include "driver.hh"
@@ -33,8 +34,9 @@
     #undef  yylex
     #define yylex scanner.yylex
     
-    bool dansBlocIF = false;
-    bool cond = false;
+    std::vector<std::string> listeInstructions;
+    bool ifCondition = false;
+    bool elseCondition = false;
 }
 
 %token                  NL
@@ -93,17 +95,16 @@ finDeLigne:
 
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 deplacement:
-    AVANCE {                 driver.avancerTortue(0,1);                              } 
-    | AVANCE NUMBER {
-                for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
-    | AVANCE expression {    for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
+    AVANCE              {   driver.avancerTortue(0,1);                              } 
+    | AVANCE NUMBER     {   for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
+    | AVANCE expression {   for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
 
-    | RECULE {            driver.avancerTortue( 0, (-1) );        } 
-    | RECULE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
+    | RECULE            { driver.avancerTortue( 0, (-1) );                            } 
+    | RECULE NUMBER     { for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
     | RECULE expression { for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
 
-    | SAUTE {            driver.avancerTortue(0,2);      } 
-    | SAUTE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue(0,2);   } 
+    | SAUTE            { driver.avancerTortue(0,2);                              } 
+    | SAUTE NUMBER     { for (int i(0) ; i<$2; i++) driver.avancerTortue(0,2);   } 
     | SAUTE expression { for (int i(0) ; i<$2; i++) driver.avancerTortue(0,2);   } 
 
     | TOURNED         {   driver.changerOrientationTortue(0, "droite");    } 
@@ -131,23 +132,29 @@ condition:
 
     /*
 
-    I -> instruction
-        | SI condition THEN I
-        | SI condition THEN C SINON I
-    C -> instruction
-        | SI condition THEN C SINON C
+        I -> instruction
+            | SI condition THEN I
+            | SI condition THEN C SINON I
+        C -> instruction
+            | SI condition THEN C SINON C
 
      */
 conditionelle:
     deplacement finDeLigne conditionelle
-    | SI condition THEN finDeLigne conditionelle
-    | SI condition THEN finDeLigne conditionelleComplete finDeLigne SINON finDeLigne conditionelle
+
+    | SI condition THEN finDeLigne {
+        if ($2) listeInstructions.push_back(getline())
+    }
+    | SINON THEN finDeLigne
+    | ENDIF finDeLigne
+
+    | SI condition THEN finDeLigne conditionelleComplete finDeLigne SINON finDeLigne 
 
     /* | condition {   std::cout << $1 << std::endl;   }  */
 
 conditionelleComplete:
-    deplacement finDeLigne conditionelleComplete
-    | SI condition THEN finDeLigne conditionelleComplete SINON finDeLigne conditionelleComplete {}
+    deplacement finDeLigne
+    | SI condition THEN finDeLigne conditionelleComplete SINON finDeLigne {}
 
 /*####################### EXPRESSION ARITHMETIQUE #######################*/
 expression:

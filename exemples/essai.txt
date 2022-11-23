@@ -1,0 +1,4 @@
+avance 1 fois
+recule
+saute 2 fois
+recule 2
