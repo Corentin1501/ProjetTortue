@@ -61,8 +61,11 @@
 %token                  DERRIERE
 %token                  DROITE
 %token                  GAUCHE
+%token                  COULEUR
 
 %token <std::string>    NUMTORTUE
+%token <std::string>    HEXCODE
+
 %token <int>            NUMBER
 
 %type <ExpressionPtr>   operation
@@ -79,6 +82,7 @@ programme:
 
     deplacement finDeLigne      programme
     | conditionelle  programme
+    | color programme
     | NUMTORTUE finDeLigne {
         std::string chaineNumero = $1.substr(1);
         int num = std::stoi(chaineNumero);
@@ -110,6 +114,44 @@ deplacement:
     | TOURNED NUMBER  {   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "droite");   } 
     | TOURNEG         {   driver.changerOrientationTortue(0, "gauche");    } 
     | TOURNEG NUMBER  {   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "gauche");   } 
+
+/*####################### INSTRUCTIONS SPECIALES #######################*/
+
+
+// CODE DE COLOR TROUVÉ ICI : https://stackoverflow.com/questions/18398468/c-stl-convert-string-with-rgb-color-to-3-int-values
+
+
+color: 
+    COULEUR HEXCODE { //il faut changer #rrggbb par une string qui contient la valeur du #rrggbb
+    // The hex code that should be converted ...
+    std::string hexCode=$2;
+
+    // ... and the target rgb integer values.
+    int r, g, b;
+
+    // Remove the hashtag ...
+    if(hexCode.at(0) == '#') {
+        hexCode = hexCode.erase(0, 1);
+    }
+
+    // ... and extract the rgb values.
+    std::istringstream(hexCode.substr(0,2)) >> std::hex >> r;
+    std::istringstream(hexCode.substr(2,2)) >> std::hex >> g;
+    std::istringstream(hexCode.substr(4,2)) >> std::hex >> b;    
+    
+    void setCouleurCarapace(QColor::QColor(r,g,b));
+    //utiliser plutot la fonction changer couleur de la classe jarinrendering.hh
+    
+    }
+    
+    | COULEUR hexcode NUMTORTUE {}
+
+birth:
+    NombreDeTortue {}
+
+    void setCouleurCorps(QColor);
+    void setCouleurCarapace(QColor);
+    void setCouleurMotif(QColor);
 
 /*####################### CONDITIONELLE #######################*/
 
