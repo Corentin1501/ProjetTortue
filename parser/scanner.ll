@@ -52,6 +52,8 @@ fin return token::END;
 "à droite"  return token::DROITE;
 "à gauche"  return token::GAUCHE;
 
+"couleur" return token::COULEUR; 
+
 "+" return '+';
 "*" return '*';
 "-" return '-';
