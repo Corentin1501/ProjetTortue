@@ -52,12 +52,15 @@
     #include "expressionUnaire.hh"
     #include "constante.hh"
     #include "variable.hh"
+    #include "instructionsTortue/instructions.hh"
+    #include "instructionsTortue/conditionnelle.hh"
+    #include "instructionsTortue/listeInstructions.hh"
     
     class Scanner;
     class Driver;
     
 
-#line 61 "parser.hh"
+#line 64 "parser.hh"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -191,7 +194,7 @@
 #endif
 
 namespace yy {
-#line 195 "parser.hh"
+#line 198 "parser.hh"
 
 
 
@@ -1611,7 +1614,7 @@ switch (yykind)
 
 
 } // yy
-#line 1615 "parser.hh"
+#line 1618 "parser.hh"
 
 
 

@@ -14,6 +14,9 @@
     #include "expressionUnaire.hh"
     #include "constante.hh"
     #include "variable.hh"
+    #include "instructionsTortue/instructions.hh"
+    #include "instructionsTortue/conditionnelle.hh"
+    #include "instructionsTortue/listeInstructions.hh"
     
     class Scanner;
     class Driver;
@@ -30,13 +33,11 @@
     
     #include "scanner.hh"
     #include "driver.hh"
-
+    
     #undef  yylex
     #define yylex scanner.yylex
     
-    std::vector<std::string> listeInstructions;
-    bool ifCondition = false;
-    bool elseCondition = false;
+    auto liste_d_instructions = std::make_shared<ListeInstructions>();
 }
 
 %token                  NL
@@ -79,15 +80,19 @@
 
 programme:
 
-    deplacement finDeLigne      programme
+    deplacement finDeLigne programme
     | conditionelle  programme
+
     | NUMTORTUE finDeLigne {
         std::string chaineNumero = $1.substr(1);
         int num = std::stoi(chaineNumero);
         std::cout << "num detecte : " << num << std::endl;
     } programme
     
-    | END NL {  YYACCEPT;   }
+    | END NL {  
+        liste_d_instructions->executer();
+        YYACCEPT;   
+    }
 
 
 finDeLigne:
@@ -95,7 +100,12 @@ finDeLigne:
 
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 deplacement:
-    AVANCE              {   driver.avancerTortue(0,1);                              } 
+    AVANCE              {
+        InstructionPtr instruction = Avancer(0, 1);
+        liste_d_instructions->ajouterInstruction(instruction);
+        
+        
+    } 
     | AVANCE NUMBER     {   for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
     | AVANCE expression {   for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
 
@@ -143,7 +153,7 @@ conditionelle:
     deplacement finDeLigne conditionelle
 
     | SI condition THEN finDeLigne {
-        if ($2) listeInstructions.push_back(getline())
+        // if ($2) listeInstructions.liste.push_back(getline());
     }
     | SINON THEN finDeLigne
     | ENDIF finDeLigne
