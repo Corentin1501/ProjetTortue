@@ -69,7 +69,7 @@ fin return token::END;
 }
 
 #[A-Za-z0-9][A-Za-z0-9][A-Za-z0-9][A-Za-z0-9][A-Za-z0-9][A-Za-z0-9]      {
-    yylval->build<std::string>(yytext);
+    yylval->build<int>(std::atoi(yytext));
     return token::HEXCODE;
 }
 

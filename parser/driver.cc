@@ -22,6 +22,11 @@ void Driver::setVariable(const std::string & name, double value) {
     variables[name] = value;
 }
 
+void Driver::changeCouleurCarapace(int numeroTortue, int r, int g, int b) {
+    getJardin()->changeCouleurCarapace(numeroTortue, r, g, b);
+}
+
+
 JardinRendering * Driver::getJardin() {
     return monJardin->getJardinRendering();
 }

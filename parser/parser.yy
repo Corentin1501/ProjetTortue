@@ -61,7 +61,11 @@
 %token                  DERRIERE
 %token                  DROITE
 %token                  GAUCHE
+
 %token                  COULEUR
+%token<int>                  intR
+%token<int>              intG
+%token<int>              intB
 
 %token <std::string>    NUMTORTUE
 %token <std::string>    HEXCODE
@@ -122,7 +126,7 @@ deplacement:
 
 
 color: 
-    COULEUR HEXCODE { //il faut changer #rrggbb par une string qui contient la valeur du #rrggbb
+    /* COULEUR HEXCODE { //il faut changer #rrggbb par une string qui contient la valeur du #rrggbb
     // The hex code that should be converted ...
     std::string hexCode=$2;
 
@@ -142,16 +146,22 @@ color:
     void setCouleurCarapace(QColor::QColor(r,g,b));
     //utiliser plutot la fonction changer couleur de la classe jarinrendering.hh
     
+    } 
+    | */   COULEUR intR intG intB {
+    driver.changeCouleurCarapace(0, $2, $3, $4);
+    }
+
+    |    COULEUR intR intG intB NUMTORTUE{
+    driver.changeCouleurCarapace($5, $2, $3, $4);
     }
     
-    | COULEUR hexcode NUMTORTUE {}
 
-birth:
+/* birth:
     NombreDeTortue {}
 
     void setCouleurCorps(QColor);
     void setCouleurCarapace(QColor);
-    void setCouleurMotif(QColor);
+    void setCouleurMotif(QColor); */
 
 /*####################### CONDITIONELLE #######################*/
 
