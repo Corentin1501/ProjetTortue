@@ -6,13 +6,14 @@
 class ListeInstructions {
 
     private:
-        std::vector<InstructionPtr> liste;
+        std::vector<Instruction> _liste;
 
     public:
         ListeInstructions() { liste.clear(); }
         
         void executer();
-        void ajouterInstruction(InstructionPtr const & instru);
-
+        void ajouterInstruction(Instruction const & instru);
 
 };
+
+using ListePtr = std::shared_ptr<ListeInstructions>;

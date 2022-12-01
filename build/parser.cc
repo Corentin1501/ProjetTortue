@@ -777,7 +777,7 @@ namespace yy {
   case 11: // deplacement: AVANCE
 #line 103 "../parser/parser.yy"
                         {
-        InstructionPtr instruction = Avancer(0, 1);
+        auto instruction = Avancer(0, 1);
         liste_d_instructions->ajouterInstruction(instruction);
         
         

@@ -11,6 +11,6 @@ class Conditionelle {
 
     private:
         bool _condition;
-        ListeInstructions _then;
-        ListeInstructions _else;
+        ListePtr _then;
+        ListePtr _else;
 };

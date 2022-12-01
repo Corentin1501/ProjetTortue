@@ -101,7 +101,7 @@ finDeLigne:
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 deplacement:
     AVANCE              {
-        InstructionPtr instruction = Avancer(0, 1);
+        auto instruction = Avancer(0, 1);
         liste_d_instructions->ajouterInstruction(instruction);
         
         

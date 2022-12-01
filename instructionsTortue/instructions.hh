@@ -13,7 +13,6 @@
         public:
             virtual void executer() const = 0;
     };
-    using InstructionPtr = std::shared_ptr<Instruction>;
 
 
 //###################################################################
