@@ -31,6 +31,9 @@ public:
     float   obtenirOrientationTortue(int numeroTortue);
     void    changerOrientationTortue(int numeroTortue, std::string sens);
     bool    estMurIci(std::string position, int numeroTortue);
+
+    void    changerCouleurCarapace(int numeroTortue, int r, int g, int b);
+
 };
 
 #endif

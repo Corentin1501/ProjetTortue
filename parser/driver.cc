@@ -108,3 +108,7 @@ bool Driver::estMurIci(std::string position, int numeroTortue){
     }
     return false;
 }
+
+void Driver::changerCouleurCarapace(int numeroTortue, int r, int g, int b) {
+    getJardin()->changeCouleurCarapace(numeroTortue, r, g, b);
+}

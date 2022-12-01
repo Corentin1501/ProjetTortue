@@ -408,7 +408,6 @@ namespace yy {
       // operation
       char dummy1[sizeof (ExpressionPtr)];
 
-      // NUMTORTUE
       // NUMBER
       // expression
       char dummy2[sizeof (int)];
@@ -469,23 +468,6 @@ namespace yy {
     NL = 258,                      // NL
     END = 259,                     // END
     FOIS = 260,                    // FOIS
-<<<<<<< HEAD
-    AVANCE = 261,                  // AVANCE
-    RECULE = 262,                  // RECULE
-    SAUTE = 263,                   // SAUTE
-    TOURNED = 264,                 // TOURNED
-    TOURNEG = 265,                 // TOURNEG
-    SI = 266,                      // SI
-    THEN = 267,                    // THEN
-    SINON = 268,                   // SINON
-    MUR = 269,                     // MUR
-    NOT = 270,                     // NOT
-    POSITION = 271,                // POSITION
-    NUMTORTUE = 272,               // NUMTORTUE
-    NUMBER = 273,                  // NUMBER
-    IDENT = 274,                   // IDENT
-    NEG = 275                      // NEG
-=======
     COMMENTAIRE = 261,             // COMMENTAIRE
     AVANCE = 262,                  // AVANCE
     RECULE = 263,                  // RECULE
@@ -503,15 +485,9 @@ namespace yy {
     DERRIERE = 275,                // DERRIERE
     DROITE = 276,                  // DROITE
     GAUCHE = 277,                  // GAUCHE
-<<<<<<< HEAD
-    NUMBER = 278,                  // NUMBER
-    NEG = 279                      // NEG
->>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
-=======
     NUMTORTUE = 278,               // NUMTORTUE
     NUMBER = 279,                  // NUMBER
     NEG = 280                      // NEG
->>>>>>> 357879fd401bab50e0d5b8eba7facc6d2a8d4885
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -528,15 +504,7 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        YYNTOKENS = 28, ///< Number of tokens.
-=======
-        YYNTOKENS = 31, ///< Number of tokens.
->>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
-=======
         YYNTOKENS = 32, ///< Number of tokens.
->>>>>>> 357879fd401bab50e0d5b8eba7facc6d2a8d4885
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -544,51 +512,6 @@ namespace yy {
         S_NL = 3,                                // NL
         S_END = 4,                               // END
         S_FOIS = 5,                              // FOIS
-<<<<<<< HEAD
-        S_AVANCE = 6,                            // AVANCE
-        S_RECULE = 7,                            // RECULE
-        S_SAUTE = 8,                             // SAUTE
-        S_TOURNED = 9,                           // TOURNED
-        S_TOURNEG = 10,                          // TOURNEG
-        S_SI = 11,                               // SI
-        S_THEN = 12,                             // THEN
-        S_SINON = 13,                            // SINON
-        S_MUR = 14,                              // MUR
-        S_NOT = 15,                              // NOT
-        S_POSITION = 16,                         // POSITION
-        S_NUMTORTUE = 17,                        // NUMTORTUE
-        S_NUMBER = 18,                           // NUMBER
-        S_IDENT = 19,                            // IDENT
-        S_20_ = 20,                              // '-'
-        S_21_ = 21,                              // '+'
-        S_22_ = 22,                              // '*'
-        S_23_ = 23,                              // '/'
-        S_NEG = 24,                              // NEG
-        S_25_ = 25,                              // '='
-        S_26_ = 26,                              // '('
-        S_27_ = 27,                              // ')'
-        S_YYACCEPT = 28,                         // $accept
-        S_programme = 29,                        // programme
-        S_30_1 = 30,                             // $@1
-        S_31_2 = 31,                             // $@2
-        S_32_3 = 32,                             // $@3
-        S_33_4 = 33,                             // $@4
-        S_34_5 = 34,                             // $@5
-        S_35_6 = 35,                             // $@6
-        S_36_7 = 36,                             // $@7
-        S_37_8 = 37,                             // $@8
-        S_38_9 = 38,                             // $@9
-        S_39_10 = 39,                            // $@10
-        S_40_11 = 40,                            // $@11
-        S_41_12 = 41,                            // $@12
-        S_42_13 = 42,                            // $@13
-        S_43_14 = 43,                            // $@14
-        S_44_15 = 44,                            // $@15
-        S_instruction = 45,                      // instruction
-        S_expression = 46,                       // expression
-        S_affectation = 47,                      // affectation
-        S_operation = 48                         // operation
-=======
         S_COMMENTAIRE = 6,                       // COMMENTAIRE
         S_AVANCE = 7,                            // AVANCE
         S_RECULE = 8,                            // RECULE
@@ -606,23 +529,6 @@ namespace yy {
         S_DERRIERE = 20,                         // DERRIERE
         S_DROITE = 21,                           // DROITE
         S_GAUCHE = 22,                           // GAUCHE
-<<<<<<< HEAD
-        S_NUMBER = 23,                           // NUMBER
-        S_24_ = 24,                              // '-'
-        S_25_ = 25,                              // '+'
-        S_26_ = 26,                              // '*'
-        S_27_ = 27,                              // '/'
-        S_NEG = 28,                              // NEG
-        S_29_ = 29,                              // '('
-        S_30_ = 30,                              // ')'
-        S_YYACCEPT = 31,                         // $accept
-        S_programme = 32,                        // programme
-        S_finDeLigne = 33,                       // finDeLigne
-        S_deplacement = 34,                      // deplacement
-        S_expression = 35,                       // expression
-        S_operation = 36                         // operation
->>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
-=======
         S_NUMTORTUE = 23,                        // NUMTORTUE
         S_NUMBER = 24,                           // NUMBER
         S_25_ = 25,                              // '-'
@@ -639,7 +545,6 @@ namespace yy {
         S_deplacement = 36,                      // deplacement
         S_expression = 37,                       // expression
         S_operation = 38                         // operation
->>>>>>> 357879fd401bab50e0d5b8eba7facc6d2a8d4885
       };
     };
 
@@ -680,7 +585,6 @@ namespace yy {
         value.move< ExpressionPtr > (std::move (that.value));
         break;
 
-      case symbol_kind::S_NUMTORTUE: // NUMTORTUE
       case symbol_kind::S_NUMBER: // NUMBER
       case symbol_kind::S_expression: // expression
         value.move< int > (std::move (that.value));
@@ -781,7 +685,6 @@ switch (yykind)
         value.template destroy< ExpressionPtr > ();
         break;
 
-      case symbol_kind::S_NUMTORTUE: // NUMTORTUE
       case symbol_kind::S_NUMBER: // NUMBER
       case symbol_kind::S_expression: // expression
         value.template destroy< int > ();
@@ -889,11 +792,7 @@ switch (yykind)
 #endif
       {
         YY_ASSERT (tok == token::YYEOF
-<<<<<<< HEAD
-                   || (token::YYerror <= tok && tok <= token::POSITION)
-=======
                    || (token::YYerror <= tok && tok <= token::GAUCHE)
->>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
                    || tok == 45
                    || tok == 43
                    || tok == 42
@@ -909,7 +808,7 @@ switch (yykind)
         : super_type(token_type (tok), v, l)
 #endif
       {
-        YY_ASSERT ((token::NUMTORTUE <= tok && tok <= token::NUMBER));
+        YY_ASSERT (tok == token::NUMBER);
       }
 #if 201103L <= YY_CPLUSPLUS
       symbol_type (int tok, std::string v, location_type l)
@@ -1156,114 +1055,6 @@ switch (yykind)
       static
       symbol_type
       make_SI (location_type l)
-<<<<<<< HEAD
-      {
-        return symbol_type (token::SI, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_SI (const location_type& l)
-      {
-        return symbol_type (token::SI, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_THEN (location_type l)
-      {
-        return symbol_type (token::THEN, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_THEN (const location_type& l)
-      {
-        return symbol_type (token::THEN, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_SINON (location_type l)
-      {
-        return symbol_type (token::SINON, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_SINON (const location_type& l)
-      {
-        return symbol_type (token::SINON, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_MUR (location_type l)
-      {
-        return symbol_type (token::MUR, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_MUR (const location_type& l)
-      {
-        return symbol_type (token::MUR, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_NOT (location_type l)
-      {
-        return symbol_type (token::NOT, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_NOT (const location_type& l)
-      {
-        return symbol_type (token::NOT, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_POSITION (location_type l)
-      {
-        return symbol_type (token::POSITION, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_POSITION (const location_type& l)
-      {
-        return symbol_type (token::POSITION, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_NUMTORTUE (int v, location_type l)
-      {
-        return symbol_type (token::NUMTORTUE, std::move (v), std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_NUMTORTUE (const int& v, const location_type& l)
-      {
-        return symbol_type (token::NUMTORTUE, v, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_NUMBER (int v, location_type l)
-=======
->>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
       {
         return symbol_type (token::SI, std::move (l));
       }
@@ -1774,21 +1565,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-      yylast_ = 106,     ///< Last index in yytable_.
-      yynnts_ = 21,  ///< Number of nonterminal symbols.
-      yyfinal_ = 38 ///< Termination state number.
-=======
-      yylast_ = 57,     ///< Last index in yytable_.
-      yynnts_ = 6,  ///< Number of nonterminal symbols.
-      yyfinal_ = 21 ///< Termination state number.
->>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
-=======
       yylast_ = 58,     ///< Last index in yytable_.
       yynnts_ = 7,  ///< Number of nonterminal symbols.
       yyfinal_ = 26 ///< Termination state number.
->>>>>>> 357879fd401bab50e0d5b8eba7facc6d2a8d4885
     };
 
 
@@ -1800,15 +1579,7 @@ switch (yykind)
 
 
 } // yy
-<<<<<<< HEAD
-<<<<<<< HEAD
-#line 1513 "parser.hh"
-=======
-#line 1530 "parser.hh"
->>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
-=======
 #line 1583 "parser.hh"
->>>>>>> 357879fd401bab50e0d5b8eba7facc6d2a8d4885
 
 
 

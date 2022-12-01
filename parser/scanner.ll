@@ -32,12 +32,6 @@ fin return token::END;
 
 [--][.]* return token::COMMENTAIRE;
 
-<<<<<<< HEAD
-@[0-9]+ {
-    yylval->build<std::string>(yytext);
-    return token::NUMTORTUE;
-}
-=======
 "avance"    return token::AVANCE;
 "recule"    return token::RECULE;
 "saute"     return token::SAUTE;
@@ -59,7 +53,6 @@ fin return token::END;
 "derriere"  return token::DERRIERE;
 "à droite"  return token::DROITE;
 "à gauche"  return token::GAUCHE;
->>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
 
 ; (devant|derriere|à droite|à gauche) {
 ;     yylval->build<std::string>(YYText());
@@ -73,6 +66,12 @@ fin return token::END;
 "(" return '(';
 ")" return ')';
 "=" return '=';
+
+"couleur carapace" return token::COULEUR;
+#[A-Za-z0-9]{6}      {
+    yylval->build<int>(std::atoi(yytext));
+    return token::HEXCODE;
+}
 
 
 @[0-9]+      {

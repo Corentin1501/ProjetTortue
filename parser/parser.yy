@@ -64,6 +64,9 @@
 
 %token <std::string>    NUMTORTUE
 %token <int>            NUMBER
+%token                  COULEUR
+%token <std::string>    HEXCODE
+%type <int>             numeroTortue
 
 %type <ExpressionPtr>   operation
 %type <int>             expression
@@ -78,12 +81,9 @@
 programme:
 
     deplacement finDeLigne      programme
+    | color programme
     | conditionelle  programme
-    | NUMTORTUE finDeLigne {
-        std::string chaineNumero = $1.substr(1);
-        int num = std::stoi(chaineNumero);
-        std::cout << "num detecte : " << num << std::endl;
-    } programme
+    | numeroTortue programme
     
     | END NL {  YYACCEPT;   }
 
@@ -91,7 +91,18 @@ programme:
 finDeLigne:
     NL | FOIS NL | COMMENTAIRE | COMMENTAIRE NL
 
+numeroTortue:
+    NUMTORTUE finDeLigne {  $$ = std::stoi($1.substr(1));    }
+
+/*####################### COULEUR TORTUE #######################*/
+
+color: 
+    COULEUR NUMBER NUMBER NUMBER {    driver.changerCouleurCarapace(0, $2, $3, $4);   }
+    |    COULEUR NUMBER NUMBER NUMBER numeroTortue {  driver.changerCouleurCarapace($5, $2, $3, $4);  }
+
+
 /*####################### FONCTION DE DEPLACEMENT #######################*/
+
 deplacement:
     AVANCE {                 driver.avancerTortue(0,1);                              } 
     | AVANCE NUMBER {
@@ -120,14 +131,8 @@ position:
     | GAUCHE {    $$ = "à gauche"; } 
 
 condition:
-    MUR position {   
-        if(driver.estMurIci($2 ,0)) $$ = true; 
-        else $$ = false;
-    } 
-    | NOT MUR position {   
-        if(!driver.estMurIci($3 ,0)) $$ = true;
-        else $$ = false;
-    }
+    MUR position {  $$ =    driver.estMurIci($2 ,0);    }
+    | NOT MUR position {   $$ =    !driver.estMurIci($2 ,0);    }
 
     /*
 
