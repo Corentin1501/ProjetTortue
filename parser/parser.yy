@@ -70,6 +70,7 @@
 
 %type <ExpressionPtr>   operation
 %type <int>             expression
+%type <int>             numeroTortue
 %type <std::string>     position
 %type <bool>            condition
 %left '-' '+'
@@ -83,16 +84,15 @@ programme:
     deplacement finDeLigne programme
     | conditionelle  programme
 
-    | NUMTORTUE finDeLigne {
-        std::string chaineNumero = $1.substr(1);
-        int num = std::stoi(chaineNumero);
-        std::cout << "num detecte : " << num << std::endl;
-    } programme
+    | numeroTortue finDeLigne programme
     
     | END NL {  
         liste_d_instructions->executer();
         YYACCEPT;   
     }
+
+numeroTortue:
+    NUMTORTUE { $$ = std::stoi($1.substr(1)); }
 
 
 finDeLigne:
@@ -101,7 +101,7 @@ finDeLigne:
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 deplacement:
     AVANCE              {
-        auto instruction = Avancer(0, 1);
+        Mouvement instruction = Mouvement( driver.getJardin(), 0, 1);
         liste_d_instructions->ajouterInstruction(instruction);
         
         
@@ -131,36 +131,24 @@ position:
     | GAUCHE {    $$ = "à gauche"; } 
 
 condition:
-    MUR position {   
-        if(driver.estMurIci($2 ,0)) $$ = true; 
-        else $$ = false;
-    } 
-    | NOT MUR position {   
-        if(!driver.estMurIci($3 ,0)) $$ = true;
-        else $$ = false;
-    }
+    MUR position {  $$ = driver.estMurIci($2 ,0);   } 
+    | NOT MUR position {   $$ = !driver.estMurIci($3 ,0);   }
 
-    /*
-
-        I -> instruction
-            | SI condition THEN I
-            | SI condition THEN C SINON I
-        C -> instruction
-            | SI condition THEN C SINON C
-
-     */
 conditionelle:
-    deplacement finDeLigne conditionelle
-
     | SI condition THEN finDeLigne {
+
+        // creer conditionelle avec la condition et le debut du then
+            // auto then = ListePtr();
+            // auto condi = Conditionelle($2, then, ListeInstructions());        
+
         // if ($2) listeInstructions.liste.push_back(getline());
     }
     | SINON THEN finDeLigne
+        // ajouter à conditionelle le debut du else
     | ENDIF finDeLigne
+        //
 
-    | SI condition THEN finDeLigne conditionelleComplete finDeLigne SINON finDeLigne 
-
-    /* | condition {   std::cout << $1 << std::endl;   }  */
+    /* | condition {   std::cout << $1 << std::endl;   } // -> Pour tester la detection de murs */
 
 conditionelleComplete:
     deplacement finDeLigne
@@ -171,6 +159,7 @@ expression:
     operation {
         try{
             $$ = $1->calculer(driver.getContexte());
+
         } catch (const std::exception& err){
             std::cerr << "#-> " << err.what() << std::endl;
         }

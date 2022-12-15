@@ -4,7 +4,7 @@
 
 class Conditionelle {
     public:
-        Conditionelle(bool cond, ListeInstructions th, ListeInstructions el);
+        Conditionelle(bool cond, ListePtr th, ListePtr el);
         ~Conditionelle() = default;
     
         void executer() const;

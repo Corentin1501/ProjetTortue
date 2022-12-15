@@ -9,7 +9,7 @@ class ListeInstructions {
         std::vector<Instruction> _liste;
 
     public:
-        ListeInstructions() { liste.clear(); }
+        ListeInstructions() = default;
         
         void executer();
         void ajouterInstruction(Instruction const & instru);

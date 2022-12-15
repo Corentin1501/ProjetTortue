@@ -2,14 +2,14 @@
 
 
 
-void listeInstructions::executer() {
+void ListeInstructions::executer() {
     for(auto const & inst : _liste) 
         inst.executer();
-    liste.clear();
+    _liste.clear();
     
 }
 
 
-void listeInstructions::ajouterInstruction(InstructionPtr const & deplace){
-    liste.push_back(deplace);
+void ListeInstructions::ajouterInstruction(Instruction const & deplace){
+    _liste.push_back(deplace);
 }

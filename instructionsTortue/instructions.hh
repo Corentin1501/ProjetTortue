@@ -1,8 +1,10 @@
 #pragma once
 #include "../parser/driver.hh"
+#include "jardinRendering.hh"
 
 #include <string>
 #include <memory>
+
 
 
 //###################################################################
@@ -11,36 +13,30 @@
 
     class Instruction {
         public:
+            Instruction(JardinRendering * j): jardin(j) {}
+
             virtual void executer() const = 0;
+        //private:    
+            JardinRendering * jardin;
     };
 
 
 //###################################################################
-//#                           AVANCER                               #
+//#                      AVANCER ET RECULER                         #
 //###################################################################
 
-    class Avancer : public Instruction {
+    enum class direction { avant, arriere };
+    class Mouvement : public Instruction {
         public:
-            Avancer(int num, int nb){
-                std::make_shared<Avancer>(num,nb);
-            } 
-            ~Avancer() = default;
+            Mouvement(JardinRendering * jard, int num, int nb, direction dir): Instruction(jard), numeroTortue(num), nombreDeFois(nb), _dir(dir) {}
+            ~Mouvement() = default;
 
             void executer() const override;
 
         private:
             int numeroTortue;
             int nombreDeFois;
-    };
-    using AvancerPtr = std::shared_ptr<Avancer>;
-
-//###################################################################
-//#                           RECULER                               #
-//###################################################################
-
-    class Reculer : public Avancer {
-        public:
-            void executer() const override;
+            direction _dir;
     };
 
 //###################################################################
@@ -50,7 +46,7 @@
     enum class sens { gauche, droite };
     class Tourner : public Instruction {
         public:
-            Tourner(sens s, int nb): _sens(s), nombreDeFois(nb) {}
+            Tourner(JardinRendering * jard, sens s, int nb): Instruction(jard), _sens(s), nombreDeFois(nb) {}
             ~Tourner() = default;
 
             void executer() const override;

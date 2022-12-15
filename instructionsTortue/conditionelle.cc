@@ -1,7 +1,7 @@
 #include "conditionnelle.hh"
 
 
-Conditionelle::Conditionelle(bool cond, InstructionPtr th, InstructionPtr el)
+Conditionelle::Conditionelle(bool cond, ListePtr th, ListePtr el)
     : _condition(cond), _then(th), _else(el)   {}
 
 
