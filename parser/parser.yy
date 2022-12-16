@@ -29,12 +29,13 @@
     
     #include "scanner.hh"
     #include "driver.hh"
+    #include "structureTortue/instruction.hh"
+    #include "structureTortue/liste.hh"
 
     #undef  yylex
     #define yylex scanner.yylex
     
-    bool dansBlocIF = false;
-    bool cond = false;
+    listePtr listeglobale = liste::fabrique();
 }
 
 %token                  NL
@@ -85,7 +86,10 @@ programme:
         std::cout << "num detecte : " << num << std::endl;
     } programme
     
-    | END NL {  YYACCEPT;   }
+    | END NL {  
+        listeglobale->executer(); 
+        YYACCEPT;   
+    }
 
 
 finDeLigne:
@@ -93,7 +97,12 @@ finDeLigne:
 
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 deplacement:
-    AVANCE {                 driver.avancerTortue(0,1);                              } 
+    AVANCE {                 
+        mouvement m1 = mouvement(driver.getJardin(), 0, 1, direction::avant);
+        listeglobale->ajouterInstruction(m1);
+        driver.avancerTortue(0,1);      
+
+    } 
     | AVANCE NUMBER {
                 for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
     | AVANCE expression {    for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
@@ -141,6 +150,8 @@ condition:
 conditionelle:
     deplacement finDeLigne conditionelle
     | SI condition THEN finDeLigne conditionelle
+    // index de listeglobale actuelle pour l'id de la conditionelle then
+    // 
     | SI condition THEN finDeLigne conditionelleComplete finDeLigne SINON finDeLigne conditionelle
 
     /* | condition {   std::cout << $1 << std::endl;   }  */

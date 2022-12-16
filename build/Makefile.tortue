@@ -57,7 +57,9 @@ SOURCES       = ../parser/main.cc \
 		../GUI/tortue.cc \
 		../GUI/jardinHandler.cc \
 		../GUI/jardinRendering.cc \
-		../GUI/jardin.cc scanner.cc \
+		../GUI/jardin.cc \
+		../structureTortue/instruction.cc \
+		../structureTortue/liste.cc scanner.cc \
 		parser.cc \
 		moc_jardinHandler.cpp \
 		moc_jardinRendering.cpp \
@@ -68,6 +70,8 @@ OBJECTS       = main.o \
 		jardinHandler.o \
 		jardinRendering.o \
 		jardin.o \
+		instruction.o \
+		liste.o \
 		scanner.o \
 		parser.o \
 		moc_jardinHandler.o \
@@ -156,12 +160,16 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../GUI/jardinHandler.hh \
 		../GUI/jardinRendering.hh \
 		../GUI/jardin.hh \
+		../structureTortue/instruction.hh \
+		../structureTortue/liste.hh \
 		parser.hpp ../parser/main.cc \
 		../parser/driver.cc \
 		../GUI/tortue.cc \
 		../GUI/jardinHandler.cc \
 		../GUI/jardinRendering.cc \
-		../GUI/jardin.cc
+		../GUI/jardin.cc \
+		../structureTortue/instruction.cc \
+		../structureTortue/liste.cc
 QMAKE_TARGET  = tortue
 DESTDIR       = 
 TARGET        = tortue
@@ -348,8 +356,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents ../parser/parser.yy $(DISTDIR)/
 	$(COPY_FILE) --parents ../parser/parser.yy $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../parser/scanner.hh ../parser/driver.hh ../GUI/tortue.hh ../GUI/jardinHandler.hh ../GUI/jardinRendering.hh ../GUI/jardin.hh parser.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../parser/main.cc ../parser/driver.cc ../GUI/tortue.cc ../GUI/jardinHandler.cc ../GUI/jardinRendering.cc ../GUI/jardin.cc $(DISTDIR)/
+	$(COPY_FILE) --parents ../parser/scanner.hh ../parser/driver.hh ../GUI/tortue.hh ../GUI/jardinHandler.hh ../GUI/jardinRendering.hh ../GUI/jardin.hh ../structureTortue/instruction.hh ../structureTortue/liste.hh parser.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../parser/main.cc ../parser/driver.cc ../GUI/tortue.cc ../GUI/jardinHandler.cc ../GUI/jardinRendering.cc ../GUI/jardin.cc ../structureTortue/instruction.cc ../structureTortue/liste.cc $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -544,6 +552,21 @@ jardin.o: ../GUI/jardin.cc ../GUI/jardin.hh \
 		../parser/driver.hh \
 		../GUI/jardinRendering.hh
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o jardin.o ../GUI/jardin.cc
+
+instruction.o: ../structureTortue/instruction.cc ../structureTortue/instruction.hh \
+		../parser/driver.hh \
+		../expressions/contexte.hh \
+		../GUI/jardinRendering.hh \
+		../GUI/tortue.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o instruction.o ../structureTortue/instruction.cc
+
+liste.o: ../structureTortue/liste.cc ../structureTortue/liste.hh \
+		../structureTortue/instruction.hh \
+		../parser/driver.hh \
+		../expressions/contexte.hh \
+		../GUI/jardinRendering.hh \
+		../GUI/tortue.hh
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o liste.o ../structureTortue/liste.cc
 
 scanner.o: scanner.cc 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scanner.o scanner.cc
