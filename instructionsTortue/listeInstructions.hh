@@ -7,9 +7,10 @@ class ListeInstructions {
 
     private:
         std::vector<Instruction> _liste;
-
-    public:
         ListeInstructions() = default;
+        
+    public:
+        static std::shared_ptr<ListeInstructions> fabrique();
         
         void executer();
         void ajouterInstruction(Instruction const & instru);

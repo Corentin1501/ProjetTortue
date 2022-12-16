@@ -1,6 +1,8 @@
 #include "listeInstructions.hh"
 
-
+std::shared_ptr<ListeInstructions> ListeInstructions::fabrique(){
+    return std::shared_ptr<ListeInstructions>(new ListeInstructions());
+}
 
 void ListeInstructions::executer() {
     for(auto const & inst : _liste) 

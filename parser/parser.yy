@@ -36,8 +36,9 @@
     
     #undef  yylex
     #define yylex scanner.yylex
-    
-    auto liste_d_instructions = std::make_shared<ListeInstructions>();
+
+    // Déclaration de la liste d'instruction globale :
+    auto liste_d_instructions = ListeInstructions::fabrique();
 }
 
 %token                  NL
@@ -101,7 +102,9 @@ finDeLigne:
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 deplacement:
     AVANCE              {
-        Mouvement instruction = Mouvement( driver.getJardin(), 0, 1);
+        // Test de l'ajout dans la liste de "avance" :
+
+        Mouvement instruction = Mouvement( driver.getJardin(), 0, 1, direction::avant);
         liste_d_instructions->ajouterInstruction(instruction);
         
         

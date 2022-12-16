@@ -415,6 +415,7 @@ namespace yy {
       char dummy2[sizeof (bool)];
 
       // NUMBER
+      // numeroTortue
       // expression
       char dummy3[sizeof (int)];
 
@@ -547,15 +548,14 @@ namespace yy {
         S_31_ = 31,                              // ')'
         S_YYACCEPT = 32,                         // $accept
         S_programme = 33,                        // programme
-        S_34_1 = 34,                             // $@1
+        S_numeroTortue = 34,                     // numeroTortue
         S_finDeLigne = 35,                       // finDeLigne
         S_deplacement = 36,                      // deplacement
         S_position = 37,                         // position
         S_condition = 38,                        // condition
         S_conditionelle = 39,                    // conditionelle
-        S_conditionelleComplete = 40,            // conditionelleComplete
-        S_expression = 41,                       // expression
-        S_operation = 42                         // operation
+        S_expression = 40,                       // expression
+        S_operation = 41                         // operation
       };
     };
 
@@ -601,6 +601,7 @@ namespace yy {
         break;
 
       case symbol_kind::S_NUMBER: // NUMBER
+      case symbol_kind::S_numeroTortue: // numeroTortue
       case symbol_kind::S_expression: // expression
         value.move< int > (std::move (that.value));
         break;
@@ -720,6 +721,7 @@ switch (yykind)
         break;
 
       case symbol_kind::S_NUMBER: // NUMBER
+      case symbol_kind::S_numeroTortue: // numeroTortue
       case symbol_kind::S_expression: // expression
         value.template destroy< int > ();
         break;
@@ -1600,8 +1602,8 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 95,     ///< Last index in yytable_.
-      yynnts_ = 11,  ///< Number of nonterminal symbols.
+      yylast_ = 76,     ///< Last index in yytable_.
+      yynnts_ = 10,  ///< Number of nonterminal symbols.
       yyfinal_ = 35 ///< Termination state number.
     };
 
@@ -1614,7 +1616,7 @@ switch (yykind)
 
 
 } // yy
-#line 1618 "parser.hh"
+#line 1620 "parser.hh"
 
 
 
