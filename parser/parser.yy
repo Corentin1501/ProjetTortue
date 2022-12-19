@@ -152,7 +152,9 @@ color:
     }
 
     |    COULEUR intR intG intB NUMTORTUE{
-    driver.changeCouleurCarapace($5, $2, $3, $4);
+  int x = std::stoi($5);
+
+    driver.changeCouleurCarapace(x, $2, $3, $4);
     }
     
 

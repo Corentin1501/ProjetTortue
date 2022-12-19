@@ -854,13 +854,15 @@ namespace yy {
   case 25: // color: COULEUR intR intG intB NUMTORTUE
 #line 154 "../parser/parser.yy"
                                          {
-    driver.changeCouleurCarapace(yystack_[0].value.as < std::string > (), yystack_[3].value.as < int > (), yystack_[2].value.as < int > (), yystack_[1].value.as < int > ());
+  int x = std::stoi(yystack_[0].value.as < std::string > ());
+
+    driver.changeCouleurCarapace(x, yystack_[3].value.as < int > (), yystack_[2].value.as < int > (), yystack_[1].value.as < int > ());
     }
-#line 860 "parser.cc"
+#line 862 "parser.cc"
     break;
 
   case 26: // expression: operation
-#line 206 "../parser/parser.yy"
+#line 208 "../parser/parser.yy"
               {
         try{
             yylhs.value.as < int > () = yystack_[0].value.as < ExpressionPtr > ()->calculer(driver.getContexte());
@@ -868,67 +870,67 @@ namespace yy {
             std::cerr << "#-> " << err.what() << std::endl;
         }
     }
-#line 872 "parser.cc"
+#line 874 "parser.cc"
     break;
 
   case 27: // operation: NUMBER
-#line 215 "../parser/parser.yy"
+#line 217 "../parser/parser.yy"
            {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<Constante>(yystack_[0].value.as < int > ());
     }
-#line 880 "parser.cc"
+#line 882 "parser.cc"
     break;
 
   case 28: // operation: '(' operation ')'
-#line 218 "../parser/parser.yy"
+#line 220 "../parser/parser.yy"
                         {
         yylhs.value.as < ExpressionPtr > () = yystack_[1].value.as < ExpressionPtr > ();
     }
-#line 888 "parser.cc"
+#line 890 "parser.cc"
     break;
 
   case 29: // operation: operation '+' operation
-#line 221 "../parser/parser.yy"
+#line 223 "../parser/parser.yy"
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionBinaire>(yystack_[2].value.as < ExpressionPtr > (),yystack_[0].value.as < ExpressionPtr > (),OperateurBinaire::plus);
     }
-#line 896 "parser.cc"
+#line 898 "parser.cc"
     break;
 
   case 30: // operation: operation '-' operation
-#line 224 "../parser/parser.yy"
+#line 226 "../parser/parser.yy"
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionBinaire>(yystack_[2].value.as < ExpressionPtr > (),yystack_[0].value.as < ExpressionPtr > (),OperateurBinaire::moins);
     }
-#line 904 "parser.cc"
+#line 906 "parser.cc"
     break;
 
   case 31: // operation: operation '*' operation
-#line 227 "../parser/parser.yy"
+#line 229 "../parser/parser.yy"
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionBinaire>(yystack_[2].value.as < ExpressionPtr > (),yystack_[0].value.as < ExpressionPtr > (),OperateurBinaire::multiplie);
     }
-#line 912 "parser.cc"
+#line 914 "parser.cc"
     break;
 
   case 32: // operation: operation '/' operation
-#line 230 "../parser/parser.yy"
+#line 232 "../parser/parser.yy"
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionBinaire>(yystack_[2].value.as < ExpressionPtr > (),yystack_[0].value.as < ExpressionPtr > (),OperateurBinaire::divise);
     }
-#line 920 "parser.cc"
+#line 922 "parser.cc"
     break;
 
   case 33: // operation: '-' operation
-#line 233 "../parser/parser.yy"
+#line 235 "../parser/parser.yy"
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionUnaire>(yystack_[0].value.as < ExpressionPtr > (),OperateurUnaire::neg);
     }
-#line 928 "parser.cc"
+#line 930 "parser.cc"
     break;
 
 
-#line 932 "parser.cc"
+#line 934 "parser.cc"
 
             default:
               break;
@@ -1232,8 +1234,8 @@ namespace yy {
   {
        0,    87,    87,    89,    90,    90,    96,   100,   100,   100,
      100,   104,   105,   107,   109,   110,   111,   113,   114,   115,
-     117,   118,   119,   120,   150,   154,   206,   215,   218,   221,
-     224,   227,   230,   233
+     117,   118,   119,   120,   150,   154,   208,   217,   220,   223,
+     226,   229,   232,   235
   };
 
   void
@@ -1314,9 +1316,9 @@ namespace yy {
   }
 
 } // yy
-#line 1318 "parser.cc"
+#line 1320 "parser.cc"
 
-#line 237 "../parser/parser.yy"
+#line 239 "../parser/parser.yy"
 
 
 void yy::Parser::error( const location_type &l, const std::string & err_msg) {
