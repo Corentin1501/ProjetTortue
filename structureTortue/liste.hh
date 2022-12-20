@@ -45,3 +45,5 @@ class conditionnelle : public instruction{
         listePtr listethen() const { return _then; }
         listePtr listeelse() const { return _else; }
 };
+
+void ajoutInstructionDansConditionnelle(std::shared_ptr<liste> l, unsigned int id, instructionPtr i);

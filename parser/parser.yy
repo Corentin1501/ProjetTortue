@@ -101,24 +101,21 @@ finDeLigne:
 
 deplacement:
     AVANCE {                
+        auto m(std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant));
         if(compteurConditionnelles == 0) {
-            std::cout << "pas de contionnelle active : ajout dans la liste globale." << std::endl;
-            listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant)    ); 
+            std::cout << "      pas de contionnelle active : ajout dans la liste globale." << std::endl;
+            listeglobale->ajouterInstruction(m); 
         }
         else {
-            std::cout << "contionnelle actives, id actif : " << std::to_string(compteurConditionnelles) << std::endl;
-            auto cond(findID(listeglobale, compteurConditionnelles));
-            if (cond->mettredanselse()) {
-                std::cout << "ajout dans le else de la conditionelle active." << std::endl;
-                cond->ajouterInstructionElse(std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant));
-            }
-            else {
-                std::cout << "ajout dans le then de la conditionelle active." << std::endl;
-                cond->ajouterInstructionThen(std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant));
-            }
+            std::cout << "      contionnelle actives, id actif : " << std::to_string(compteurConditionnelles) << std::endl;
+            ajoutInstructionDansConditionnelle(listeglobale, compteurConditionnelles, m);
         }
     } 
-    | AVANCE NUMBER {       listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::avant )); } 
+    | AVANCE NUMBER {       
+        auto m(std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::avant));
+        if(compteurConditionnelles == 0) listeglobale->ajouterInstruction(m); 
+        else ajoutInstructionDansConditionnelle(listeglobale, compteurConditionnelles, m);
+    } 
     | AVANCE expression {   listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::avant )); } 
 
     | RECULE {              listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::arriere));     } 
