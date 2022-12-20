@@ -14,28 +14,3 @@ fonction main :
     tourne à gauche 2 fois
     avance 3
 fin fonction
-
-
-    |       |       |       |       | 
-    V       V       V       V       V
-
-
-    deplacement
-
-    SI condition THEN
-
-        deplacement
-        deplacement
-
-        SI condition THEN
-            deplacement
-            deplacement
-        SINON THEN
-            deplacement
-            deplacement
-        ENDIF
-
-    ENDIF
-
-    deplacement
-    deplacement

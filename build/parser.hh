@@ -408,12 +408,16 @@ namespace yy {
       // operation
       char dummy1[sizeof (ExpressionPtr)];
 
+      // condition
+      char dummy2[sizeof (bool)];
+
       // NUMBER
       // expression
-      char dummy2[sizeof (int)];
+      char dummy3[sizeof (int)];
 
       // NUMTORTUE
-      char dummy3[sizeof (std::string)];
+      // position
+      char dummy4[sizeof (std::string)];
     };
 
     /// The size of the largest semantic type.
@@ -543,8 +547,11 @@ namespace yy {
         S_34_1 = 34,                             // $@1
         S_finDeLigne = 35,                       // finDeLigne
         S_deplacement = 36,                      // deplacement
-        S_expression = 37,                       // expression
-        S_operation = 38                         // operation
+        S_position = 37,                         // position
+        S_condition = 38,                        // condition
+        S_conditionelle = 39,                    // conditionelle
+        S_expression = 40,                       // expression
+        S_operation = 41                         // operation
       };
     };
 
@@ -585,12 +592,17 @@ namespace yy {
         value.move< ExpressionPtr > (std::move (that.value));
         break;
 
+      case symbol_kind::S_condition: // condition
+        value.move< bool > (std::move (that.value));
+        break;
+
       case symbol_kind::S_NUMBER: // NUMBER
       case symbol_kind::S_expression: // expression
         value.move< int > (std::move (that.value));
         break;
 
       case symbol_kind::S_NUMTORTUE: // NUMTORTUE
+      case symbol_kind::S_position: // position
         value.move< std::string > (std::move (that.value));
         break;
 
@@ -625,6 +637,20 @@ namespace yy {
       {}
 #else
       basic_symbol (typename Base::kind_type t, const ExpressionPtr& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, bool&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const bool& v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
@@ -685,12 +711,17 @@ switch (yykind)
         value.template destroy< ExpressionPtr > ();
         break;
 
+      case symbol_kind::S_condition: // condition
+        value.template destroy< bool > ();
+        break;
+
       case symbol_kind::S_NUMBER: // NUMBER
       case symbol_kind::S_expression: // expression
         value.template destroy< int > ();
         break;
 
       case symbol_kind::S_NUMTORTUE: // NUMTORTUE
+      case symbol_kind::S_position: // position
         value.template destroy< std::string > ();
         break;
 
@@ -1565,9 +1596,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 58,     ///< Last index in yytable_.
-      yynnts_ = 7,  ///< Number of nonterminal symbols.
-      yyfinal_ = 26 ///< Termination state number.
+      yylast_ = 75,     ///< Last index in yytable_.
+      yynnts_ = 10,  ///< Number of nonterminal symbols.
+      yyfinal_ = 33 ///< Termination state number.
     };
 
 
@@ -1579,7 +1610,7 @@ switch (yykind)
 
 
 } // yy
-#line 1583 "parser.hh"
+#line 1614 "parser.hh"
 
 
 

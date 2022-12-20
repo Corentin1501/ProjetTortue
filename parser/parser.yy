@@ -36,6 +36,7 @@
     #define yylex scanner.yylex
     
     listePtr listeglobale = liste::fabrique();
+    unsigned int compteurConditionnelles = 0 ;
 }
 
 %token                  NL
@@ -88,6 +89,7 @@ programme:
     
     | END NL {  
         listeglobale->executer(); 
+        compteurConditionnelles = 0 ;
         YYACCEPT;   
     }
 
@@ -96,8 +98,26 @@ finDeLigne:
     NL | FOIS NL | COMMENTAIRE | COMMENTAIRE NL
 
 /*####################### FONCTION DE DEPLACEMENT #######################*/
+
 deplacement:
-    AVANCE {                listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant  )); } 
+    AVANCE {                
+        if(compteurConditionnelles == 0) {
+            std::cout << "pas de contionnelle active : ajout dans la liste globale." << std::endl;
+            listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant)    ); 
+        }
+        else {
+            std::cout << "contionnelle actives, id actif : " << std::to_string(compteurConditionnelles) << std::endl;
+            auto cond(findID(listeglobale, compteurConditionnelles));
+            if (cond->mettredanselse()) {
+                std::cout << "ajout dans le else de la conditionelle active." << std::endl;
+                cond->ajouterInstructionElse(std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant));
+            }
+            else {
+                std::cout << "ajout dans le then de la conditionelle active." << std::endl;
+                cond->ajouterInstructionThen(std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant));
+            }
+        }
+    } 
     | AVANCE NUMBER {       listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::avant )); } 
     | AVANCE expression {   listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::avant )); } 
 
@@ -132,29 +152,20 @@ condition:
         else $$ = false;
     }
 
-    /*
-
-    I -> instruction
-        | SI condition THEN I
-        | SI condition THEN C SINON I
-    C -> instruction
-        | SI condition THEN C SINON C
-
-     */
 conditionelle:
-    deplacement finDeLigne conditionelle
-    | SI condition THEN finDeLigne conditionelle
-    // index de listeglobale actuelle pour l'id de la conditionelle then
-    // 
-    | SI condition THEN finDeLigne conditionelleComplete finDeLigne SINON finDeLigne conditionelle
+    SI condition THEN finDeLigne {
+        listeglobale->ajouterInstruction(   std::make_shared<conditionnelle>(driver.getJardin(), 0, ++compteurConditionnelles, $2)   );
+    }
+    | ENDIF finDeLigne {
+        compteurConditionnelles--;
+    }
 
-    /* | condition {   std::cout << $1 << std::endl;   }  */
 
-conditionelleComplete:
-    deplacement finDeLigne conditionelleComplete
-    | SI condition THEN finDeLigne conditionelleComplete SINON finDeLigne conditionelleComplete {}
+
+
 
 /*####################### EXPRESSION ARITHMETIQUE #######################*/
+
 expression:
     operation {
         try{
