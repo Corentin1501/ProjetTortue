@@ -31,6 +31,11 @@
             direction _dir;
 
         public:
+            /**
+             * @brief 
+             * arguments :
+             * Jardin, numero de Tortue, nombre de fois, direction
+            */
             mouvement(JardinRendering * jard, int num, int nombre, direction direc): instruction(jard, num), _nombreDeFois(nombre), _dir(direc) {}
             void executer() const override;
     };
@@ -47,6 +52,11 @@
             sens _sens;
 
         public:
+            /**
+             * @brief 
+             * arguments :
+             * Jardin, numero de Tortue, nombre de fois, sens
+            */
             tourner(JardinRendering * jard, int num, int nombre, sens se): instruction(jard, num), _nombreDeFois(nombre), _sens(se) {}
             void executer() const override;
     };

@@ -97,29 +97,22 @@ finDeLigne:
 
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 deplacement:
-    AVANCE {          
-        // Test de l'ajout du mouvement "avance"   
+    AVANCE {                listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant  )); } 
+    | AVANCE NUMBER {       listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::avant )); } 
+    | AVANCE expression {   listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::avant )); } 
 
-         instructionPtr m1 = std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant);
-        listeglobale->ajouterInstruction(m1);
+    | RECULE {              listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::arriere));     } 
+    | RECULE NUMBER {       listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::arriere));    } 
+    | RECULE expression {   listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::arriere));    } 
 
-    } 
-    | AVANCE NUMBER {
-                for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
-    | AVANCE expression {    for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
+    | SAUTE {            listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, 2, direction::avant));      } 
+    | SAUTE NUMBER {     listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, (2*$2), direction::avant)); } 
+    | SAUTE expression { listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, (2*$2), direction::avant)); } 
 
-    | RECULE {            driver.avancerTortue( 0, (-1) );        } 
-    | RECULE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
-    | RECULE expression { for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
-
-    | SAUTE {            driver.avancerTortue(0,2);      } 
-    | SAUTE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue(0,2);   } 
-    | SAUTE expression { for (int i(0) ; i<$2; i++) driver.avancerTortue(0,2);   } 
-
-    | TOURNED         {   driver.changerOrientationTortue(0, "droite");    } 
-    | TOURNED NUMBER  {   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "droite");   } 
-    | TOURNEG         {   driver.changerOrientationTortue(0, "gauche");    } 
-    | TOURNEG NUMBER  {   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "gauche");   } 
+    | TOURNED         {   listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, 1,  sens::droite));    } 
+    | TOURNED NUMBER  {   listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, $2, sens::droite));    } 
+    | TOURNEG         {   listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, 1,  sens::gauche));    } 
+    | TOURNEG NUMBER  {   listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, $2, sens::gauche));    } 
 
 /*####################### CONDITIONELLE #######################*/
 
