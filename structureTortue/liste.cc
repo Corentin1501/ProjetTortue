@@ -12,7 +12,7 @@ void liste::executer(){
     _instructions.clear();
 }
 
-bool liste::ajouterInstruction(instruction const & instr){
-    _instructions.push_back(instr);
+bool liste::ajouterInstruction(instructionPtr i){
+    _instructions.push_back(i);
     return true;
 }

@@ -1,6 +1,6 @@
 #include "instruction.hh"
 
-void mouvement::executer(){
+void mouvement::executer() const {
     QPoint pos = jardin->position(numeroTortue());
     int x = pos.x();
     int y = pos.y();
@@ -23,7 +23,7 @@ void mouvement::executer(){
     }
 }
 
-void tourner::executer() {     
+void tourner::executer() const {     
     int orientation = static_cast<int>(jardin->orientation(numeroTortue()));
 
     if(_sens == sens::droite) 

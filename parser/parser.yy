@@ -97,10 +97,11 @@ finDeLigne:
 
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 deplacement:
-    AVANCE {                 
-        mouvement m1 = mouvement(driver.getJardin(), 0, 1, direction::avant);
+    AVANCE {          
+        // Test de l'ajout du mouvement "avance"   
+
+         instructionPtr m1 = std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant);
         listeglobale->ajouterInstruction(m1);
-        driver.avancerTortue(0,1);      
 
     } 
     | AVANCE NUMBER {

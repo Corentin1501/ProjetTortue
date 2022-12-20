@@ -6,14 +6,14 @@
 
 class liste {
     private:
-        std::vector<instruction> _instructions;
+        std::vector<instructionPtr> _instructions;
         liste() = default;
 
     public:
         static std::shared_ptr<liste> fabrique();
         void executer();
 
-        bool ajouterInstruction(instruction const & instr);
+        bool ajouterInstruction(instructionPtr i);
 
 };
 

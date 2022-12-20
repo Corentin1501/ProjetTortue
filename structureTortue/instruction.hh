@@ -15,6 +15,7 @@
             JardinRendering * jardin;
             int numeroTortue() const { return _numTortue; }
             instruction(JardinRendering * jard, int num): _numTortue(num), jardin(jard)  {}
+            virtual void executer() const = 0;
 
     };
 
@@ -31,7 +32,7 @@
 
         public:
             mouvement(JardinRendering * jard, int num, int nombre, direction direc): instruction(jard, num), _nombreDeFois(nombre), _dir(direc) {}
-            void executer();
+            void executer() const override;
     };
 
 //###################################################################
@@ -47,6 +48,9 @@
 
         public:
             tourner(JardinRendering * jard, int num, int nombre, sens se): instruction(jard, num), _nombreDeFois(nombre), _sens(se) {}
-            void executer();
+            void executer() const override;
     };
 
+
+using instructionPtr = std::shared_ptr<instruction>;
+    
