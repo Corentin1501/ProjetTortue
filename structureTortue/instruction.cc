@@ -13,13 +13,13 @@ void mouvement::executer() const {
     */
 
     switch(orientation%360){
-        case 0:      for (int i(0) ; i<_nombreDeFois; i++) jardin->changePosition(numeroTortue(), x , y-(1*coeffDirection)); break;
-        case 90:     for (int i(0) ; i<_nombreDeFois; i++) jardin->changePosition(numeroTortue(), x+(1*coeffDirection) , y); break;
-        case -270:   for (int i(0) ; i<_nombreDeFois; i++) jardin->changePosition(numeroTortue(), x+(1*coeffDirection) , y); break;
-        case 180:    for (int i(0) ; i<_nombreDeFois; i++) jardin->changePosition(numeroTortue(), x , y+(1*coeffDirection)); break;
-        case -180:   for (int i(0) ; i<_nombreDeFois; i++) jardin->changePosition(numeroTortue(), x , y+(1*coeffDirection)); break;
-        case 270:    for (int i(0) ; i<_nombreDeFois; i++) jardin->changePosition(numeroTortue(), x-(1*coeffDirection) , y); break;
-        case -90:    for (int i(0) ; i<_nombreDeFois; i++) jardin->changePosition(numeroTortue(), x-(1*coeffDirection) , y); break;
+        case 0:      jardin->changePosition(numeroTortue(), x , y-(_nombreDeFois*coeffDirection)); break;
+        case 90:     jardin->changePosition(numeroTortue(), x+(_nombreDeFois*coeffDirection) , y); break;
+        case -270:   jardin->changePosition(numeroTortue(), x+(_nombreDeFois*coeffDirection) , y); break;
+        case 180:    jardin->changePosition(numeroTortue(), x , y+(_nombreDeFois*coeffDirection)); break;
+        case -180:   jardin->changePosition(numeroTortue(), x , y+(_nombreDeFois*coeffDirection)); break;
+        case 270:    jardin->changePosition(numeroTortue(), x-(_nombreDeFois*coeffDirection) , y); break;
+        case -90:    jardin->changePosition(numeroTortue(), x-(_nombreDeFois*coeffDirection) , y); break;
     }
 }
 
@@ -27,8 +27,8 @@ void tourner::executer() const {
     int orientation = static_cast<int>(jardin->orientation(numeroTortue()));
 
     if(_sens == sens::droite) 
-        jardin->changeOrientation(numeroTortue(), orientation + 90);
+        jardin->changeOrientation(numeroTortue(), orientation + _nombreDeFois*90);
     else if (_sens == sens::gauche) 
-        jardin->changeOrientation(numeroTortue(), orientation - 90);
+        jardin->changeOrientation(numeroTortue(), orientation - _nombreDeFois*90);
 
 }

@@ -140,18 +140,16 @@ position:
     | GAUCHE {    $$ = "à gauche"; } 
 
 condition:
-    MUR position {   
-        if(driver.estMurIci($2 ,0)) $$ = true; 
-        else $$ = false;
-    } 
-    | NOT MUR position {   
-        if(!driver.estMurIci($3 ,0)) $$ = true;
-        else $$ = false;
-    }
+    MUR position {          $$ = (driver.estMurIci($2 ,0))? true : false;   } 
+    | NOT MUR position {    $$ = (!driver.estMurIci($3 ,0))? true : false;  }
 
 conditionelle:
     SI condition THEN finDeLigne {
         listeglobale->ajouterInstruction(   std::make_shared<conditionnelle>(driver.getJardin(), 0, ++compteurConditionnelles, $2)   );
+    }
+    | SINON THEN finDeLigne {
+        std::shared_ptr<conditionnelle> condit = findID(listeglobale, compteurConditionnelles);
+        condit->changement_then_else();
     }
     | ENDIF finDeLigne {
         compteurConditionnelles--;

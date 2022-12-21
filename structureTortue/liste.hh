@@ -42,6 +42,7 @@ class conditionnelle : public instruction{
 
         unsigned int id() const { return _id; }
         bool mettredanselse() const { return _danselse; }
+        void changement_then_else() { _danselse = true; }
         listePtr listethen() const { return _then; }
         listePtr listeelse() const { return _else; }
 };
