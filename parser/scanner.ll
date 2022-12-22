@@ -29,6 +29,7 @@ fin return token::END;
 "fois"      return token::FOIS;     
 
 --(.)* return token::COMMENTAIRE;
+--(.)* return token::COMMENTAIRE;
 
 "avance"    return token::AVANCE;
 "recule"    return token::RECULE;
@@ -56,6 +57,11 @@ fin return token::END;
 "derriere"  return token::DERRIERE;
 "à droite"  return token::DROITE;
 "à gauche"  return token::GAUCHE;
+"couleur"|"couleur carapace" return token::COULEUR; 
+"couleur motif" return token::COULEURMOTIF; 
+
+"couleur"|"couleur carapace" return token::COULEUR; 
+"couleur motif" return token::COULEURMOTIF; 
 
 "+" return '+';
 "*" return '*';
@@ -69,6 +75,11 @@ fin return token::END;
 @[0-9]+      {
     yylval->build<std::string>(yytext);
     return token::NUMTORTUE;
+}
+
+#[a-zA-Z0-9]{6} {
+    yylval->build<std::string>(yytext);
+    return token::HEXCODE;
 }
 
 [0-9]+      {

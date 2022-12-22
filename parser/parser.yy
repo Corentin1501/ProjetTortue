@@ -52,11 +52,9 @@
 %token                  TOURNED
 %token                  TOURNEG
 
-%token                  SI
-%token                  THEN
-%token                  SINON
-%token                  ENDIF
 
+%token                  COULEUR
+%token                  COULEURMOTIF
 %token                  WHILE
 %token                  ENDWHILE
 
@@ -72,6 +70,8 @@
 %token                  GAUCHE
 
 %token <std::string>    NUMTORTUE
+%token <std::string>    HEXCODE
+
 %token <int>            NUMBER
 
 %type <ExpressionPtr>   operation
@@ -92,12 +92,14 @@ programme:
     | conditionelle     programme
     | boucle            programme
     | finDeLigne        programme
+    | color finDeLigne programme
 
     | END NL {  
         listeglobale->executer(); 
         listeglobale->vider();
         YYACCEPT;   
     }
+
 
 numeroDeTortue:
     NUMTORTUE {  $$ = std::stoi($1.substr(1));   }
@@ -163,13 +165,8 @@ tourner:
         else file.front()->ajouterInstruction(std::make_shared<tourner>(driver.getJardin(), $3, $2,  sens::gauche));
     }
 
-/*####################### CONDITIONELLE #######################*/
+/*####################### INSTRUCTIONS SPECIALES #######################*/
 
-position:
-    DEVANT {    $$ = "devant";   } 
-    | DERRIERE {  $$ = "derrière"; } 
-    | DROITE {    $$ = "à droite"; } 
-    | GAUCHE {    $$ = "à gauche"; } 
 
 condition:
     MUR {          $$ = true;   } 
@@ -212,6 +209,12 @@ boucle:
     | ENDREPETE finDeLigne {
         file.pop_front();
     }
+
+color:
+    COULEUR HEXCODE {                   std::array<int, 3> n = convert($2);     driver.changeCouleurCarapace(0,  n[0], n[1], n[2]);     }
+    | COULEUR HEXCODE numeroDeTortue {  std::array<int, 3> n = convert($2);     driver.changeCouleurCarapace($3, n[0], n[1], n[2]);     }
+    | COULEURMOTIF HEXCODE {                   std::array<int, 3> n = convert($2);     driver.changeCouleurMotif(0,  n[0], n[1], n[2]);     }
+    | COULEURMOTIF HEXCODE numeroDeTortue{     std::array<int, 3> n = convert($2);     driver.changeCouleurMotif($3, n[0], n[1], n[2]);     }
 
 
 

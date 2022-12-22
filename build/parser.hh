@@ -413,13 +413,21 @@ namespace yy {
 
       // NUMBER
       // numeroDeTortue
+<<<<<<< HEAD
       // numeroOuRien
+=======
+>>>>>>> couleur
       // expression
       char dummy3[sizeof (int)];
 
       // NUMTORTUE
+<<<<<<< HEAD
       // position
       char dummy4[sizeof (std::string)];
+=======
+      // HEXCODE
+      char dummy3[sizeof (std::string)];
+>>>>>>> couleur
     };
 
     /// The size of the largest semantic type.
@@ -480,6 +488,7 @@ namespace yy {
     SAUTE = 264,                   // SAUTE
     TOURNED = 265,                 // TOURNED
     TOURNEG = 266,                 // TOURNEG
+<<<<<<< HEAD
     SI = 267,                      // SI
     THEN = 268,                    // THEN
     SINON = 269,                   // SINON
@@ -498,6 +507,14 @@ namespace yy {
     NUMTORTUE = 282,               // NUMTORTUE
     NUMBER = 283,                  // NUMBER
     NEG = 284                      // NEG
+=======
+    COULEUR = 267,                 // COULEUR
+    COULEURMOTIF = 268,            // COULEURMOTIF
+    NUMTORTUE = 269,               // NUMTORTUE
+    HEXCODE = 270,                 // HEXCODE
+    NUMBER = 271,                  // NUMBER
+    NEG = 272                      // NEG
+>>>>>>> couleur
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -514,7 +531,11 @@ namespace yy {
     {
       enum symbol_kind_type
       {
+<<<<<<< HEAD
         YYNTOKENS = 36, ///< Number of tokens.
+=======
+        YYNTOKENS = 24, ///< Number of tokens.
+>>>>>>> couleur
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -528,6 +549,7 @@ namespace yy {
         S_SAUTE = 9,                             // SAUTE
         S_TOURNED = 10,                          // TOURNED
         S_TOURNEG = 11,                          // TOURNEG
+<<<<<<< HEAD
         S_SI = 12,                               // SI
         S_THEN = 13,                             // THEN
         S_SINON = 14,                            // SINON
@@ -568,6 +590,28 @@ namespace yy {
         S_boucle = 49,                           // boucle
         S_expression = 50,                       // expression
         S_operation = 51                         // operation
+=======
+        S_COULEUR = 12,                          // COULEUR
+        S_COULEURMOTIF = 13,                     // COULEURMOTIF
+        S_NUMTORTUE = 14,                        // NUMTORTUE
+        S_HEXCODE = 15,                          // HEXCODE
+        S_NUMBER = 16,                           // NUMBER
+        S_17_ = 17,                              // '-'
+        S_18_ = 18,                              // '+'
+        S_19_ = 19,                              // '*'
+        S_20_ = 20,                              // '/'
+        S_NEG = 21,                              // NEG
+        S_22_ = 22,                              // '('
+        S_23_ = 23,                              // ')'
+        S_YYACCEPT = 24,                         // $accept
+        S_programme = 25,                        // programme
+        S_numeroDeTortue = 26,                   // numeroDeTortue
+        S_finDeLigne = 27,                       // finDeLigne
+        S_deplacement = 28,                      // deplacement
+        S_color = 29,                            // color
+        S_expression = 30,                       // expression
+        S_operation = 31                         // operation
+>>>>>>> couleur
       };
     };
 
@@ -614,13 +658,20 @@ namespace yy {
 
       case symbol_kind::S_NUMBER: // NUMBER
       case symbol_kind::S_numeroDeTortue: // numeroDeTortue
+<<<<<<< HEAD
       case symbol_kind::S_numeroOuRien: // numeroOuRien
+=======
+>>>>>>> couleur
       case symbol_kind::S_expression: // expression
         value.move< int > (std::move (that.value));
         break;
 
       case symbol_kind::S_NUMTORTUE: // NUMTORTUE
+<<<<<<< HEAD
       case symbol_kind::S_position: // position
+=======
+      case symbol_kind::S_HEXCODE: // HEXCODE
+>>>>>>> couleur
         value.move< std::string > (std::move (that.value));
         break;
 
@@ -735,13 +786,20 @@ switch (yykind)
 
       case symbol_kind::S_NUMBER: // NUMBER
       case symbol_kind::S_numeroDeTortue: // numeroDeTortue
+<<<<<<< HEAD
       case symbol_kind::S_numeroOuRien: // numeroOuRien
+=======
+>>>>>>> couleur
       case symbol_kind::S_expression: // expression
         value.template destroy< int > ();
         break;
 
       case symbol_kind::S_NUMTORTUE: // NUMTORTUE
+<<<<<<< HEAD
       case symbol_kind::S_position: // position
+=======
+      case symbol_kind::S_HEXCODE: // HEXCODE
+>>>>>>> couleur
         value.template destroy< std::string > ();
         break;
 
@@ -843,7 +901,7 @@ switch (yykind)
 #endif
       {
         YY_ASSERT (tok == token::YYEOF
-                   || (token::YYerror <= tok && tok <= token::GAUCHE)
+                   || (token::YYerror <= tok && tok <= token::COULEURMOTIF)
                    || tok == 45
                    || tok == 43
                    || tok == 42
@@ -869,7 +927,7 @@ switch (yykind)
         : super_type(token_type (tok), v, l)
 #endif
       {
-        YY_ASSERT (tok == token::NUMTORTUE);
+        YY_ASSERT ((token::NUMTORTUE <= tok && tok <= token::HEXCODE));
       }
     };
 
@@ -1105,36 +1163,37 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_SI (location_type l)
+      make_COULEUR (location_type l)
       {
-        return symbol_type (token::SI, std::move (l));
+        return symbol_type (token::COULEUR, std::move (l));
       }
 #else
       static
       symbol_type
-      make_SI (const location_type& l)
+      make_COULEUR (const location_type& l)
       {
-        return symbol_type (token::SI, l);
+        return symbol_type (token::COULEUR, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_THEN (location_type l)
+      make_COULEURMOTIF (location_type l)
       {
-        return symbol_type (token::THEN, std::move (l));
+        return symbol_type (token::COULEURMOTIF, std::move (l));
       }
 #else
       static
       symbol_type
-      make_THEN (const location_type& l)
+      make_COULEURMOTIF (const location_type& l)
       {
-        return symbol_type (token::THEN, l);
+        return symbol_type (token::COULEURMOTIF, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+<<<<<<< HEAD
       make_SINON (location_type l)
       {
         return symbol_type (token::SINON, std::move (l));
@@ -1316,21 +1375,9 @@ switch (yykind)
       static
       symbol_type
       make_GAUCHE (location_type l)
-      {
-        return symbol_type (token::GAUCHE, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_GAUCHE (const location_type& l)
-      {
-        return symbol_type (token::GAUCHE, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
+=======
       make_NUMTORTUE (std::string v, location_type l)
+>>>>>>> couleur
       {
         return symbol_type (token::NUMTORTUE, std::move (v), std::move (l));
       }
@@ -1340,6 +1387,21 @@ switch (yykind)
       make_NUMTORTUE (const std::string& v, const location_type& l)
       {
         return symbol_type (token::NUMTORTUE, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_HEXCODE (std::string v, location_type l)
+      {
+        return symbol_type (token::HEXCODE, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_HEXCODE (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::HEXCODE, v, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1676,9 +1738,15 @@ switch (yykind)
     /// Constants.
     enum
     {
+<<<<<<< HEAD
       yylast_ = 109,     ///< Last index in yytable_.
       yynnts_ = 16,  ///< Number of nonterminal symbols.
       yyfinal_ = 56 ///< Termination state number.
+=======
+      yylast_ = 50,     ///< Last index in yytable_.
+      yynnts_ = 8,  ///< Number of nonterminal symbols.
+      yyfinal_ = 30 ///< Termination state number.
+>>>>>>> couleur
     };
 
 
@@ -1690,7 +1758,11 @@ switch (yykind)
 
 
 } // yy
+<<<<<<< HEAD
 #line 1694 "parser.hh"
+=======
+#line 1454 "parser.hh"
+>>>>>>> couleur
 
 
 

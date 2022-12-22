@@ -366,6 +366,7 @@ static const YY_CHAR yy_ec[256] =
        25,   26,   27,   28,   29,   30,   31,   32,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,   33,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,   33,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -738,32 +739,32 @@ return token::TOURNEG;
 case 9:
 YY_RULE_SETUP
 #line 41 "../parser/scanner.ll"
-return token::SI;
+return token::COULEUR; 
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 42 "../parser/scanner.ll"
-return token::ENDIF;
+return token::COULEURMOTIF; 
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 43 "../parser/scanner.ll"
-return token::THEN;
+#line 44 "../parser/scanner.ll"
+return '+';
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 44 "../parser/scanner.ll"
-return token::SINON;
+#line 45 "../parser/scanner.ll"
+return '*';
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 46 "../parser/scanner.ll"
-return token::MUR;
+return '-';
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 47 "../parser/scanner.ll"
-return token::NOT;
+return '/';
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
@@ -850,7 +851,7 @@ YY_RULE_SETUP
 #line 70 "../parser/scanner.ll"
 {
     yylval->build<std::string>(yytext);
-    return token::NUMTORTUE;
+    return token::HEXCODE;
 }
 	YY_BREAK
 case 32:
