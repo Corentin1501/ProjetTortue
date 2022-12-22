@@ -86,7 +86,7 @@ programme:
 
     deplacement finDeLigne      programme
     | conditionelle  programme
-    | color programme
+    | color finDeLigne programme
     | NUMTORTUE finDeLigne {
         std::string chaineNumero = $1.substr(1);
         int num = std::stoi(chaineNumero);
@@ -122,46 +122,20 @@ deplacement:
 /*####################### INSTRUCTIONS SPECIALES #######################*/
 
 
-// CODE DE COLOR TROUVÉ ICI : https://stackoverflow.com/questions/18398468/c-stl-convert-string-with-rgb-color-to-3-int-values
+color:
+    COULEUR HEXCODE {
+        std::string s = $2.substr(1);
+        int r = std::stoi(s.substr(0,2),0,16);
+        int g = std::stoi(s.substr(2,2),0,16);
+        int b = std::stoi(s.substr(4,2),0,16);
 
+        std::cout << "r:"<<std::to_string(r) << " ";
+        std::cout << "g:"<<std::to_string(g) << " ";
+        std::cout << "b:"<<std::to_string(b) << std::endl;
 
-color: 
-    /* COULEUR HEXCODE { //il faut changer #rrggbb par une string qui contient la valeur du #rrggbb
-    // The hex code that should be converted ...
-    std::string hexCode=$2;
-
-    // ... and the target rgb integer values.
-    int r, g, b;
-
-    // Remove the hashtag ...
-    if(hexCode.at(0) == '#') {
-        hexCode = hexCode.erase(0, 1);
-    }
-
-    // ... and extract the rgb values.
-    std::istringstream(hexCode.substr(0,2)) >> std::hex >> r;
-    std::istringstream(hexCode.substr(2,2)) >> std::hex >> g;
-    std::istringstream(hexCode.substr(4,2)) >> std::hex >> b;    
+        driver.changeCouleurCarapace(0, r,g,b);
     
-    void setCouleurCarapace(QColor::QColor(r,g,b));
-    //utiliser plutot la fonction changer couleur de la classe jarinrendering.hh
-    
-    } 
-    | */   COULEUR intR intG intB {
-    driver.changeCouleurCarapace(0, $2, $3, $4);
     }
-
-    |    COULEUR intR intG intB NUMTORTUE{
-    driver.changeCouleurCarapace($5, $2, $3, $4);
-    }
-    
-
-/* birth:
-    NombreDeTortue {}
-
-    void setCouleurCorps(QColor);
-    void setCouleurCarapace(QColor);
-    void setCouleurMotif(QColor); */
 
 /*####################### CONDITIONELLE #######################*/
 

@@ -68,8 +68,8 @@ fin return token::END;
     return token::NUMTORTUE;
 }
 
-#[A-Za-z0-9][A-Za-z0-9][A-Za-z0-9][A-Za-z0-9][A-Za-z0-9][A-Za-z0-9]      {
-    yylval->build<int>(std::atoi(yytext));
+#[a-zA-Z0-9]{6} {
+    yylval->build<std::string>(yytext);
     return token::HEXCODE;
 }
 

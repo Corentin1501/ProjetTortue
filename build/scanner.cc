@@ -841,7 +841,7 @@ case 29:
 YY_RULE_SETUP
 #line 72 "../parser/scanner.ll"
 {
-    yylval->build<int>(std::atoi(yytext));
+    yylval->build<std::string>(yytext);
     return token::HEXCODE;
 }
 	YY_BREAK
