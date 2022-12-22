@@ -873,56 +873,76 @@ namespace yy {
 #line 874 "parser.cc"
     break;
 
+<<<<<<< HEAD
   case 26: // operation: NUMBER
 #line 189 "../parser/parser.yy"
-           {
-        yylhs.value.as < ExpressionPtr > () = std::make_shared<Constante>(yystack_[0].value.as < int > ());
-    }
-#line 882 "parser.cc"
-    break;
+=======
+  case 27: // operation: NUMBER
 
-  case 27: // operation: '(' operation ')'
-#line 192 "../parser/parser.yy"
-                        {
-        yylhs.value.as < ExpressionPtr > () = yystack_[1].value.as < ExpressionPtr > ();
+  case 28: // operation: '(' operation ')'
     }
 #line 890 "parser.cc"
     break;
 
+<<<<<<< HEAD
   case 28: // operation: operation '+' operation
 #line 195 "../parser/parser.yy"
+=======
+  case 29: // operation: operation '+' operation
+#line 223 "../parser/parser.yy"
+>>>>>>> 163bba95acd9bec9b0f64e00e90744ba6c070140
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionBinaire>(yystack_[2].value.as < ExpressionPtr > (),yystack_[0].value.as < ExpressionPtr > (),OperateurBinaire::plus);
     }
 #line 898 "parser.cc"
     break;
 
+<<<<<<< HEAD
   case 29: // operation: operation '-' operation
 #line 198 "../parser/parser.yy"
+=======
+  case 30: // operation: operation '-' operation
+#line 226 "../parser/parser.yy"
+>>>>>>> 163bba95acd9bec9b0f64e00e90744ba6c070140
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionBinaire>(yystack_[2].value.as < ExpressionPtr > (),yystack_[0].value.as < ExpressionPtr > (),OperateurBinaire::moins);
     }
 #line 906 "parser.cc"
     break;
 
+<<<<<<< HEAD
   case 30: // operation: operation '*' operation
 #line 201 "../parser/parser.yy"
+=======
+  case 31: // operation: operation '*' operation
+#line 229 "../parser/parser.yy"
+>>>>>>> 163bba95acd9bec9b0f64e00e90744ba6c070140
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionBinaire>(yystack_[2].value.as < ExpressionPtr > (),yystack_[0].value.as < ExpressionPtr > (),OperateurBinaire::multiplie);
     }
 #line 914 "parser.cc"
     break;
 
+<<<<<<< HEAD
   case 31: // operation: operation '/' operation
 #line 204 "../parser/parser.yy"
+=======
+  case 32: // operation: operation '/' operation
+#line 232 "../parser/parser.yy"
+>>>>>>> 163bba95acd9bec9b0f64e00e90744ba6c070140
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionBinaire>(yystack_[2].value.as < ExpressionPtr > (),yystack_[0].value.as < ExpressionPtr > (),OperateurBinaire::divise);
     }
 #line 922 "parser.cc"
     break;
 
+<<<<<<< HEAD
   case 32: // operation: '-' operation
 #line 207 "../parser/parser.yy"
+=======
+  case 33: // operation: '-' operation
+#line 235 "../parser/parser.yy"
+>>>>>>> 163bba95acd9bec9b0f64e00e90744ba6c070140
                               {
         yylhs.value.as < ExpressionPtr > () = std::make_shared<ExpressionUnaire>(yystack_[0].value.as < ExpressionPtr > (),OperateurUnaire::neg);
     }
@@ -1231,8 +1251,13 @@ namespace yy {
   {
        0,    87,    87,    89,    90,    90,    96,   100,   100,   100,
      100,   104,   105,   107,   109,   110,   111,   113,   114,   115,
+<<<<<<< HEAD
      117,   118,   119,   120,   126,   180,   189,   192,   195,   198,
      201,   204,   207
+=======
+     117,   118,   119,   120,   150,   154,   208,   217,   220,   223,
+     226,   229,   232,   235
+>>>>>>> 163bba95acd9bec9b0f64e00e90744ba6c070140
   };
 
   void
@@ -1313,9 +1338,15 @@ namespace yy {
   }
 
 } // yy
+<<<<<<< HEAD
 #line 1317 "parser.cc"
 
 #line 211 "../parser/parser.yy"
+=======
+#line 1320 "parser.cc"
+
+#line 239 "../parser/parser.yy"
+>>>>>>> 163bba95acd9bec9b0f64e00e90744ba6c070140
 
 
 void yy::Parser::error( const location_type &l, const std::string & err_msg) {
