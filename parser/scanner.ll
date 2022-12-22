@@ -46,6 +46,10 @@ fin return token::END;
 "pas de"    return token::NOT;
 
 "tant que"  return token::WHILE;
+"fin tant que"  return token::ENDWHILE;
+
+"repete"    return token::REPETE;
+"fin repete"    return token::ENDREPETE;
 
 "devant"    return token::DEVANT;
 "derriere"  return token::DERRIERE;

@@ -483,15 +483,18 @@ namespace yy {
     SINON = 269,                   // SINON
     ENDIF = 270,                   // ENDIF
     WHILE = 271,                   // WHILE
-    MUR = 272,                     // MUR
-    NOT = 273,                     // NOT
-    DEVANT = 274,                  // DEVANT
-    DERRIERE = 275,                // DERRIERE
-    DROITE = 276,                  // DROITE
-    GAUCHE = 277,                  // GAUCHE
-    NUMTORTUE = 278,               // NUMTORTUE
-    NUMBER = 279,                  // NUMBER
-    NEG = 280                      // NEG
+    ENDWHILE = 272,                // ENDWHILE
+    REPETE = 273,                  // REPETE
+    ENDREPETE = 274,               // ENDREPETE
+    MUR = 275,                     // MUR
+    NOT = 276,                     // NOT
+    DEVANT = 277,                  // DEVANT
+    DERRIERE = 278,                // DERRIERE
+    DROITE = 279,                  // DROITE
+    GAUCHE = 280,                  // GAUCHE
+    NUMTORTUE = 281,               // NUMTORTUE
+    NUMBER = 282,                  // NUMBER
+    NEG = 283                      // NEG
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -508,7 +511,7 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 32, ///< Number of tokens.
+        YYNTOKENS = 35, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -527,31 +530,35 @@ namespace yy {
         S_SINON = 14,                            // SINON
         S_ENDIF = 15,                            // ENDIF
         S_WHILE = 16,                            // WHILE
-        S_MUR = 17,                              // MUR
-        S_NOT = 18,                              // NOT
-        S_DEVANT = 19,                           // DEVANT
-        S_DERRIERE = 20,                         // DERRIERE
-        S_DROITE = 21,                           // DROITE
-        S_GAUCHE = 22,                           // GAUCHE
-        S_NUMTORTUE = 23,                        // NUMTORTUE
-        S_NUMBER = 24,                           // NUMBER
-        S_25_ = 25,                              // '-'
-        S_26_ = 26,                              // '+'
-        S_27_ = 27,                              // '*'
-        S_28_ = 28,                              // '/'
-        S_NEG = 29,                              // NEG
-        S_30_ = 30,                              // '('
-        S_31_ = 31,                              // ')'
-        S_YYACCEPT = 32,                         // $accept
-        S_programme = 33,                        // programme
-        S_34_1 = 34,                             // $@1
-        S_finDeLigne = 35,                       // finDeLigne
-        S_deplacement = 36,                      // deplacement
-        S_position = 37,                         // position
-        S_condition = 38,                        // condition
-        S_conditionelle = 39,                    // conditionelle
-        S_expression = 40,                       // expression
-        S_operation = 41                         // operation
+        S_ENDWHILE = 17,                         // ENDWHILE
+        S_REPETE = 18,                           // REPETE
+        S_ENDREPETE = 19,                        // ENDREPETE
+        S_MUR = 20,                              // MUR
+        S_NOT = 21,                              // NOT
+        S_DEVANT = 22,                           // DEVANT
+        S_DERRIERE = 23,                         // DERRIERE
+        S_DROITE = 24,                           // DROITE
+        S_GAUCHE = 25,                           // GAUCHE
+        S_NUMTORTUE = 26,                        // NUMTORTUE
+        S_NUMBER = 27,                           // NUMBER
+        S_28_ = 28,                              // '-'
+        S_29_ = 29,                              // '+'
+        S_30_ = 30,                              // '*'
+        S_31_ = 31,                              // '/'
+        S_NEG = 32,                              // NEG
+        S_33_ = 33,                              // '('
+        S_34_ = 34,                              // ')'
+        S_YYACCEPT = 35,                         // $accept
+        S_programme = 36,                        // programme
+        S_37_1 = 37,                             // $@1
+        S_finDeLigne = 38,                       // finDeLigne
+        S_deplacement = 39,                      // deplacement
+        S_position = 40,                         // position
+        S_condition = 41,                        // condition
+        S_conditionelle = 42,                    // conditionelle
+        S_boucle = 43,                           // boucle
+        S_expression = 44,                       // expression
+        S_operation = 45                         // operation
       };
     };
 
@@ -1160,6 +1167,51 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_ENDWHILE (location_type l)
+      {
+        return symbol_type (token::ENDWHILE, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_ENDWHILE (const location_type& l)
+      {
+        return symbol_type (token::ENDWHILE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_REPETE (location_type l)
+      {
+        return symbol_type (token::REPETE, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_REPETE (const location_type& l)
+      {
+        return symbol_type (token::REPETE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_ENDREPETE (location_type l)
+      {
+        return symbol_type (token::ENDREPETE, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_ENDREPETE (const location_type& l)
+      {
+        return symbol_type (token::ENDREPETE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_MUR (location_type l)
       {
         return symbol_type (token::MUR, std::move (l));
@@ -1596,9 +1648,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 77,     ///< Last index in yytable_.
-      yynnts_ = 10,  ///< Number of nonterminal symbols.
-      yyfinal_ = 35 ///< Termination state number.
+      yylast_ = 89,     ///< Last index in yytable_.
+      yynnts_ = 11,  ///< Number of nonterminal symbols.
+      yyfinal_ = 44 ///< Termination state number.
     };
 
 
@@ -1610,7 +1662,7 @@ switch (yykind)
 
 
 } // yy
-#line 1614 "parser.hh"
+#line 1666 "parser.hh"
 
 
 

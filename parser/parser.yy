@@ -37,6 +37,8 @@
     
     listePtr listeglobale = liste::fabrique();
     unsigned int compteurConditionnelles = 0 ;
+    unsigned int compteurWhile = 0 ;
+    unsigned int compteurRepete = 0 ;
 }
 
 %token                  NL
@@ -56,6 +58,10 @@
 %token                  ENDIF
 
 %token                  WHILE
+%token                  ENDWHILE
+
+%token                  REPETE
+%token                  ENDREPETE
 
 %token                  MUR
 %token                  NOT
@@ -80,7 +86,8 @@
 programme:
 
     deplacement finDeLigne      programme
-    | conditionelle  programme
+    | conditionelle programme
+    | boucle programme
     | NUMTORTUE finDeLigne {
         std::string chaineNumero = $1.substr(1);
         int num = std::stoi(chaineNumero);
@@ -155,7 +162,21 @@ conditionelle:
         compteurConditionnelles--;
     }
 
+/*####################### BOUCLES #######################*/
 
+boucle:
+    WHILE condition THEN finDeLigne {
+        listeglobale->ajouterInstruction( std::make_shared<tantque>(driver.getJardin(), 0, ++compteurWhile, $2));
+    }
+    | ENDWHILE finDeLigne {
+        --compteurWhile;
+    }
+    | REPETE NUMBER THEN finDeLigne {
+        listeglobale->ajouterInstruction( std::make_shared<repete>(driver.getJardin(), 0, ++compteurRepete, $2));
+    }
+    | ENDREPETE finDeLigne {
+        --compteurRepete;
+    }
 
 
 

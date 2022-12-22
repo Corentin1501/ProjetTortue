@@ -50,3 +50,12 @@ void ajoutInstructionDansConditionnelle(listePtr l, unsigned int id, instruction
         std::cout << "ajout dans le then de la conditionelle active." << std::endl;
     }
 }
+
+void tantque::executer() const {
+    while(_condition)
+        _then->executer();
+}
+void repete::executer() const {
+    for(unsigned int i(0); i<_nombreDeFois; i++)
+        _then->executer();
+}
