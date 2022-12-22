@@ -32,9 +32,7 @@
 
     #undef  yylex
     #define yylex scanner.yylex
-    
-    bool dansBlocIF = false;
-    bool cond = false;
+
 }
 
 %token                  NL
@@ -48,19 +46,6 @@
 %token                  TOURNED
 %token                  TOURNEG
 
-%token                  SI
-%token                  THEN
-%token                  SINON
-%token                  ENDIF
-
-%token                  WHILE
-
-%token                  MUR
-%token                  NOT
-%token                  DEVANT
-%token                  DERRIERE
-%token                  DROITE
-%token                  GAUCHE
 
 %token<std::string>     NUMTORTUE
 
@@ -68,8 +53,7 @@
 
 %type <ExpressionPtr>   operation
 %type <int>             expression
-%type <std::string>     position
-%type <bool>            condition
+%type <int>             numeroDeTortue
 %left '-' '+'
 %left '*' '/'
 %precedence  NEG
@@ -79,20 +63,20 @@
 programme:
 
     deplacement finDeLigne      programme
-    | conditionelle  programme
     
     | END NL {  YYACCEPT;   }
-
+    
+numeroDeTortue:
+    NUMTORTUE {  $$ = std::stoi($1.substr(1));   }
 
 finDeLigne:
     NL | FOIS NL | COMMENTAIRE | COMMENTAIRE NL
 
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 deplacement:
-    AVANCE {                 driver.avancerTortue(0,1);                              } 
-    | AVANCE NUMBER {
-                for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
-    | AVANCE expression {    for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
+    AVANCE {                driver.avancerTortue(0,1);                              } 
+    | AVANCE NUMBER {       for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
+    | AVANCE expression {   for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
 
     | RECULE {            driver.avancerTortue( 0, (-1) );        } 
     | RECULE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
@@ -107,61 +91,6 @@ deplacement:
     | TOURNEG         {   driver.changerOrientationTortue(0, "gauche");    } 
     | TOURNEG NUMBER  {   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "gauche");   } 
 
-/*####################### CONDITIONELLE #######################*/
-
-position:
-    DEVANT {    $$ = "devant";   } 
-    | DERRIERE {  $$ = "derrière"; } 
-    | DROITE {    $$ = "à droite"; } 
-    | GAUCHE {    $$ = "à gauche"; } 
-
-condition:
-    MUR position {   
-        if(driver.estMurIci($2 ,0)) $$ = true; 
-        else $$ = false;
-    } 
-    | NOT MUR position {   
-        if(!driver.estMurIci($3 ,0)) $$ = true;
-        else $$ = false;
-    }
-
-    /*
-
-    I -> instruction
-        | SI condition THEN I
-        | SI condition THEN C SINON I
-    C -> instruction
-        | SI condition THEN C SINON C
-
-     */
-conditionelle:
-    deplacement finDeLigne conditionelle
-    | SI condition THEN finDeLigne conditionelle
-    | SI condition THEN finDeLigne conditionelleComplete finDeLigne SINON finDeLigne conditionelle
-
-    /* | condition {   std::cout << $1 << std::endl;   }  */
-
-<<<<<<< HEAD
-    | NUMTORTUE NL {
-        std::string chaineNumero = $1.substr(1);
-        int numTortue = std::stoi(chaineNumero);
-        std::cout << "numero detecté : " << numTortue << std::endl;
-    } programme
-
-    | END NL {
-        YYACCEPT;
-    }
-
-instruction:
-    expression  {
-    }
-    | affectation {
-    }
-=======
-conditionelleComplete:
-    deplacement finDeLigne conditionelleComplete
-    | SI condition THEN finDeLigne conditionelleComplete SINON finDeLigne conditionelleComplete {}
->>>>>>> 97552c54239cfb393f51b6321c32eeb3321fea5c
 
 /*####################### EXPRESSION ARITHMETIQUE #######################*/
 expression:
