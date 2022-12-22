@@ -52,9 +52,11 @@
 %token                  TOURNED
 %token                  TOURNEG
 
+%token                  SI
+%token                  THEN
+%token                  SINON
+%token                  ENDIF
 
-%token                  COULEUR
-%token                  COULEURMOTIF
 %token                  WHILE
 %token                  ENDWHILE
 
@@ -64,12 +66,16 @@
 %token                  MUR
 %token                  NOT
 %token                  VIDE
+
 %token                  DEVANT
 %token                  DERRIERE
 %token                  DROITE
 %token                  GAUCHE
 
 %token <std::string>    NUMTORTUE
+
+%token                  COULEUR
+%token                  COULEURMOTIF
 %token <std::string>    HEXCODE
 
 %token <int>            NUMBER
@@ -167,6 +173,11 @@ tourner:
 
 /*####################### INSTRUCTIONS SPECIALES #######################*/
 
+position:
+    DEVANT {    $$ = "devant";   } 
+    | DERRIERE {  $$ = "derrière"; } 
+    | DROITE {    $$ = "à droite"; } 
+    | GAUCHE {    $$ = "à gauche"; } 
 
 condition:
     MUR {          $$ = true;   } 

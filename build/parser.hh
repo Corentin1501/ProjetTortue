@@ -413,21 +413,14 @@ namespace yy {
 
       // NUMBER
       // numeroDeTortue
-<<<<<<< HEAD
       // numeroOuRien
-=======
->>>>>>> couleur
       // expression
       char dummy3[sizeof (int)];
 
       // NUMTORTUE
-<<<<<<< HEAD
+      // HEXCODE
       // position
       char dummy4[sizeof (std::string)];
-=======
-      // HEXCODE
-      char dummy3[sizeof (std::string)];
->>>>>>> couleur
     };
 
     /// The size of the largest semantic type.
@@ -488,7 +481,6 @@ namespace yy {
     SAUTE = 264,                   // SAUTE
     TOURNED = 265,                 // TOURNED
     TOURNEG = 266,                 // TOURNEG
-<<<<<<< HEAD
     SI = 267,                      // SI
     THEN = 268,                    // THEN
     SINON = 269,                   // SINON
@@ -505,16 +497,11 @@ namespace yy {
     DROITE = 280,                  // DROITE
     GAUCHE = 281,                  // GAUCHE
     NUMTORTUE = 282,               // NUMTORTUE
-    NUMBER = 283,                  // NUMBER
-    NEG = 284                      // NEG
-=======
-    COULEUR = 267,                 // COULEUR
-    COULEURMOTIF = 268,            // COULEURMOTIF
-    NUMTORTUE = 269,               // NUMTORTUE
-    HEXCODE = 270,                 // HEXCODE
-    NUMBER = 271,                  // NUMBER
-    NEG = 272                      // NEG
->>>>>>> couleur
+    COULEUR = 283,                 // COULEUR
+    COULEURMOTIF = 284,            // COULEURMOTIF
+    HEXCODE = 285,                 // HEXCODE
+    NUMBER = 286,                  // NUMBER
+    NEG = 287                      // NEG
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -531,11 +518,7 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-<<<<<<< HEAD
-        YYNTOKENS = 36, ///< Number of tokens.
-=======
-        YYNTOKENS = 24, ///< Number of tokens.
->>>>>>> couleur
+        YYNTOKENS = 39, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -549,7 +532,6 @@ namespace yy {
         S_SAUTE = 9,                             // SAUTE
         S_TOURNED = 10,                          // TOURNED
         S_TOURNEG = 11,                          // TOURNEG
-<<<<<<< HEAD
         S_SI = 12,                               // SI
         S_THEN = 13,                             // THEN
         S_SINON = 14,                            // SINON
@@ -566,52 +548,34 @@ namespace yy {
         S_DROITE = 25,                           // DROITE
         S_GAUCHE = 26,                           // GAUCHE
         S_NUMTORTUE = 27,                        // NUMTORTUE
-        S_NUMBER = 28,                           // NUMBER
-        S_29_ = 29,                              // '-'
-        S_30_ = 30,                              // '+'
-        S_31_ = 31,                              // '*'
-        S_32_ = 32,                              // '/'
-        S_NEG = 33,                              // NEG
-        S_34_ = 34,                              // '('
-        S_35_ = 35,                              // ')'
-        S_YYACCEPT = 36,                         // $accept
-        S_programme = 37,                        // programme
-        S_numeroDeTortue = 38,                   // numeroDeTortue
-        S_finDeLigne = 39,                       // finDeLigne
-        S_numeroOuRien = 40,                     // numeroOuRien
-        S_deplacement = 41,                      // deplacement
-        S_avancer = 42,                          // avancer
-        S_reculer = 43,                          // reculer
-        S_sauter = 44,                           // sauter
-        S_tourner = 45,                          // tourner
-        S_position = 46,                         // position
-        S_condition = 47,                        // condition
-        S_conditionelle = 48,                    // conditionelle
-        S_boucle = 49,                           // boucle
-        S_expression = 50,                       // expression
-        S_operation = 51                         // operation
-=======
-        S_COULEUR = 12,                          // COULEUR
-        S_COULEURMOTIF = 13,                     // COULEURMOTIF
-        S_NUMTORTUE = 14,                        // NUMTORTUE
-        S_HEXCODE = 15,                          // HEXCODE
-        S_NUMBER = 16,                           // NUMBER
-        S_17_ = 17,                              // '-'
-        S_18_ = 18,                              // '+'
-        S_19_ = 19,                              // '*'
-        S_20_ = 20,                              // '/'
-        S_NEG = 21,                              // NEG
-        S_22_ = 22,                              // '('
-        S_23_ = 23,                              // ')'
-        S_YYACCEPT = 24,                         // $accept
-        S_programme = 25,                        // programme
-        S_numeroDeTortue = 26,                   // numeroDeTortue
-        S_finDeLigne = 27,                       // finDeLigne
-        S_deplacement = 28,                      // deplacement
-        S_color = 29,                            // color
-        S_expression = 30,                       // expression
-        S_operation = 31                         // operation
->>>>>>> couleur
+        S_COULEUR = 28,                          // COULEUR
+        S_COULEURMOTIF = 29,                     // COULEURMOTIF
+        S_HEXCODE = 30,                          // HEXCODE
+        S_NUMBER = 31,                           // NUMBER
+        S_32_ = 32,                              // '-'
+        S_33_ = 33,                              // '+'
+        S_34_ = 34,                              // '*'
+        S_35_ = 35,                              // '/'
+        S_NEG = 36,                              // NEG
+        S_37_ = 37,                              // '('
+        S_38_ = 38,                              // ')'
+        S_YYACCEPT = 39,                         // $accept
+        S_programme = 40,                        // programme
+        S_numeroDeTortue = 41,                   // numeroDeTortue
+        S_finDeLigne = 42,                       // finDeLigne
+        S_numeroOuRien = 43,                     // numeroOuRien
+        S_deplacement = 44,                      // deplacement
+        S_avancer = 45,                          // avancer
+        S_reculer = 46,                          // reculer
+        S_sauter = 47,                           // sauter
+        S_tourner = 48,                          // tourner
+        S_position = 49,                         // position
+        S_condition = 50,                        // condition
+        S_conditionelle = 51,                    // conditionelle
+        S_boucle = 52,                           // boucle
+        S_color = 53,                            // color
+        S_expression = 54,                       // expression
+        S_operation = 55                         // operation
       };
     };
 
@@ -658,20 +622,14 @@ namespace yy {
 
       case symbol_kind::S_NUMBER: // NUMBER
       case symbol_kind::S_numeroDeTortue: // numeroDeTortue
-<<<<<<< HEAD
       case symbol_kind::S_numeroOuRien: // numeroOuRien
-=======
->>>>>>> couleur
       case symbol_kind::S_expression: // expression
         value.move< int > (std::move (that.value));
         break;
 
       case symbol_kind::S_NUMTORTUE: // NUMTORTUE
-<<<<<<< HEAD
-      case symbol_kind::S_position: // position
-=======
       case symbol_kind::S_HEXCODE: // HEXCODE
->>>>>>> couleur
+      case symbol_kind::S_position: // position
         value.move< std::string > (std::move (that.value));
         break;
 
@@ -786,20 +744,14 @@ switch (yykind)
 
       case symbol_kind::S_NUMBER: // NUMBER
       case symbol_kind::S_numeroDeTortue: // numeroDeTortue
-<<<<<<< HEAD
       case symbol_kind::S_numeroOuRien: // numeroOuRien
-=======
->>>>>>> couleur
       case symbol_kind::S_expression: // expression
         value.template destroy< int > ();
         break;
 
       case symbol_kind::S_NUMTORTUE: // NUMTORTUE
-<<<<<<< HEAD
-      case symbol_kind::S_position: // position
-=======
       case symbol_kind::S_HEXCODE: // HEXCODE
->>>>>>> couleur
+      case symbol_kind::S_position: // position
         value.template destroy< std::string > ();
         break;
 
@@ -901,7 +853,8 @@ switch (yykind)
 #endif
       {
         YY_ASSERT (tok == token::YYEOF
-                   || (token::YYerror <= tok && tok <= token::COULEURMOTIF)
+                   || (token::YYerror <= tok && tok <= token::GAUCHE)
+                   || (token::COULEUR <= tok && tok <= token::COULEURMOTIF)
                    || tok == 45
                    || tok == 43
                    || tok == 42
@@ -927,7 +880,8 @@ switch (yykind)
         : super_type(token_type (tok), v, l)
 #endif
       {
-        YY_ASSERT ((token::NUMTORTUE <= tok && tok <= token::HEXCODE));
+        YY_ASSERT (tok == token::NUMTORTUE
+                   || tok == token::HEXCODE);
       }
     };
 
@@ -1163,37 +1117,36 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_COULEUR (location_type l)
+      make_SI (location_type l)
       {
-        return symbol_type (token::COULEUR, std::move (l));
+        return symbol_type (token::SI, std::move (l));
       }
 #else
       static
       symbol_type
-      make_COULEUR (const location_type& l)
+      make_SI (const location_type& l)
       {
-        return symbol_type (token::COULEUR, l);
+        return symbol_type (token::SI, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_COULEURMOTIF (location_type l)
+      make_THEN (location_type l)
       {
-        return symbol_type (token::COULEURMOTIF, std::move (l));
+        return symbol_type (token::THEN, std::move (l));
       }
 #else
       static
       symbol_type
-      make_COULEURMOTIF (const location_type& l)
+      make_THEN (const location_type& l)
       {
-        return symbol_type (token::COULEURMOTIF, l);
+        return symbol_type (token::THEN, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-<<<<<<< HEAD
       make_SINON (location_type l)
       {
         return symbol_type (token::SINON, std::move (l));
@@ -1375,9 +1328,21 @@ switch (yykind)
       static
       symbol_type
       make_GAUCHE (location_type l)
-=======
+      {
+        return symbol_type (token::GAUCHE, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_GAUCHE (const location_type& l)
+      {
+        return symbol_type (token::GAUCHE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_NUMTORTUE (std::string v, location_type l)
->>>>>>> couleur
       {
         return symbol_type (token::NUMTORTUE, std::move (v), std::move (l));
       }
@@ -1387,6 +1352,36 @@ switch (yykind)
       make_NUMTORTUE (const std::string& v, const location_type& l)
       {
         return symbol_type (token::NUMTORTUE, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_COULEUR (location_type l)
+      {
+        return symbol_type (token::COULEUR, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_COULEUR (const location_type& l)
+      {
+        return symbol_type (token::COULEUR, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_COULEURMOTIF (location_type l)
+      {
+        return symbol_type (token::COULEURMOTIF, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_COULEURMOTIF (const location_type& l)
+      {
+        return symbol_type (token::COULEURMOTIF, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1511,7 +1506,7 @@ switch (yykind)
 
 #if YYDEBUG
     // YYRLINE[YYN] -- Source line where rule number YYN was defined.
-    static const unsigned char yyrline_[];
+    static const short yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
     virtual void yy_reduce_print_ (int r) const;
     /// Print the state stack on the debug stream.
@@ -1738,15 +1733,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-<<<<<<< HEAD
-      yylast_ = 109,     ///< Last index in yytable_.
-      yynnts_ = 16,  ///< Number of nonterminal symbols.
-      yyfinal_ = 56 ///< Termination state number.
-=======
-      yylast_ = 50,     ///< Last index in yytable_.
-      yynnts_ = 8,  ///< Number of nonterminal symbols.
-      yyfinal_ = 30 ///< Termination state number.
->>>>>>> couleur
+      yylast_ = 114,     ///< Last index in yytable_.
+      yynnts_ = 17,  ///< Number of nonterminal symbols.
+      yyfinal_ = 61 ///< Termination state number.
     };
 
 
@@ -1758,11 +1747,7 @@ switch (yykind)
 
 
 } // yy
-<<<<<<< HEAD
-#line 1694 "parser.hh"
-=======
-#line 1454 "parser.hh"
->>>>>>> couleur
+#line 1751 "parser.hh"
 
 
 
