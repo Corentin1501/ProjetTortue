@@ -38,20 +38,6 @@ fin return token::END;
 "tourne à droite"   return token::TOURNED;
 "tourne à gauche"   return token::TOURNEG;
 
-"si"        return token::SI;
-"fin si"    return token::ENDIF;
-":"         return token::THEN;
-"sinon :"     return token::SINON;
-
-"mur"       return token::MUR;
-"pas de"    return token::NOT;
-
-"tant que"  return token::WHILE;
-
-"devant"    return token::DEVANT;
-"derriere"  return token::DERRIERE;
-"à droite"  return token::DROITE;
-"à gauche"  return token::GAUCHE;
 
 "+" return '+';
 "*" return '*';
