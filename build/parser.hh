@@ -409,6 +409,7 @@ namespace yy {
       char dummy1[sizeof (ExpressionPtr)];
 
       // NUMBER
+      // numeroDeTortue
       // expression
       char dummy2[sizeof (int)];
 
@@ -518,10 +519,13 @@ namespace yy {
         S_20_ = 20,                              // ')'
         S_YYACCEPT = 21,                         // $accept
         S_programme = 22,                        // programme
-        S_finDeLigne = 23,                       // finDeLigne
-        S_deplacement = 24,                      // deplacement
-        S_expression = 25,                       // expression
-        S_operation = 26                         // operation
+        S_23_1 = 23,                             // $@1
+        S_numeroDeTortue = 24,                   // numeroDeTortue
+        S_finDeLigne = 25,                       // finDeLigne
+        S_deplacement = 26,                      // deplacement
+        S_avance = 27,                           // avance
+        S_expression = 28,                       // expression
+        S_operation = 29                         // operation
       };
     };
 
@@ -563,6 +567,7 @@ namespace yy {
         break;
 
       case symbol_kind::S_NUMBER: // NUMBER
+      case symbol_kind::S_numeroDeTortue: // numeroDeTortue
       case symbol_kind::S_expression: // expression
         value.move< int > (std::move (that.value));
         break;
@@ -663,6 +668,7 @@ switch (yykind)
         break;
 
       case symbol_kind::S_NUMBER: // NUMBER
+      case symbol_kind::S_numeroDeTortue: // numeroDeTortue
       case symbol_kind::S_expression: // expression
         value.template destroy< int > ();
         break;
@@ -1150,7 +1156,7 @@ switch (yykind)
 
 #if YYDEBUG
     // YYRLINE[YYN] -- Source line where rule number YYN was defined.
-    static const signed char yyrline_[];
+    static const unsigned char yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
     virtual void yy_reduce_print_ (int r) const;
     /// Print the state stack on the debug stream.
@@ -1377,9 +1383,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 57,     ///< Last index in yytable_.
-      yynnts_ = 6,  ///< Number of nonterminal symbols.
-      yyfinal_ = 21 ///< Termination state number.
+      yylast_ = 99,     ///< Last index in yytable_.
+      yynnts_ = 9,  ///< Number of nonterminal symbols.
+      yyfinal_ = 36 ///< Termination state number.
     };
 
 
@@ -1391,7 +1397,7 @@ switch (yykind)
 
 
 } // yy
-#line 1395 "parser.hh"
+#line 1401 "parser.hh"
 
 
 

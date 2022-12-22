@@ -62,34 +62,42 @@
 
 programme:
 
-    deplacement finDeLigne      programme
+    deplacement programme
+
+    | numeroDeTortue {
+        std::cout << "num : " << $1 << std::endl;
+    } programme
     
     | END NL {  YYACCEPT;   }
     
 numeroDeTortue:
-    NUMTORTUE {  $$ = std::stoi($1.substr(1));   }
+    NUMTORTUE finDeLigne {  $$ = std::stoi($1.substr(1));   }
+    | finDeLigne {  $$ = 0;   }
 
 finDeLigne:
     NL | FOIS NL | COMMENTAIRE | COMMENTAIRE NL
 
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 deplacement:
-    AVANCE {                driver.avancerTortue(0,1);                              } 
-    | AVANCE NUMBER {       for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
-    | AVANCE expression {   for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
+    avance
+    
+    | RECULE numeroDeTortue{            driver.avancerTortue( $2, (-1) );        } 
+    | RECULE NUMBER numeroDeTortue{     for (int i(0) ; i<$2; i++) driver.avancerTortue( $3, -1 );   } 
+    | RECULE expression numeroDeTortue{ for (int i(0) ; i<$2; i++) driver.avancerTortue( $3, -1 );   } 
 
-    | RECULE {            driver.avancerTortue( 0, (-1) );        } 
-    | RECULE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
-    | RECULE expression { for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
+    | SAUTE numeroDeTortue{            driver.avancerTortue($2,2);      } 
+    | SAUTE NUMBER numeroDeTortue{     for (int i(0) ; i<$2; i++) driver.avancerTortue($3,2);   } 
+    | SAUTE expression numeroDeTortue{ for (int i(0) ; i<$2; i++) driver.avancerTortue($3,2);   } 
 
-    | SAUTE {            driver.avancerTortue(0,2);      } 
-    | SAUTE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue(0,2);   } 
-    | SAUTE expression { for (int i(0) ; i<$2; i++) driver.avancerTortue(0,2);   } 
+    | TOURNED         numeroDeTortue{   driver.changerOrientationTortue($2, "droite");    } 
+    | TOURNED NUMBER  numeroDeTortue{   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue($3, "droite");   } 
+    | TOURNEG         numeroDeTortue{   driver.changerOrientationTortue($2, "gauche");    } 
+    | TOURNEG NUMBER  numeroDeTortue{   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue($3, "gauche");   } 
 
-    | TOURNED         {   driver.changerOrientationTortue(0, "droite");    } 
-    | TOURNED NUMBER  {   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "droite");   } 
-    | TOURNEG         {   driver.changerOrientationTortue(0, "gauche");    } 
-    | TOURNEG NUMBER  {   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "gauche");   } 
+avance:
+    AVANCE numeroDeTortue{                driver.avancerTortue($2,1);                              } 
+    | AVANCE NUMBER numeroDeTortue{       for (int i(0) ; i<$2; i++) driver.avancerTortue($3,1);   } 
+    | AVANCE expression numeroDeTortue{   for (int i(0) ; i<$2; i++) driver.avancerTortue($3,1);   } 
 
 
 /*####################### EXPRESSION ARITHMETIQUE #######################*/
