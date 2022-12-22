@@ -420,9 +420,16 @@ compiler_moc_header_make_all: moc_jardinHandler.cpp moc_jardinRendering.cpp moc_
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_jardinHandler.cpp moc_jardinRendering.cpp moc_jardin.cpp
 moc_jardinHandler.cpp: ../GUI/jardinHandler.hh \
+		parser.hh \
+		../expressions/contexte.hh \
+		../expressions/expressionBinaire.hh \
+		../expressions/expression.hh \
+		../expressions/expressionUnaire.hh \
+		../expressions/constante.hh \
+		../expressions/variable.hh \
+		location.hh \
 		../parser/scanner.hh \
 		../parser/driver.hh \
-		../expressions/contexte.hh \
 		../GUI/jardinRendering.hh \
 		../GUI/tortue.hh \
 		moc_predefs.h \
@@ -438,9 +445,16 @@ moc_jardinRendering.cpp: ../GUI/jardinRendering.hh \
 moc_jardin.cpp: ../GUI/jardin.hh \
 		../GUI/tortue.hh \
 		../GUI/jardinHandler.hh \
+		parser.hh \
+		../expressions/contexte.hh \
+		../expressions/expressionBinaire.hh \
+		../expressions/expression.hh \
+		../expressions/expressionUnaire.hh \
+		../expressions/constante.hh \
+		../expressions/variable.hh \
+		location.hh \
 		../parser/scanner.hh \
 		../parser/driver.hh \
-		../expressions/contexte.hh \
 		../GUI/jardinRendering.hh \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -465,15 +479,29 @@ compiler_clean: compiler_flex_clean compiler_bison_clean compiler_bisonheader_cl
 main.o: ../parser/main.cc ../GUI/jardin.hh \
 		../GUI/tortue.hh \
 		../GUI/jardinHandler.hh \
+		parser.hh \
+		../expressions/contexte.hh \
+		../expressions/expressionBinaire.hh \
+		../expressions/expression.hh \
+		../expressions/expressionUnaire.hh \
+		../expressions/constante.hh \
+		../expressions/variable.hh \
+		location.hh \
 		../parser/scanner.hh \
 		../parser/driver.hh \
-		../expressions/contexte.hh \
 		../GUI/jardinRendering.hh
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../parser/main.cc
 
 driver.o: ../parser/driver.cc ../parser/driver.hh \
 		../expressions/contexte.hh \
 		../GUI/jardinHandler.hh \
+		parser.hh \
+		../expressions/expressionBinaire.hh \
+		../expressions/expression.hh \
+		../expressions/expressionUnaire.hh \
+		../expressions/constante.hh \
+		../expressions/variable.hh \
+		location.hh \
 		../parser/scanner.hh \
 		../GUI/jardinRendering.hh \
 		../GUI/tortue.hh
@@ -483,9 +511,16 @@ tortue.o: ../GUI/tortue.cc ../GUI/tortue.hh
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tortue.o ../GUI/tortue.cc
 
 jardinHandler.o: ../GUI/jardinHandler.cc ../GUI/jardinHandler.hh \
+		parser.hh \
+		../expressions/contexte.hh \
+		../expressions/expressionBinaire.hh \
+		../expressions/expression.hh \
+		../expressions/expressionUnaire.hh \
+		../expressions/constante.hh \
+		../expressions/variable.hh \
+		location.hh \
 		../parser/scanner.hh \
 		../parser/driver.hh \
-		../expressions/contexte.hh \
 		../GUI/jardinRendering.hh \
 		../GUI/tortue.hh
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o jardinHandler.o ../GUI/jardinHandler.cc
@@ -497,9 +532,16 @@ jardinRendering.o: ../GUI/jardinRendering.cc ../GUI/jardinRendering.hh \
 jardin.o: ../GUI/jardin.cc ../GUI/jardin.hh \
 		../GUI/tortue.hh \
 		../GUI/jardinHandler.hh \
+		parser.hh \
+		../expressions/contexte.hh \
+		../expressions/expressionBinaire.hh \
+		../expressions/expression.hh \
+		../expressions/expressionUnaire.hh \
+		../expressions/constante.hh \
+		../expressions/variable.hh \
+		location.hh \
 		../parser/scanner.hh \
 		../parser/driver.hh \
-		../expressions/contexte.hh \
 		../GUI/jardinRendering.hh
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o jardin.o ../GUI/jardin.cc
 

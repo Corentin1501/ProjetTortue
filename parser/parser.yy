@@ -80,21 +80,18 @@ finDeLigne:
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 deplacement:
     AVANCE {                driver.avancerTortue(0,1);                              } 
-    | AVANCE NUMBER {       for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
     | AVANCE expression {   for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
 
     | RECULE {            driver.avancerTortue( 0, (-1) );        } 
-    | RECULE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
     | RECULE expression { for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
 
     | SAUTE {            driver.avancerTortue(0,2);      } 
-    | SAUTE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue(0,2);   } 
     | SAUTE expression { for (int i(0) ; i<$2; i++) driver.avancerTortue(0,2);   } 
 
-    | TOURNED         {   driver.changerOrientationTortue(0, "droite");    } 
-    | TOURNED NUMBER  {   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "droite");   } 
-    | TOURNEG         {   driver.changerOrientationTortue(0, "gauche");    } 
-    | TOURNEG NUMBER  {   for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "gauche");   } 
+    | TOURNED {             driver.changerOrientationTortue(0, "droite");    } 
+    | TOURNED expression {  for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "droite");   } 
+    | TOURNEG {             driver.changerOrientationTortue(0, "gauche");    } 
+    | TOURNEG expression {  for (int i(0) ; i<$2; i++) driver.changerOrientationTortue(0, "gauche");   } 
 
 /*####################### INSTRUCTIONS SPECIALES #######################*/
 
