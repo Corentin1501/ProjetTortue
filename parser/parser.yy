@@ -108,35 +108,27 @@ finDeLigne:
 
 deplacement:
     AVANCE {                
-        auto m(std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant));
-        if(compteurConditionnelles == 0) {
-            std::cout << "      pas de contionnelle active : ajout dans la liste globale." << std::endl;
-            listeglobale->ajouterInstruction(m); 
-        }
-        else {
-            std::cout << "      contionnelle actives, id actif : " << std::to_string(compteurConditionnelles) << std::endl;
-            ajoutInstructionDansConditionnelle(listeglobale, compteurConditionnelles, m);
-        }
+        if(compteurConditionnelles == 0) 
+            listeglobale->ajouterInstruction( std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant) ); 
+        else 
+            ajoutInstructionDansConditionnelle(listeglobale, compteurConditionnelles, std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant) );
+        
     } 
-    | AVANCE NUMBER {       
-        auto m(std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::avant));
-        if(compteurConditionnelles == 0) listeglobale->ajouterInstruction(m); 
-        else ajoutInstructionDansConditionnelle(listeglobale, compteurConditionnelles, m);
+    | AVANCE expression {       
+        if(compteurConditionnelles == 0)    listeglobale->ajouterInstruction( std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::avant) ); 
+        else    ajoutInstructionDansConditionnelle(listeglobale, compteurConditionnelles,  std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::avant) );
     } 
-    | AVANCE expression {   listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::avant )); } 
 
     | RECULE {              listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::arriere));     } 
-    | RECULE NUMBER {       listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::arriere));    } 
     | RECULE expression {   listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::arriere));    } 
 
     | SAUTE {            listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, 2, direction::avant));      } 
-    | SAUTE NUMBER {     listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, (2*$2), direction::avant)); } 
     | SAUTE expression { listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, (2*$2), direction::avant)); } 
 
-    | TOURNED         {   listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, 1,  sens::droite));    } 
-    | TOURNED NUMBER  {   listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, $2, sens::droite));    } 
-    | TOURNEG         {   listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, 1,  sens::gauche));    } 
-    | TOURNEG NUMBER  {   listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, $2, sens::gauche));    } 
+    | TOURNED {             listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, 1,  sens::droite));    } 
+    | TOURNED expression {  listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, $2, sens::droite));    } 
+    | TOURNEG {             listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, 1,  sens::gauche));    } 
+    | TOURNEG expression {  listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, $2, sens::gauche));    } 
 
 /*####################### CONDITIONELLE #######################*/
 

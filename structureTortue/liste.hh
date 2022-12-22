@@ -24,7 +24,6 @@ class liste {
 
 
 };
-std::shared_ptr<conditionnelle> findID(std::shared_ptr<liste> l, unsigned int id);
 
 using listePtr = std::shared_ptr<liste>;
 
@@ -54,7 +53,12 @@ class conditionnelle : public instruction{
         listePtr listeelse() const { return _else; }
 };
 
-void ajoutInstructionDansConditionnelle(listePtr l, unsigned int id, instructionPtr const & i);
+
+// Autres fonctions :
+    std::shared_ptr<conditionnelle> findID(std::shared_ptr<liste> l, unsigned int id);
+    void ajoutInstructionDansConditionnelle(listePtr l, unsigned int id, instructionPtr const & i);
+
+
 
 //###################################################################
 //#                            WHILE                                #
