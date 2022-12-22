@@ -412,6 +412,8 @@ namespace yy {
       char dummy2[sizeof (bool)];
 
       // NUMBER
+      // numeroDeTortue
+      // numeroOuRien
       // expression
       char dummy3[sizeof (int)];
 
@@ -488,13 +490,14 @@ namespace yy {
     ENDREPETE = 274,               // ENDREPETE
     MUR = 275,                     // MUR
     NOT = 276,                     // NOT
-    DEVANT = 277,                  // DEVANT
-    DERRIERE = 278,                // DERRIERE
-    DROITE = 279,                  // DROITE
-    GAUCHE = 280,                  // GAUCHE
-    NUMTORTUE = 281,               // NUMTORTUE
-    NUMBER = 282,                  // NUMBER
-    NEG = 283                      // NEG
+    VIDE = 277,                    // VIDE
+    DEVANT = 278,                  // DEVANT
+    DERRIERE = 279,                // DERRIERE
+    DROITE = 280,                  // DROITE
+    GAUCHE = 281,                  // GAUCHE
+    NUMTORTUE = 282,               // NUMTORTUE
+    NUMBER = 283,                  // NUMBER
+    NEG = 284                      // NEG
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -511,7 +514,7 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 35, ///< Number of tokens.
+        YYNTOKENS = 36, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -535,30 +538,36 @@ namespace yy {
         S_ENDREPETE = 19,                        // ENDREPETE
         S_MUR = 20,                              // MUR
         S_NOT = 21,                              // NOT
-        S_DEVANT = 22,                           // DEVANT
-        S_DERRIERE = 23,                         // DERRIERE
-        S_DROITE = 24,                           // DROITE
-        S_GAUCHE = 25,                           // GAUCHE
-        S_NUMTORTUE = 26,                        // NUMTORTUE
-        S_NUMBER = 27,                           // NUMBER
-        S_28_ = 28,                              // '-'
-        S_29_ = 29,                              // '+'
-        S_30_ = 30,                              // '*'
-        S_31_ = 31,                              // '/'
-        S_NEG = 32,                              // NEG
-        S_33_ = 33,                              // '('
-        S_34_ = 34,                              // ')'
-        S_YYACCEPT = 35,                         // $accept
-        S_programme = 36,                        // programme
-        S_37_1 = 37,                             // $@1
-        S_finDeLigne = 38,                       // finDeLigne
-        S_deplacement = 39,                      // deplacement
-        S_position = 40,                         // position
-        S_condition = 41,                        // condition
-        S_conditionelle = 42,                    // conditionelle
-        S_boucle = 43,                           // boucle
-        S_expression = 44,                       // expression
-        S_operation = 45                         // operation
+        S_VIDE = 22,                             // VIDE
+        S_DEVANT = 23,                           // DEVANT
+        S_DERRIERE = 24,                         // DERRIERE
+        S_DROITE = 25,                           // DROITE
+        S_GAUCHE = 26,                           // GAUCHE
+        S_NUMTORTUE = 27,                        // NUMTORTUE
+        S_NUMBER = 28,                           // NUMBER
+        S_29_ = 29,                              // '-'
+        S_30_ = 30,                              // '+'
+        S_31_ = 31,                              // '*'
+        S_32_ = 32,                              // '/'
+        S_NEG = 33,                              // NEG
+        S_34_ = 34,                              // '('
+        S_35_ = 35,                              // ')'
+        S_YYACCEPT = 36,                         // $accept
+        S_programme = 37,                        // programme
+        S_numeroDeTortue = 38,                   // numeroDeTortue
+        S_finDeLigne = 39,                       // finDeLigne
+        S_numeroOuRien = 40,                     // numeroOuRien
+        S_deplacement = 41,                      // deplacement
+        S_avancer = 42,                          // avancer
+        S_reculer = 43,                          // reculer
+        S_sauter = 44,                           // sauter
+        S_tourner = 45,                          // tourner
+        S_position = 46,                         // position
+        S_condition = 47,                        // condition
+        S_conditionelle = 48,                    // conditionelle
+        S_boucle = 49,                           // boucle
+        S_expression = 50,                       // expression
+        S_operation = 51                         // operation
       };
     };
 
@@ -604,6 +613,8 @@ namespace yy {
         break;
 
       case symbol_kind::S_NUMBER: // NUMBER
+      case symbol_kind::S_numeroDeTortue: // numeroDeTortue
+      case symbol_kind::S_numeroOuRien: // numeroOuRien
       case symbol_kind::S_expression: // expression
         value.move< int > (std::move (that.value));
         break;
@@ -723,6 +734,8 @@ switch (yykind)
         break;
 
       case symbol_kind::S_NUMBER: // NUMBER
+      case symbol_kind::S_numeroDeTortue: // numeroDeTortue
+      case symbol_kind::S_numeroOuRien: // numeroOuRien
       case symbol_kind::S_expression: // expression
         value.template destroy< int > ();
         break;
@@ -1242,6 +1255,21 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_VIDE (location_type l)
+      {
+        return symbol_type (token::VIDE, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_VIDE (const location_type& l)
+      {
+        return symbol_type (token::VIDE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_DEVANT (location_type l)
       {
         return symbol_type (token::DEVANT, std::move (l));
@@ -1648,9 +1676,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 72,     ///< Last index in yytable_.
-      yynnts_ = 11,  ///< Number of nonterminal symbols.
-      yyfinal_ = 42 ///< Termination state number.
+      yylast_ = 109,     ///< Last index in yytable_.
+      yynnts_ = 16,  ///< Number of nonterminal symbols.
+      yyfinal_ = 56 ///< Termination state number.
     };
 
 
@@ -1662,7 +1690,7 @@ switch (yykind)
 
 
 } // yy
-#line 1666 "parser.hh"
+#line 1694 "parser.hh"
 
 
 

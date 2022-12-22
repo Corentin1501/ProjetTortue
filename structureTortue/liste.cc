@@ -1,58 +1,74 @@
 #include "liste.hh"
 
 
-void liste::executer(){
+void liste::executer() const {
     for(auto const & instruc : _instructions)
         instruc->executer();
-    
-    _instructions.clear();
 }
 
 bool liste::ajouterInstruction(instructionPtr i){
-    std::cout<<"ajout...";
+    // std::cout<<"ajout...";
     _instructions.push_back(i);
-    std::cout << " ajouté !" << std::endl;
+    // std::cout << " ajouté !" << std::endl;
     return true;
 }
 
 void conditionnelle::executer() const {
-    if (_condition)
+    if (_condition == estMurIci(_position, _emplacement))
         _then->executer();
     else 
         _else->executer();
 }
 
-std::shared_ptr<conditionnelle> findID(std::shared_ptr<liste> l, unsigned int id){
-    for(auto const & inst : l->instructions()){
-        auto isCond = std::dynamic_pointer_cast<conditionnelle>(inst);
-        if(isCond){
-            if(isCond->id() == id) return isCond;
-            else {
-                auto foundthen(findID(isCond->listethen(), id));
-                if (foundthen) return foundthen;
-                auto foundelse(findID(isCond->listeelse(), id));
-                if (foundelse) return foundelse;
-                return nullptr;
-            }
+bool boucleEtConditionnelle::estMurIci(std::string direction, unsigned int tortue) const {
+    QPoint pos = jardin->position(tortue);
+    int x = pos.x();
+    int y = pos.y();
+    int orientation = static_cast<int>(jardin->orientation(tortue));
+
+    if(direction == "devant") {
+        switch(orientation%360){
+            case 0:     return jardin->estMur(x , y-1); break;
+            case 90:    return jardin->estMur(x+1 , y); break;
+            case 180:   return jardin->estMur(x , y+1); break;
+            case 270:   return jardin->estMur(x-1 , y); break;
         }
     }
-    return nullptr;
+    else if(direction == "derrière") {
+        switch(orientation%360){
+            case 0:     return jardin->estMur(x , y+1); break;
+            case 90:    return jardin->estMur(x-1 , y); break;
+            case 180:   return jardin->estMur(x , y-1); break;
+            case 270:   return jardin->estMur(x+1 , y); break;
+        }
+    }
+    else if(direction == "à droite") {
+        switch(orientation%360){
+            case 0:     return jardin->estMur(x+1 , y); break;
+            case 90:    return jardin->estMur(x , y+1); break;
+            case 180:   return jardin->estMur(x-1 , y); break;
+            case 270:   return jardin->estMur(x , y-1); break;
+        }
+    }
+    else if(direction == "à gauche") {
+        switch(orientation%360){
+            case 0:     return jardin->estMur(x-1 , y); break;
+            case 90:    return jardin->estMur(x , y-1); break;
+            case 180:   return jardin->estMur(x+1 , y); break;
+            case 270:   return jardin->estMur(x , y+1); break;
+        }
+    }
+    return false;
+
 }
 
-void ajoutInstructionDansConditionnelle(listePtr l, unsigned int id, instructionPtr const & i) {
-    auto cond(findID(l, id));
-    if (cond->mettredanselse()) {
-        cond->ajouterInstructionElse(i);
-        std::cout << "ajout dans le else de la conditionelle active." << std::endl;
-    }
-    else {
-        cond->ajouterInstructionThen(i);
-        std::cout << "ajout dans le then de la conditionelle active." << std::endl;
-    }
+void conditionnelle::ajouterInstruction(instructionPtr i){
+    if (_danselse) ajouterInstructionElse(i);
+    else ajouterInstructionThen(i);
 }
 
 void tantque::executer() const {
-    while(_condition)
+    while(_condition == estMurIci(_position, _emplacement))
         _then->executer();
 }
 void repete::executer() const {

@@ -26,6 +26,7 @@
 %code{
     #include <iostream>
     #include <string>
+    #include <list>
     
     #include "scanner.hh"
     #include "driver.hh"
@@ -35,10 +36,9 @@
     #undef  yylex
     #define yylex scanner.yylex
     
+    std::list< boucleEtConditionnellePtr > file;
     listePtr listeglobale = liste::fabrique();
-    unsigned int compteurConditionnelles = 0 ;
-    unsigned int compteurWhile = 0 ;
-    unsigned int compteurRepete = 0 ;
+
 }
 
 %token                  NL
@@ -65,6 +65,7 @@
 
 %token                  MUR
 %token                  NOT
+%token                  VIDE
 %token                  DEVANT
 %token                  DERRIERE
 %token                  DROITE
@@ -75,6 +76,8 @@
 
 %type <ExpressionPtr>   operation
 %type <int>             expression
+%type <int>             numeroDeTortue
+%type <int>             numeroOuRien
 %type <std::string>     position
 %type <bool>            condition
 %left '-' '+'
@@ -85,50 +88,80 @@
 
 programme:
 
-    deplacement finDeLigne      programme
-    | conditionelle programme
-    | boucle programme
-    | NUMTORTUE finDeLigne {
-        std::string chaineNumero = $1.substr(1);
-        int num = std::stoi(chaineNumero);
-        std::cout << "num detecte : " << num << std::endl;
-    } programme
-    
+      deplacement       programme
+    | conditionelle     programme
+    | boucle            programme
+    | finDeLigne        programme
+
     | END NL {  
         listeglobale->executer(); 
-        compteurConditionnelles = 0 ;
+        listeglobale->vider();
         YYACCEPT;   
     }
 
+numeroDeTortue:
+    NUMTORTUE {  $$ = std::stoi($1.substr(1));   }
 
 finDeLigne:
     NL | FOIS NL | COMMENTAIRE | COMMENTAIRE NL
 
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 
+numeroOuRien:
+    finDeLigne { $$ = 0; }
+    | numeroDeTortue finDeLigne { $$ = $1; }
+
+
 deplacement:
-    AVANCE {                
-        if(compteurConditionnelles == 0) 
-            listeglobale->ajouterInstruction( std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant) ); 
-        else 
-            ajoutInstructionDansConditionnelle(listeglobale, compteurConditionnelles, std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::avant) );
-        
+    avancer
+    | reculer
+    | sauter
+    | tourner
+
+avancer:
+    AVANCE numeroOuRien{                
+        if (file.empty()) listeglobale->ajouterInstruction( std::make_shared<mouvement>(driver.getJardin(), $2, 1, direction::avant) ); 
+        else file.front()->ajouterInstruction(std::make_shared<mouvement>(driver.getJardin(), $2, 1, direction::avant));
     } 
-    | AVANCE expression {       
-        if(compteurConditionnelles == 0)    listeglobale->ajouterInstruction( std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::avant) ); 
-        else    ajoutInstructionDansConditionnelle(listeglobale, compteurConditionnelles,  std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::avant) );
+    | AVANCE expression numeroOuRien{ 
+        if (file.empty()) listeglobale->ajouterInstruction( std::make_shared<mouvement>(driver.getJardin(), $3, $2, direction::avant) ); 
+        else file.front()->ajouterInstruction(std::make_shared<mouvement>(driver.getJardin(), $3, $2, direction::avant));  
+    }
+reculer:
+    RECULE numeroOuRien{                
+        if (file.empty()) listeglobale->ajouterInstruction( std::make_shared<mouvement>(driver.getJardin(), $2, 1, direction::arriere) ); 
+        else file.front()->ajouterInstruction(std::make_shared<mouvement>(driver.getJardin(), $2, 1, direction::arriere));
     } 
-
-    | RECULE {              listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, 1, direction::arriere));     } 
-    | RECULE expression {   listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, $2, direction::arriere));    } 
-
-    | SAUTE {            listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, 2, direction::avant));      } 
-    | SAUTE expression { listeglobale->ajouterInstruction(   std::make_shared<mouvement>(driver.getJardin(), 0, (2*$2), direction::avant)); } 
-
-    | TOURNED {             listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, 1,  sens::droite));    } 
-    | TOURNED expression {  listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, $2, sens::droite));    } 
-    | TOURNEG {             listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, 1,  sens::gauche));    } 
-    | TOURNEG expression {  listeglobale->ajouterInstruction(   std::make_shared<tourner>(driver.getJardin(), 0, $2, sens::gauche));    } 
+    | RECULE expression numeroOuRien{ 
+        if (file.empty()) listeglobale->ajouterInstruction( std::make_shared<mouvement>(driver.getJardin(), $3, $2, direction::arriere) ); 
+        else file.front()->ajouterInstruction(std::make_shared<mouvement>(driver.getJardin(), $3, $2, direction::arriere));  
+    }
+sauter:
+    SAUTE numeroOuRien{                
+        if (file.empty()) listeglobale->ajouterInstruction( std::make_shared<mouvement>(driver.getJardin(), $2, 2, direction::avant) ); 
+        else file.front()->ajouterInstruction(std::make_shared<mouvement>(driver.getJardin(), $2, 2, direction::avant));
+    } 
+    | SAUTE expression numeroOuRien{ 
+        if (file.empty()) listeglobale->ajouterInstruction( std::make_shared<mouvement>(driver.getJardin(), $3, 2*$2, direction::avant) ); 
+        else file.front()->ajouterInstruction(std::make_shared<mouvement>(driver.getJardin(), $3, 2*$2, direction::avant));  
+    }
+tourner:
+    TOURNED numeroOuRien{
+        if (file.empty()) listeglobale->ajouterInstruction( std::make_shared<tourner>(driver.getJardin(), $2, 1,  sens::droite) ); 
+        else file.front()->ajouterInstruction(std::make_shared<tourner>(driver.getJardin(), $2, 1,  sens::droite));
+    }
+    | TOURNED expression numeroOuRien{  
+        if (file.empty()) listeglobale->ajouterInstruction( std::make_shared<tourner>(driver.getJardin(), $3, $2,  sens::droite) ); 
+        else file.front()->ajouterInstruction(std::make_shared<tourner>(driver.getJardin(), $3, $2,  sens::droite));
+    } 
+    | TOURNEG numeroOuRien{
+        if (file.empty()) listeglobale->ajouterInstruction( std::make_shared<tourner>(driver.getJardin(), $2, 1,  sens::gauche) ); 
+        else file.front()->ajouterInstruction(std::make_shared<tourner>(driver.getJardin(), $2, 1,  sens::gauche));
+    }
+    | TOURNEG expression numeroOuRien{
+        if (file.empty()) listeglobale->ajouterInstruction( std::make_shared<tourner>(driver.getJardin(), $3, $2,  sens::gauche) ); 
+        else file.front()->ajouterInstruction(std::make_shared<tourner>(driver.getJardin(), $3, $2,  sens::gauche));
+    }
 
 /*####################### CONDITIONELLE #######################*/
 
@@ -139,35 +172,45 @@ position:
     | GAUCHE {    $$ = "à gauche"; } 
 
 condition:
-    MUR position {          $$ = (driver.estMurIci($2 ,0))? true : false;   } 
-    | NOT MUR position {    $$ = (!driver.estMurIci($3 ,0))? true : false;  }
+    MUR {          $$ = true;   } 
+    | NOT MUR {    $$ = false;  }
+    | VIDE {       $$ = false;  }
+    | NOT VIDE {   $$ = true;   }
 
 conditionelle:
-    SI condition THEN finDeLigne {
-        listeglobale->ajouterInstruction(   std::make_shared<conditionnelle>(driver.getJardin(), 0, ++compteurConditionnelles, $2)   );
+    SI condition position THEN numeroOuRien {
+        auto instptr = std::make_shared<conditionnelle>(driver.getJardin(), 0, $2, $3, $5);
+        listeglobale->ajouterInstruction(instptr);
+        file.push_front(instptr);
     }
-    | SINON THEN finDeLigne {
-        std::shared_ptr<conditionnelle> condit = findID(listeglobale, compteurConditionnelles);
-        condit->changement_then_else();
-    }
-    | ENDIF finDeLigne {
-        compteurConditionnelles--;
-    }
+    | SINON finDeLigne {    file.front()->changement_then_else();   }
+    | ENDIF finDeLigne {    file.pop_front();                       }
 
 /*####################### BOUCLES #######################*/
 
 boucle:
-    WHILE condition THEN finDeLigne {
-        listeglobale->ajouterInstruction( std::make_shared<tantque>(driver.getJardin(), 0, ++compteurWhile, $2));
+    WHILE condition position THEN numeroOuRien {
+        auto instptr = std::make_shared<tantque>(driver.getJardin(), 0, $2, $3, $5);
+        listeglobale->ajouterInstruction(instptr);
+        file.push_front(instptr);
     }
     | ENDWHILE finDeLigne {
-        --compteurWhile;
+        file.pop_front();
     }
-    | REPETE NUMBER THEN finDeLigne {
-        listeglobale->ajouterInstruction( std::make_shared<repete>(driver.getJardin(), 0, ++compteurRepete, $2));
+
+
+    | REPETE expression THEN finDeLigne {
+        auto instptr = std::make_shared<repete>(driver.getJardin(), 0, $2);
+        listeglobale->ajouterInstruction(instptr);
+        file.push_front(instptr);
+    }
+    | REPETE expression FOIS THEN finDeLigne {
+        auto instptr = std::make_shared<repete>(driver.getJardin(), 0, $2);
+        listeglobale->ajouterInstruction(instptr);
+        file.push_front(instptr);
     }
     | ENDREPETE finDeLigne {
-        --compteurRepete;
+        file.pop_front();
     }
 
 

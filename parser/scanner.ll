@@ -28,7 +28,7 @@ fin return token::END;
 
 "fois"      return token::FOIS;     
 
-[--][.]* return token::COMMENTAIRE;
+--(.)* return token::COMMENTAIRE;
 
 "avance"    return token::AVANCE;
 "recule"    return token::RECULE;
@@ -37,18 +37,19 @@ fin return token::END;
 "tourne à droite"   return token::TOURNED;
 "tourne à gauche"   return token::TOURNEG;
 
-"si"        return token::SI;
-"fin si"    return token::ENDIF;
-":"         return token::THEN;
-"sinon :"     return token::SINON;
+"si"            return token::SI;
+"fin si"        return token::ENDIF;
+":"             return token::THEN;
+"sinon :"       return token::SINON;
 
-"mur"       return token::MUR;
-"pas de"    return token::NOT;
+"mur"           return token::MUR;
+"pas de"|"pas"  return token::NOT;
+"vide"          return token::VIDE;
 
-"tant que"  return token::WHILE;
+"tant que"      return token::WHILE;
 "fin tant que"  return token::ENDWHILE;
 
-"repete"    return token::REPETE;
+"repete"        return token::REPETE;
 "fin repete"    return token::ENDREPETE;
 
 "devant"    return token::DEVANT;
