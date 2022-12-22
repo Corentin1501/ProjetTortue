@@ -339,8 +339,8 @@ static const flex_int16_t yy_accept[93] =
         0,    0,    0,    0,    2,    0,    0,    0,    0,    0,
         0,    0,    6,    0,    0,    4,    0,    5,    0,   19,
         9,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,    0,    0,    0,    0,    9,
-        0,    0,    0,    0,    0,    0,    0,    0,   10,    7,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,   10,
+        0,    0,    0,    0,    0,    0,    0,    0,    9,    7,
         8,    0
 
     } ;
@@ -723,7 +723,7 @@ return token::COULEUR;
 case 10:
 YY_RULE_SETUP
 #line 42 "../parser/scanner.ll"
-return token::COULEURCARAPACE; 
+return token::COULEURMOTIF; 
 	YY_BREAK
 case 11:
 YY_RULE_SETUP

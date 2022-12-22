@@ -47,7 +47,7 @@
 
 
 %token                  COULEUR
-%token                  COULEURCARAPACE
+%token                  COULEURMOTIF
 
 %token <std::string>    NUMTORTUE
 %token <std::string>    HEXCODE
@@ -67,6 +67,7 @@ programme:
 
     deplacement finDeLigne      programme
     | color finDeLigne programme
+    | finDeLigne programme
 
     | END NL {  YYACCEPT;   }
 
@@ -78,10 +79,9 @@ finDeLigne:
 
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 deplacement:
-    AVANCE {                 driver.avancerTortue(0,1);                              } 
-    | AVANCE NUMBER {
-                for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
-    | AVANCE expression {    for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
+    AVANCE {                driver.avancerTortue(0,1);                              } 
+    | AVANCE NUMBER {       for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
+    | AVANCE expression {   for (int i(0) ; i<$2; i++) driver.avancerTortue(0,1);   } 
 
     | RECULE {            driver.avancerTortue( 0, (-1) );        } 
     | RECULE NUMBER {     for (int i(0) ; i<$2; i++) driver.avancerTortue( 0, -1 );   } 
@@ -100,10 +100,10 @@ deplacement:
 
 
 color:
-    COULEUR HEXCODE {                   std::array<int, 3> n = convert($2);     driver.changeCouleurMotif(0,  n[0], n[1], n[2]);     }
-    | COULEUR HEXCODE numeroDeTortue {  std::array<int, 3> n = convert($2);     driver.changeCouleurMotif($3, n[0], n[1], n[2]);     }
-    | COULEURCARAPACE HEXCODE {                   std::array<int, 3> n = convert($2);     driver.changeCouleurCarapace(0,  n[0], n[1], n[2]);     }
-    | COULEURCARAPACE HEXCODE numeroDeTortue{     std::array<int, 3> n = convert($2);     driver.changeCouleurCarapace($3, n[0], n[1], n[2]);     }
+    COULEUR HEXCODE {                   std::array<int, 3> n = convert($2);     driver.changeCouleurCarapace(0,  n[0], n[1], n[2]);     }
+    | COULEUR HEXCODE numeroDeTortue {  std::array<int, 3> n = convert($2);     driver.changeCouleurCarapace($3, n[0], n[1], n[2]);     }
+    | COULEURMOTIF HEXCODE {                   std::array<int, 3> n = convert($2);     driver.changeCouleurMotif(0,  n[0], n[1], n[2]);     }
+    | COULEURMOTIF HEXCODE numeroDeTortue{     std::array<int, 3> n = convert($2);     driver.changeCouleurMotif($3, n[0], n[1], n[2]);     }
 
 
 /*####################### EXPRESSION ARITHMETIQUE #######################*/

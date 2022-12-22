@@ -37,8 +37,8 @@ fin return token::END;
 "tourne à droite"   return token::TOURNED;
 "tourne à gauche"   return token::TOURNEG;
 
-"couleur"|"couleur motif" return token::COULEUR; 
-"couleur carapace" return token::COULEURCARAPACE; 
+"couleur"|"couleur carapace" return token::COULEUR; 
+"couleur motif" return token::COULEURMOTIF; 
 
 "+" return '+';
 "*" return '*';

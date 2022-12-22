@@ -477,7 +477,7 @@ namespace yy {
     TOURNED = 265,                 // TOURNED
     TOURNEG = 266,                 // TOURNEG
     COULEUR = 267,                 // COULEUR
-    COULEURCARAPACE = 268,         // COULEURCARAPACE
+    COULEURMOTIF = 268,            // COULEURMOTIF
     NUMTORTUE = 269,               // NUMTORTUE
     HEXCODE = 270,                 // HEXCODE
     NUMBER = 271,                  // NUMBER
@@ -513,7 +513,7 @@ namespace yy {
         S_TOURNED = 10,                          // TOURNED
         S_TOURNEG = 11,                          // TOURNEG
         S_COULEUR = 12,                          // COULEUR
-        S_COULEURCARAPACE = 13,                  // COULEURCARAPACE
+        S_COULEURMOTIF = 13,                     // COULEURMOTIF
         S_NUMTORTUE = 14,                        // NUMTORTUE
         S_HEXCODE = 15,                          // HEXCODE
         S_NUMBER = 16,                           // NUMBER
@@ -783,7 +783,7 @@ switch (yykind)
 #endif
       {
         YY_ASSERT (tok == token::YYEOF
-                   || (token::YYerror <= tok && tok <= token::COULEURCARAPACE)
+                   || (token::YYerror <= tok && tok <= token::COULEURMOTIF)
                    || tok == 45
                    || tok == 43
                    || tok == 42
@@ -1060,16 +1060,16 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_COULEURCARAPACE (location_type l)
+      make_COULEURMOTIF (location_type l)
       {
-        return symbol_type (token::COULEURCARAPACE, std::move (l));
+        return symbol_type (token::COULEURMOTIF, std::move (l));
       }
 #else
       static
       symbol_type
-      make_COULEURCARAPACE (const location_type& l)
+      make_COULEURMOTIF (const location_type& l)
       {
-        return symbol_type (token::COULEURCARAPACE, l);
+        return symbol_type (token::COULEURMOTIF, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1436,9 +1436,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 63,     ///< Last index in yytable_.
+      yylast_ = 68,     ///< Last index in yytable_.
       yynnts_ = 8,  ///< Number of nonterminal symbols.
-      yyfinal_ = 26 ///< Termination state number.
+      yyfinal_ = 32 ///< Termination state number.
     };
 
 
