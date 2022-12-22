@@ -9,7 +9,9 @@ void liste::executer(){
 }
 
 bool liste::ajouterInstruction(instructionPtr i){
+    std::cout<<"ajout...";
     _instructions.push_back(i);
+    std::cout << " ajouté !" << std::endl;
     return true;
 }
 
@@ -37,14 +39,14 @@ std::shared_ptr<conditionnelle> findID(std::shared_ptr<liste> l, unsigned int id
     return nullptr;
 }
 
-void ajoutInstructionDansConditionnelle(std::shared_ptr<liste> l, unsigned int id, instructionPtr i) {
+void ajoutInstructionDansConditionnelle(listePtr l, unsigned int id, instructionPtr const & i) {
     auto cond(findID(l, id));
     if (cond->mettredanselse()) {
-        std::cout << "ajout dans le else de la conditionelle active." << std::endl;
         cond->ajouterInstructionElse(i);
+        std::cout << "ajout dans le else de la conditionelle active." << std::endl;
     }
     else {
-        std::cout << "ajout dans le then de la conditionelle active." << std::endl;
         cond->ajouterInstructionThen(i);
+        std::cout << "ajout dans le then de la conditionelle active." << std::endl;
     }
 }

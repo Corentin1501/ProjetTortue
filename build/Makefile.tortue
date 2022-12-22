@@ -37,10 +37,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = tortue1.0.0
-DISTDIR = /home/etud/Documents/ProjetTortue/build/.tmp/tortue1.0.0
+DISTDIR = /home/etud/Documents/Théorie\ des\ langages\ et\ composition/ProjetTortue/build/.tmp/tortue1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) -L/home/etud/Documents/ProjetTortue/build/expressions/ -lexpressions /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) -L/home/etud/Documents/Théorie\ des\ langages\ et\ composition/ProjetTortue/build/expressions/ -lexpressions /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -178,7 +178,7 @@ TARGET        = tortue
 first: all
 ####### Build rules
 
-tortue: /home/etud/Documents/ProjetTortue/build/expressions/libexpressions.a scanner.cc parser.cc parser.hpp $(OBJECTS)  
+tortue: /home/etud/Documents/Théorie\ des\ langages\ et\ composition/ProjetTortue/build/expressions/libexpressions.a scanner.cc parser.cc parser.hpp $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile.tortue: ../tortue.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -428,31 +428,45 @@ compiler_moc_header_make_all: moc_jardinHandler.cpp moc_jardinRendering.cpp moc_
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_jardinHandler.cpp moc_jardinRendering.cpp moc_jardin.cpp
 moc_jardinHandler.cpp: ../GUI/jardinHandler.hh \
+		parser.hh \
+		../expressions/contexte.hh \
+		../expressions/expressionBinaire.hh \
+		../expressions/expression.hh \
+		../expressions/expressionUnaire.hh \
+		../expressions/constante.hh \
+		../expressions/variable.hh \
+		location.hh \
 		../parser/scanner.hh \
 		../parser/driver.hh \
-		../expressions/contexte.hh \
 		../GUI/jardinRendering.hh \
 		../GUI/tortue.hh \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/etud/Documents/ProjetTortue/build/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/etud/Documents/ProjetTortue -I/home/etud/Documents/ProjetTortue/build/expressions -I/home/etud/Documents/ProjetTortue/expressions -I/home/etud/Documents/ProjetTortue/parser -I/home/etud/Documents/ProjetTortue/GUI -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../GUI/jardinHandler.hh -o moc_jardinHandler.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/etud/Documents/Théorie des langages et composition/ProjetTortue/build/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue' -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue/build/expressions' -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue/expressions' -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue/parser' -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue/GUI' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../GUI/jardinHandler.hh -o moc_jardinHandler.cpp
 
 moc_jardinRendering.cpp: ../GUI/jardinRendering.hh \
 		../GUI/tortue.hh \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/etud/Documents/ProjetTortue/build/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/etud/Documents/ProjetTortue -I/home/etud/Documents/ProjetTortue/build/expressions -I/home/etud/Documents/ProjetTortue/expressions -I/home/etud/Documents/ProjetTortue/parser -I/home/etud/Documents/ProjetTortue/GUI -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../GUI/jardinRendering.hh -o moc_jardinRendering.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/etud/Documents/Théorie des langages et composition/ProjetTortue/build/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue' -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue/build/expressions' -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue/expressions' -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue/parser' -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue/GUI' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../GUI/jardinRendering.hh -o moc_jardinRendering.cpp
 
 moc_jardin.cpp: ../GUI/jardin.hh \
 		../GUI/tortue.hh \
 		../GUI/jardinHandler.hh \
+		parser.hh \
+		../expressions/contexte.hh \
+		../expressions/expressionBinaire.hh \
+		../expressions/expression.hh \
+		../expressions/expressionUnaire.hh \
+		../expressions/constante.hh \
+		../expressions/variable.hh \
+		location.hh \
 		../parser/scanner.hh \
 		../parser/driver.hh \
-		../expressions/contexte.hh \
 		../GUI/jardinRendering.hh \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/etud/Documents/ProjetTortue/build/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/etud/Documents/ProjetTortue -I/home/etud/Documents/ProjetTortue/build/expressions -I/home/etud/Documents/ProjetTortue/expressions -I/home/etud/Documents/ProjetTortue/parser -I/home/etud/Documents/ProjetTortue/GUI -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../GUI/jardin.hh -o moc_jardin.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/etud/Documents/Théorie des langages et composition/ProjetTortue/build/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue' -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue/build/expressions' -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue/expressions' -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue/parser' -I'/home/etud/Documents/Théorie des langages et composition/ProjetTortue/GUI' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/x86_64-linux-gnu/10/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../GUI/jardin.hh -o moc_jardin.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -473,15 +487,29 @@ compiler_clean: compiler_flex_clean compiler_bison_clean compiler_bisonheader_cl
 main.o: ../parser/main.cc ../GUI/jardin.hh \
 		../GUI/tortue.hh \
 		../GUI/jardinHandler.hh \
+		parser.hh \
+		../expressions/contexte.hh \
+		../expressions/expressionBinaire.hh \
+		../expressions/expression.hh \
+		../expressions/expressionUnaire.hh \
+		../expressions/constante.hh \
+		../expressions/variable.hh \
+		location.hh \
 		../parser/scanner.hh \
 		../parser/driver.hh \
-		../expressions/contexte.hh \
 		../GUI/jardinRendering.hh
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../parser/main.cc
 
 driver.o: ../parser/driver.cc ../parser/driver.hh \
 		../expressions/contexte.hh \
 		../GUI/jardinHandler.hh \
+		parser.hh \
+		../expressions/expressionBinaire.hh \
+		../expressions/expression.hh \
+		../expressions/expressionUnaire.hh \
+		../expressions/constante.hh \
+		../expressions/variable.hh \
+		location.hh \
 		../parser/scanner.hh \
 		../GUI/jardinRendering.hh \
 		../GUI/tortue.hh
@@ -491,9 +519,16 @@ tortue.o: ../GUI/tortue.cc ../GUI/tortue.hh
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tortue.o ../GUI/tortue.cc
 
 jardinHandler.o: ../GUI/jardinHandler.cc ../GUI/jardinHandler.hh \
+		parser.hh \
+		../expressions/contexte.hh \
+		../expressions/expressionBinaire.hh \
+		../expressions/expression.hh \
+		../expressions/expressionUnaire.hh \
+		../expressions/constante.hh \
+		../expressions/variable.hh \
+		location.hh \
 		../parser/scanner.hh \
 		../parser/driver.hh \
-		../expressions/contexte.hh \
 		../GUI/jardinRendering.hh \
 		../GUI/tortue.hh
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o jardinHandler.o ../GUI/jardinHandler.cc
@@ -505,9 +540,16 @@ jardinRendering.o: ../GUI/jardinRendering.cc ../GUI/jardinRendering.hh \
 jardin.o: ../GUI/jardin.cc ../GUI/jardin.hh \
 		../GUI/tortue.hh \
 		../GUI/jardinHandler.hh \
+		parser.hh \
+		../expressions/contexte.hh \
+		../expressions/expressionBinaire.hh \
+		../expressions/expression.hh \
+		../expressions/expressionUnaire.hh \
+		../expressions/constante.hh \
+		../expressions/variable.hh \
+		location.hh \
 		../parser/scanner.hh \
 		../parser/driver.hh \
-		../expressions/contexte.hh \
 		../GUI/jardinRendering.hh
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o jardin.o ../GUI/jardin.cc
 
