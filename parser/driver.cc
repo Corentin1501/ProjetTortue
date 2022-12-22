@@ -25,6 +25,9 @@ void Driver::setVariable(const std::string & name, double value) {
 void Driver::changeCouleurCarapace(int numeroTortue, int r, int g, int b) {
     getJardin()->changeCouleurCarapace(numeroTortue, r, g, b);
 }
+void Driver::changeCouleurMotif(int numeroTortue, int r, int g, int b) {
+    getJardin()->changeCouleurMotif(numeroTortue, r, g, b);
+}
 
 
 JardinRendering * Driver::getJardin() {
@@ -112,4 +115,13 @@ bool Driver::estMurIci(std::string position, int numeroTortue){
         }
     }
     return false;
+}
+
+std::array<int, 3> convert(std::string chaine){
+    std::array<int, 3> res; 
+    std::string s = chaine.substr(1);
+    res[0] = std::stoi(s.substr(0,2),0,16);
+    res[1] = std::stoi(s.substr(2,2),0,16);
+    res[2] = std::stoi(s.substr(4,2),0,16);
+    return res;
 }

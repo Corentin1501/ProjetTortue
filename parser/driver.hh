@@ -7,6 +7,7 @@
 #include <QColor>
 #include <QSize>
 #include "contexte.hh"
+#include <array>
 
 class JardinHandler;
 class JardinRendering;
@@ -33,7 +34,10 @@ public:
     bool    estMurIci(std::string position, int numeroTortue);
     
     void    changeCouleurCarapace(int numeroTortue, int r, int g, int b);
+    void    changeCouleurMotif(int numeroTortue, int r, int g, int b);
 };
+
+std::array<int, 3> convert(std::string s);
 
 #endif
 

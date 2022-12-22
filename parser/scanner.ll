@@ -28,7 +28,7 @@ fin return token::END;
 
 "fois"      return token::FOIS;     
 
-[--][.]* return token::COMMENTAIRE;
+--(.)* return token::COMMENTAIRE;
 
 "avance"    return token::AVANCE;
 "recule"    return token::RECULE;
@@ -37,22 +37,8 @@ fin return token::END;
 "tourne à droite"   return token::TOURNED;
 "tourne à gauche"   return token::TOURNEG;
 
-"si"        return token::SI;
-"fin si"    return token::ENDIF;
-":"         return token::THEN;
-"sinon :"     return token::SINON;
-
-"mur"       return token::MUR;
-"pas de"    return token::NOT;
-
-"tant que"  return token::WHILE;
-
-"devant"    return token::DEVANT;
-"derriere"  return token::DERRIERE;
-"à droite"  return token::DROITE;
-"à gauche"  return token::GAUCHE;
-
-"couleur" return token::COULEUR; 
+"couleur"|"couleur motif" return token::COULEUR; 
+"couleur carapace" return token::COULEURCARAPACE; 
 
 "+" return '+';
 "*" return '*';

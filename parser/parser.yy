@@ -32,9 +32,6 @@
 
     #undef  yylex
     #define yylex scanner.yylex
-    
-    bool dansBlocIF = false;
-    bool cond = false;
 }
 
 %token                  NL
@@ -48,24 +45,9 @@
 %token                  TOURNED
 %token                  TOURNEG
 
-%token                  SI
-%token                  THEN
-%token                  SINON
-%token                  ENDIF
-
-%token                  WHILE
-
-%token                  MUR
-%token                  NOT
-%token                  DEVANT
-%token                  DERRIERE
-%token                  DROITE
-%token                  GAUCHE
 
 %token                  COULEUR
-%token<int>                  intR
-%token<int>              intG
-%token<int>              intB
+%token                  COULEURCARAPACE
 
 %token <std::string>    NUMTORTUE
 %token <std::string>    HEXCODE
@@ -74,8 +56,7 @@
 
 %type <ExpressionPtr>   operation
 %type <int>             expression
-%type <std::string>     position
-%type <bool>            condition
+%type <int>             numeroDeTortue
 %left '-' '+'
 %left '*' '/'
 %precedence  NEG
@@ -85,16 +66,12 @@
 programme:
 
     deplacement finDeLigne      programme
-    | conditionelle  programme
     | color finDeLigne programme
-    | NUMTORTUE finDeLigne {
-        std::string chaineNumero = $1.substr(1);
-        int num = std::stoi(chaineNumero);
-        std::cout << "num detecte : " << num << std::endl;
-    } programme
-    
+
     | END NL {  YYACCEPT;   }
 
+numeroDeTortue:
+    NUMTORTUE {  $$ = std::stoi($1.substr(1));   }
 
 finDeLigne:
     NL | FOIS NL | COMMENTAIRE | COMMENTAIRE NL
@@ -123,57 +100,11 @@ deplacement:
 
 
 color:
-    COULEUR HEXCODE {
-        std::string s = $2.substr(1);
-        int r = std::stoi(s.substr(0,2),0,16);
-        int g = std::stoi(s.substr(2,2),0,16);
-        int b = std::stoi(s.substr(4,2),0,16);
+    COULEUR HEXCODE {                   std::array<int, 3> n = convert($2);     driver.changeCouleurMotif(0,  n[0], n[1], n[2]);     }
+    | COULEUR HEXCODE numeroDeTortue {  std::array<int, 3> n = convert($2);     driver.changeCouleurMotif($3, n[0], n[1], n[2]);     }
+    | COULEURCARAPACE HEXCODE {                   std::array<int, 3> n = convert($2);     driver.changeCouleurCarapace(0,  n[0], n[1], n[2]);     }
+    | COULEURCARAPACE HEXCODE numeroDeTortue{     std::array<int, 3> n = convert($2);     driver.changeCouleurCarapace($3, n[0], n[1], n[2]);     }
 
-        std::cout << "r:"<<std::to_string(r) << " ";
-        std::cout << "g:"<<std::to_string(g) << " ";
-        std::cout << "b:"<<std::to_string(b) << std::endl;
-
-        driver.changeCouleurCarapace(0, r,g,b);
-    
-    }
-
-/*####################### CONDITIONELLE #######################*/
-
-position:
-    DEVANT {    $$ = "devant";   } 
-    | DERRIERE {  $$ = "derrière"; } 
-    | DROITE {    $$ = "à droite"; } 
-    | GAUCHE {    $$ = "à gauche"; } 
-
-condition:
-    MUR position {   
-        if(driver.estMurIci($2 ,0)) $$ = true; 
-        else $$ = false;
-    } 
-    | NOT MUR position {   
-        if(!driver.estMurIci($3 ,0)) $$ = true;
-        else $$ = false;
-    }
-
-    /*
-
-    I -> instruction
-        | SI condition THEN I
-        | SI condition THEN C SINON I
-    C -> instruction
-        | SI condition THEN C SINON C
-
-     */
-conditionelle:
-    deplacement finDeLigne conditionelle
-    | SI condition THEN finDeLigne conditionelle
-    | SI condition THEN finDeLigne conditionelleComplete finDeLigne SINON finDeLigne conditionelle
-
-    /* | condition {   std::cout << $1 << std::endl;   }  */
-
-conditionelleComplete:
-    deplacement finDeLigne conditionelleComplete
-    | SI condition THEN finDeLigne conditionelleComplete SINON finDeLigne conditionelleComplete {}
 
 /*####################### EXPRESSION ARITHMETIQUE #######################*/
 expression:
