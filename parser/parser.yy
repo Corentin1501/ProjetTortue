@@ -63,6 +63,11 @@
 programme:
 
     deplacement finDeLigne      programme
+    | NUMTORTUE NL {
+        std::string chaineNumero = $1.substr(1);
+        int numTortue = std::stoi(chaineNumero);
+        std::cout << "numero detecté : " << numTortue << std::endl;
+    } programme
     
     | END NL {  YYACCEPT;   }
     
