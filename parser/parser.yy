@@ -29,6 +29,7 @@
     #include <list>
     #include <exception>
     #include <cstdlib>
+    #include <algorithm>
 
     
     #include "scanner.hh"
@@ -41,6 +42,7 @@
     
     std::list< boucleEtConditionnellePtr > file;
     listePtr listeglobale = liste::fabrique();
+    std::list<fonctionPtr> listefonction;
 
 }
 
@@ -81,6 +83,12 @@
 %token                  JARDIN
 %token <std::string>    FILE
 
+%token                  FONCTION
+%token                  ENDFONCTION
+%token <std::string>    NAME
+%token <std::string>    ARGUMENTS
+%token <std::string>    NUMBERARG
+
 %token                  COULEUR
 %token                  COULEURMOTIF
 %token <std::string>    HEXCODE
@@ -89,10 +97,15 @@
 
 %type <ExpressionPtr>   operation
 %type <int>             expression
+
 %type <int>             numeroDeTortue
 %type <int>             numeroOuRien
+
 %type <std::string>     position
 %type <bool>            condition
+
+%type <std::vector<int>> argumentsOuRien
+
 %left '-' '+'
 %left '*' '/'
 %precedence  NEG
@@ -108,6 +121,7 @@ programme:
     | color finDeLigne  programme
     | tortues           programme
     | jardin            programme
+    | fonction          programme
 
     | END NL {  
         listeglobale->executer(); 
@@ -260,6 +274,40 @@ color:
     | COULEURMOTIF HEXCODE {                   std::array<int, 3> n = convert($2);     driver.changeCouleurMotif(0,  n[0], n[1], n[2]);     }
     | COULEURMOTIF HEXCODE numeroDeTortue{     std::array<int, 3> n = convert($2);     driver.changeCouleurMotif($3, n[0], n[1], n[2]);     }
 
+/*####################### FONCTIONS #######################*/
+
+
+argumentsOuRien:
+    ARGUMENTS {
+        std::vector<std::string> chainearguments = split($1," ");
+        std::vector<int> arguments;
+        for(auto chaine : chainearguments) arguments.push_back( std::stoi(chaine) );
+        $$ = arguments;
+    }
+    | finDeLigne { $$ = {0};}
+
+fonction:
+    FONCTION NAME THEN finDeLigne {
+        std::string nom = $2;
+        auto found = std::find_if(listefonction.begin(), listefonction.end(), [nom](auto i){ return i->nom() == nom; });
+
+        // s'il n'y a pas déjà de fonction avec le même nom, on ajoute
+        if (found == listefonction.end()) listefonction.push_front( std::make_shared<fonction>($2) ); 
+        else std::cout << "fonction déjà déclarée" << std::endl;
+    }
+    | NAME argumentsOuRien {
+        auto it (listefonction.begin());
+        while (it != listefonction.end() || (*it)->nom() != $1) it++;
+        if (it != listefonction.end()){
+            for(auto i : $2) std::cout << i << std::endl;
+
+            (*it)->setArguments($2);
+            (*it)->executer();
+        }
+    }
+    | ENDFONCTION finDeLigne {
+        listefonction.front()->completer();
+    }
 
 
 /*####################### EXPRESSION ARITHMETIQUE #######################*/

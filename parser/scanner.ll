@@ -79,6 +79,22 @@ fin return token::END;
     return token::FILE;
 }
 
+"fonction" return token::FONCTION;
+"fin fonction" return token::ENDFONCTION;
+
+[a-zA-Z]{2,} {
+    yylval->build<std::string>(yytext);
+    return token::NAME;
+}
+([0-9]+[ ]+)+ {
+    yylval->build<std::string>(yytext);
+    return token::ARGUMENTS;
+}
+(\$[0-9]+[ ]?)+ {
+    yylval->build<std::string>(yytext);
+    return token::NUMBERARG;
+}
+
 
 "+" return '+';
 "*" return '*';

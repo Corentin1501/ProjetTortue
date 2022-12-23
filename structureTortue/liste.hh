@@ -124,3 +124,37 @@ class repete : public boucleEtConditionnelle {
         void executer() const override;
         std::string tostring() const override { return "Repete :\n\tnombre de fois : " + std::to_string(_nombreDeFois); }
 };
+
+//###################################################################
+//#                           FONCTION                              #
+//###################################################################
+
+class fonction {
+    private:
+        std::string _nomFonction;
+        std::vector<int> _arguments;
+        listePtr _contenu;
+        bool _complete;
+
+    public:
+        fonction(std::string name): _nomFonction(name), _contenu(liste::fabrique()), _complete(false) {}
+
+        void ajouterInstruction(instructionPtr i){ _contenu->ajouterInstruction(i); }
+        void executer() const ; 
+
+
+        std::string nom() const { return _nomFonction; }
+        void setArguments(std::vector<int> args) { _arguments = args; }
+        void completer() { _complete = true; }
+};
+
+using fonctionPtr = std::shared_ptr<fonction>;
+
+std::vector<std::string> split(std::string s, std::string delimiter);
+
+
+
+
+
+
+
