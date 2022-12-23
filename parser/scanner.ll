@@ -24,12 +24,14 @@ using token = yy::Parser::token;
 %{
     yylval = lval;
 %}
+
 fin return token::END;
-
 "fois"      return token::FOIS;     
-
 --(.)* return token::COMMENTAIRE;
---(.)* return token::COMMENTAIRE;
+"\n"          {
+    loc->lines();
+    return token::NL;
+}
 
 "avance"    return token::AVANCE;
 "recule"    return token::RECULE;
@@ -47,21 +49,36 @@ fin return token::END;
 "pas de"|"pas"  return token::NOT;
 "vide"          return token::VIDE;
 
+"devant"    return token::DEVANT;
+"derriere"  return token::DERRIERE;
+"à droite"  return token::DROITE;
+"à gauche"  return token::GAUCHE;
+
 "tant que"      return token::WHILE;
 "fin tant que"  return token::ENDWHILE;
 
 "repete"        return token::REPETE;
 "fin repete"    return token::ENDREPETE;
 
-"devant"    return token::DEVANT;
-"derriere"  return token::DERRIERE;
-"à droite"  return token::DROITE;
-"à gauche"  return token::GAUCHE;
 "couleur"|"couleur carapace" return token::COULEUR; 
 "couleur motif" return token::COULEURMOTIF; 
+#[a-zA-Z0-9]{6} {
+    yylval->build<std::string>(yytext);
+    return token::HEXCODE;
+}
 
-"couleur"|"couleur carapace" return token::COULEUR; 
-"couleur motif" return token::COULEURMOTIF; 
+@[0-9]+      {
+    yylval->build<std::string>(yytext);
+    return token::NUMTORTUE;
+}
+"tortues" return token::TORTUES;
+
+"jardin"    return token::JARDIN;
+'[\S]*' {
+    yylval->build<std::string>(yytext);
+    return token::FILE;
+}
+
 
 "+" return '+';
 "*" return '*';
@@ -71,25 +88,10 @@ fin return token::END;
 ")" return ')';
 "=" return '=';
 
-
-@[0-9]+      {
-    yylval->build<std::string>(yytext);
-    return token::NUMTORTUE;
-}
-
-#[a-zA-Z0-9]{6} {
-    yylval->build<std::string>(yytext);
-    return token::HEXCODE;
-}
-
 [0-9]+      {
     yylval->build<int>(std::atoi(yytext));
     return token::NUMBER;
 }
 
-"\n"          {
-    loc->lines();
-    return token::NL;
-}
 
 %%

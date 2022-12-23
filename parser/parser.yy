@@ -27,6 +27,9 @@
     #include <iostream>
     #include <string>
     #include <list>
+    #include <exception>
+    #include <cstdlib>
+
     
     #include "scanner.hh"
     #include "driver.hh"
@@ -73,6 +76,10 @@
 %token                  GAUCHE
 
 %token <std::string>    NUMTORTUE
+%token                  TORTUES
+
+%token                  JARDIN
+%token <std::string>    FILE
 
 %token                  COULEUR
 %token                  COULEURMOTIF
@@ -98,14 +105,37 @@ programme:
     | conditionelle     programme
     | boucle            programme
     | finDeLigne        programme
-    | color finDeLigne programme
+    | color finDeLigne  programme
+    | tortues           programme
+    | jardin            programme
 
     | END NL {  
         listeglobale->executer(); 
         listeglobale->vider();
         YYACCEPT;   
     }
+tortues:
+    TORTUES NUMBER finDeLigne {
+        QSize tailleDuJardin = driver.getJardin()->tailleJardin();
 
+        for(int i(0); i<$2; i++){
+            int x = rand() % tailleDuJardin.width();
+            int y = rand() % tailleDuJardin.height();
+            driver.getJardin()->newTortue(x,y);
+        }
+    }
+
+jardin:
+    JARDIN FILE finDeLigne {
+        std::string s = $2.substr(1);
+        std::string fichier = s.substr(0,s.size()-1);
+        try {
+            driver.getJardin()->construction(fichier.c_str());
+        } catch(const std::exception& e) {
+            std::cerr << e.what() << '\n';
+        }
+
+    }
 
 numeroDeTortue:
     NUMTORTUE {  $$ = std::stoi($1.substr(1));   }

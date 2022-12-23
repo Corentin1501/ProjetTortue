@@ -418,6 +418,7 @@ namespace yy {
       char dummy3[sizeof (int)];
 
       // NUMTORTUE
+      // FILE
       // HEXCODE
       // position
       char dummy4[sizeof (std::string)];
@@ -497,11 +498,14 @@ namespace yy {
     DROITE = 280,                  // DROITE
     GAUCHE = 281,                  // GAUCHE
     NUMTORTUE = 282,               // NUMTORTUE
-    COULEUR = 283,                 // COULEUR
-    COULEURMOTIF = 284,            // COULEURMOTIF
-    HEXCODE = 285,                 // HEXCODE
-    NUMBER = 286,                  // NUMBER
-    NEG = 287                      // NEG
+    TORTUES = 283,                 // TORTUES
+    JARDIN = 284,                  // JARDIN
+    FILE = 285,                    // FILE
+    COULEUR = 286,                 // COULEUR
+    COULEURMOTIF = 287,            // COULEURMOTIF
+    HEXCODE = 288,                 // HEXCODE
+    NUMBER = 289,                  // NUMBER
+    NEG = 290                      // NEG
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -518,7 +522,7 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 39, ///< Number of tokens.
+        YYNTOKENS = 42, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -548,34 +552,39 @@ namespace yy {
         S_DROITE = 25,                           // DROITE
         S_GAUCHE = 26,                           // GAUCHE
         S_NUMTORTUE = 27,                        // NUMTORTUE
-        S_COULEUR = 28,                          // COULEUR
-        S_COULEURMOTIF = 29,                     // COULEURMOTIF
-        S_HEXCODE = 30,                          // HEXCODE
-        S_NUMBER = 31,                           // NUMBER
-        S_32_ = 32,                              // '-'
-        S_33_ = 33,                              // '+'
-        S_34_ = 34,                              // '*'
-        S_35_ = 35,                              // '/'
-        S_NEG = 36,                              // NEG
-        S_37_ = 37,                              // '('
-        S_38_ = 38,                              // ')'
-        S_YYACCEPT = 39,                         // $accept
-        S_programme = 40,                        // programme
-        S_numeroDeTortue = 41,                   // numeroDeTortue
-        S_finDeLigne = 42,                       // finDeLigne
-        S_numeroOuRien = 43,                     // numeroOuRien
-        S_deplacement = 44,                      // deplacement
-        S_avancer = 45,                          // avancer
-        S_reculer = 46,                          // reculer
-        S_sauter = 47,                           // sauter
-        S_tourner = 48,                          // tourner
-        S_position = 49,                         // position
-        S_condition = 50,                        // condition
-        S_conditionelle = 51,                    // conditionelle
-        S_boucle = 52,                           // boucle
-        S_color = 53,                            // color
-        S_expression = 54,                       // expression
-        S_operation = 55                         // operation
+        S_TORTUES = 28,                          // TORTUES
+        S_JARDIN = 29,                           // JARDIN
+        S_FILE = 30,                             // FILE
+        S_COULEUR = 31,                          // COULEUR
+        S_COULEURMOTIF = 32,                     // COULEURMOTIF
+        S_HEXCODE = 33,                          // HEXCODE
+        S_NUMBER = 34,                           // NUMBER
+        S_35_ = 35,                              // '-'
+        S_36_ = 36,                              // '+'
+        S_37_ = 37,                              // '*'
+        S_38_ = 38,                              // '/'
+        S_NEG = 39,                              // NEG
+        S_40_ = 40,                              // '('
+        S_41_ = 41,                              // ')'
+        S_YYACCEPT = 42,                         // $accept
+        S_programme = 43,                        // programme
+        S_tortues = 44,                          // tortues
+        S_jardin = 45,                           // jardin
+        S_numeroDeTortue = 46,                   // numeroDeTortue
+        S_finDeLigne = 47,                       // finDeLigne
+        S_numeroOuRien = 48,                     // numeroOuRien
+        S_deplacement = 49,                      // deplacement
+        S_avancer = 50,                          // avancer
+        S_reculer = 51,                          // reculer
+        S_sauter = 52,                           // sauter
+        S_tourner = 53,                          // tourner
+        S_position = 54,                         // position
+        S_condition = 55,                        // condition
+        S_conditionelle = 56,                    // conditionelle
+        S_boucle = 57,                           // boucle
+        S_color = 58,                            // color
+        S_expression = 59,                       // expression
+        S_operation = 60                         // operation
       };
     };
 
@@ -628,6 +637,7 @@ namespace yy {
         break;
 
       case symbol_kind::S_NUMTORTUE: // NUMTORTUE
+      case symbol_kind::S_FILE: // FILE
       case symbol_kind::S_HEXCODE: // HEXCODE
       case symbol_kind::S_position: // position
         value.move< std::string > (std::move (that.value));
@@ -750,6 +760,7 @@ switch (yykind)
         break;
 
       case symbol_kind::S_NUMTORTUE: // NUMTORTUE
+      case symbol_kind::S_FILE: // FILE
       case symbol_kind::S_HEXCODE: // HEXCODE
       case symbol_kind::S_position: // position
         value.template destroy< std::string > ();
@@ -854,6 +865,7 @@ switch (yykind)
       {
         YY_ASSERT (tok == token::YYEOF
                    || (token::YYerror <= tok && tok <= token::GAUCHE)
+                   || (token::TORTUES <= tok && tok <= token::JARDIN)
                    || (token::COULEUR <= tok && tok <= token::COULEURMOTIF)
                    || tok == 45
                    || tok == 43
@@ -881,6 +893,7 @@ switch (yykind)
 #endif
       {
         YY_ASSERT (tok == token::NUMTORTUE
+                   || tok == token::FILE
                    || tok == token::HEXCODE);
       }
     };
@@ -1357,6 +1370,51 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_TORTUES (location_type l)
+      {
+        return symbol_type (token::TORTUES, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_TORTUES (const location_type& l)
+      {
+        return symbol_type (token::TORTUES, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_JARDIN (location_type l)
+      {
+        return symbol_type (token::JARDIN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_JARDIN (const location_type& l)
+      {
+        return symbol_type (token::JARDIN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_FILE (std::string v, location_type l)
+      {
+        return symbol_type (token::FILE, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_FILE (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::FILE, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_COULEUR (location_type l)
       {
         return symbol_type (token::COULEUR, std::move (l));
@@ -1733,9 +1791,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 114,     ///< Last index in yytable_.
-      yynnts_ = 17,  ///< Number of nonterminal symbols.
-      yyfinal_ = 61 ///< Termination state number.
+      yylast_ = 127,     ///< Last index in yytable_.
+      yynnts_ = 19,  ///< Number of nonterminal symbols.
+      yyfinal_ = 67 ///< Termination state number.
     };
 
 
@@ -1747,7 +1805,7 @@ switch (yykind)
 
 
 } // yy
-#line 1751 "parser.hh"
+#line 1809 "parser.hh"
 
 
 
