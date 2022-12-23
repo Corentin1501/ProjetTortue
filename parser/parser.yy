@@ -116,7 +116,10 @@ finDeLigne:
 /*####################### FONCTION DE DEPLACEMENT #######################*/
 
 numeroOuRien:
-    finDeLigne { $$ = 0; }
+    // Si on ne précise pas de numéro : 
+    // appliquer à toutes les tortues (grace au nuémro 66) 
+    // (je suppose qu'il n'y aura pas 66 tortues en meme temps)
+    finDeLigne { $$ = 66; }
     | numeroDeTortue finDeLigne { $$ = $1; }
 
 
